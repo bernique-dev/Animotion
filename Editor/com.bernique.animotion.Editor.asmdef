@@ -1,0 +1,16 @@
+{
+    "name": "com.bernique.animotion.Editor",
+    "rootNamespace": "",
+    "references": ["com.bernique.animotion.Data", "com.bernique.animotion.Runtime", "com.bernique.animotion.Utils"],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

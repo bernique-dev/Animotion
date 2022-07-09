@@ -1,0 +1,14 @@
+{
+    "name": "com.bernique.animotion.Runtime",
+    "rootNamespace": "",
+    "references": ["com.bernique.animotion.Data", "com.bernique.animotion.Utils"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
