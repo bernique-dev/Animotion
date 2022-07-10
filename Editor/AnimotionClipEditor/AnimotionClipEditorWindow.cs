@@ -180,6 +180,6 @@ namespace Animotion {
             if (animotionClip != null) GUILayout.Label(animotionClip.name);
             EditorGUILayout.EndHorizontal();
         }
-
     }
+
 }

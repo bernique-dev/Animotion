@@ -72,6 +72,7 @@ namespace Animotion {
             }
         }
 
+
         /// <summary>
         /// Initiate drawn lits and properties Editor
         /// </summary>
@@ -82,8 +83,12 @@ namespace Animotion {
                 propertiesEditor = ScriptableObject.CreateInstance<AnimotionTreePropertiesEditor>();
                 propertiesEditor.animotionTreeEditor = this;
             }
-            EditorApplication.playModeStateChanged += ModeChanged;
-            EditorApplication.quitting += tree.Unserialize;
+            try {
+                EditorApplication.playModeStateChanged += ModeChanged;
+                EditorApplication.quitting += tree.Unserialize;
+            } catch {
+
+            }
             if (tree) {
                 NodeData.idCounter = tree.nodes.Count;
                 DrawNodes();
