@@ -13,19 +13,15 @@ MonoBehaviour:
   m_Name: TreeBis
   m_EditorClassIdentifier: 
   m_serializedNodes:
-  - '{"id":0,"isRoot":true,"position":{"x":-67.5,"y":-203.5},"nodeName":"node0","animotionClipsDataPath":"Assets/ScriptableObjects/Trees/animotionTree0Clips.asset","animotionClipPath":"","hasMultipleDirections":true,"animotionClipsData":{"instanceID":27632},"animotionClip":{"instanceID":0},"children":[1,2]}'
-  - '{"id":2,"isRoot":false,"position":{"x":60.5,"y":-101.5},"nodeName":"node2","animotionClipsDataPath":"Assets/ScriptableObjects/Trees/animotionTree0Clips
-    1.asset","animotionClipPath":"","hasMultipleDirections":true,"animotionClipsData":{"instanceID":36038},"animotionClip":{"instanceID":0},"children":[1,0]}'
+  - '{"id":0,"isRoot":true,"position":{"x":-182.5,"y":-112.5},"nodeName":"node0","animotionClipsDataPath":"Packages/com.bernique.animotion/ScriptableObjects/Trees/animotionTree0Clips.asset","animotionClipPath":"","hasMultipleDirections":true,"animotionClipsData":{"instanceID":51350},"animotionClip":{"instanceID":0},"children":[1]}'
+  - '{"id":1,"isRoot":false,"position":{"x":110.5,"y":-30.5},"nodeName":"node1","animotionClipsDataPath":"Packages/com.bernique.animotion/ScriptableObjects/Trees/animotionTree0Clips
+    1.asset","animotionClipPath":"","hasMultipleDirections":true,"animotionClipsData":{"instanceID":51262},"animotionClip":{"instanceID":0},"children":[0]}'
   m_serializedLinks:
-  - '{"startNodeId":0,"endNodeId":1,"trueBooleanNames":[],"falseBooleanNames":[]}'
-  - '{"startNodeId":2,"endNodeId":1,"trueBooleanNames":[],"falseBooleanNames":[]}'
-  - '{"startNodeId":2,"endNodeId":0,"trueBooleanNames":["isWalking"],"falseBooleanNames":[],"reverseTrueBooleanNames":[],"reverseFalseBooleanNames":["isWalking"]}'
+  - '{"startNodeId":1,"endNodeId":0,"trueBooleanNames":[],"falseBooleanNames":["isWalking"],"reverseTrueBooleanNames":["isWalking"],"reverseFalseBooleanNames":[]}'
   m_nodes:
   - {fileID: 0}
   - {fileID: 0}
   links:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   booleanList:
   - isWalking

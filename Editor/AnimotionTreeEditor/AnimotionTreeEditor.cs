@@ -77,6 +77,8 @@ namespace Animotion {
         /// Initiate drawn lits and properties Editor
         /// </summary>
         private void Initiate() {
+            if (selectedNodes == null) selectedNodes = new List<int>();
+            if (selectedLinks == null) selectedLinks = new List<AnimotionTreeLinkEditor>();
             if (drawnNodes == null) drawnNodes = new List<AnimotionTreeNodeEditor>();
             if (drawnLinks == null) drawnLinks = new List<AnimotionTreeLinkEditor>();
             if (propertiesEditor == null) {
