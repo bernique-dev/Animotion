@@ -10,20 +10,22 @@ namespace Animotion {
         public override void OnInspectorGUI() {
             AnimotionAnimator animotionAnimator = (AnimotionAnimator)target;
 
-            foreach(string boolName in animotionAnimator.treeData.booleanList) {
-                EditorGUILayout.BeginHorizontal();
+            if (animotionAnimator.treeData != null) {
+                foreach (string boolName in animotionAnimator.treeData.booleanList) {
+                    EditorGUILayout.BeginHorizontal();
 
-                GUILayout.Label(boolName);
-                GUILayout.FlexibleSpace();
+                    GUILayout.Label(boolName);
+                    GUILayout.FlexibleSpace();
 
-                bool currentBool = animotionAnimator.GetBool(boolName);
-                bool modifiedBool = EditorGUILayout.Toggle(currentBool);
-                if (currentBool != modifiedBool) {
-                    animotionAnimator.SetBool(boolName, modifiedBool);
+                    bool currentBool = animotionAnimator.GetBool(boolName);
+                    bool modifiedBool = EditorGUILayout.Toggle(currentBool);
+                    if (currentBool != modifiedBool) {
+                        animotionAnimator.SetBool(boolName, modifiedBool);
+                    }
+
+
+                    EditorGUILayout.EndHorizontal();
                 }
-                
-
-                EditorGUILayout.EndHorizontal();
             }
 
             base.OnInspectorGUI();
