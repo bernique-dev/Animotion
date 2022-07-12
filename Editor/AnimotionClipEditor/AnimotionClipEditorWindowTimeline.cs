@@ -262,7 +262,7 @@ namespace Animotion {
                 Vector2 playButtonSize = new Vector2(25, 25);
                 Rect playButton = RectUtils.GetRect(new Vector2(propertiesRect.width / 2, propertiesRect.yMin + 2.5f + playButtonSize.y / 2), playButtonSize);
 
-                Texture2D buttonTexture = EditorGUIUtility.Load(animotionEditorWindow.isPlaying ? "Assets/Animotion/Editor/Sprites/media_player_ui_button_pause.png" : "Assets/Animotion/Editor/Sprites/media_player_ui_button_play.png") as Texture2D;
+                Texture2D buttonTexture = EditorGUIUtility.Load(animotionEditorWindow.isPlaying ? currentDirectory + "Editor/Sprites/media_player_ui_button_pause.png" : currentDirectory + "Editor/Sprites/media_player_ui_button_play.png") as Texture2D;
 
                 //if (GUI.Button(playButton, animotionEditorWindow.isPlaying ? "Pause" : "Play", EditorStyles.miniButton)) {
                 if (GUI.Button(playButton, buttonTexture)) {
@@ -293,7 +293,6 @@ namespace Animotion {
         public override void ProcessEvent(Event e) {
             base.ProcessEvent(e);
             if (timelineRect.Contains(e.mousePosition)) {
-
                 if (animotionClip) {
                     for (int i = 0; i <= animotionClip.GetFrameNumber(); i++) {
                         FrameData frameData = animotionClip.GetFrame(i);
@@ -310,7 +309,6 @@ namespace Animotion {
                             }
                         }
                     }
-
                 }
 
                 if (e.isMouse) {

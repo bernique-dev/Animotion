@@ -49,7 +49,13 @@ namespace Animotion {
             }
         }
 
-        public List<LinkData> links;
+        public List<LinkData> links {
+            get {
+                if (m_links == null) m_links = new List<LinkData>();
+                return m_links;
+            }
+        }
+        public List<LinkData> m_links;
 
         public List<string> booleanList;
 
