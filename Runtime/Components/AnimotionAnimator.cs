@@ -50,7 +50,7 @@ namespace Animotion {
                 spriteRenderer.sprite = animotionClip.GetFrame(0).sprite;
             }
             isTimerRunning = animateOnStart;
-            currentNode = treeData.root;
+            if (treeData) currentNode = treeData.root;
         }
 
         private void InitiateBooleans() {
@@ -80,12 +80,12 @@ namespace Animotion {
 
         private void Update() {
 
-            if (Input.GetKeyDown(KeyCode.E)) {
-                SetBool("isWalking", !GetBool("isWalking"));
-            }
-            if (Input.GetKeyDown(KeyCode.F)) {
-                SetBool("isSwimming", !GetBool("isSwimming"));
-            }
+            //if (Input.GetKeyDown(KeyCode.E)) {
+            //    SetBool("isWalking", !GetBool("isWalking"));
+            //}
+            //if (Input.GetKeyDown(KeyCode.F)) {
+            //    SetBool("isSwimming", !GetBool("isSwimming"));
+            //}
         }
 
 

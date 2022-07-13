@@ -40,33 +40,53 @@ namespace Animotion {
             return result;
         }
 
-        public static AniDirection GetAniDirection(this Vector2 vector) {
+        public static AniDirection GetAniDirection(this Vector2 vector, AnimotionClipsDataMode mode = AnimotionClipsDataMode.EightDirections) {
             AniDirection aniDirection = AniDirection.Down;
-            if (vector.y > 0) {
-                if (vector.x > 0) {
-                    aniDirection = AniDirection.TopRight;
-                }
-                else if (vector.x < 0) {
-                    aniDirection = AniDirection.TopLeft;
-                } else {
-                    aniDirection = AniDirection.Top;
-                }
-            } else if (vector.y < 0) {
-                if (vector.x > 0) {
-                    aniDirection = AniDirection.DownRight;
-                } else if (vector.x < 0) {
-                    aniDirection = AniDirection.DownLeft;
-                } else {
-                    aniDirection = AniDirection.Down;
-                }
-            } else {
-                if (vector.x > 0) {
-                    aniDirection = AniDirection.Right;
-                }
-                else if (vector.x < 0) {
-                    aniDirection = AniDirection.Left;
-                }
+            switch (mode) {
+                case AnimotionClipsDataMode.TwoDirections:
+                    aniDirection = vector.x > 0 ? AniDirection.Right : AniDirection.Left;
+                    break;
+                case AnimotionClipsDataMode.FourDirections:
+                    if (Mathf.Abs(vector.x) > Mathf.Abs(vector.y)) {
+                        aniDirection = vector.x > 0 ? AniDirection.Right : AniDirection.Left;
+                    } else {
+                        aniDirection = vector.y > 0 ? AniDirection.Top : AniDirection.Down;
+                    }
+                    break;
+                case AnimotionClipsDataMode.EightDirections:
+                    if (vector.y > 0) {
+                        if (vector.x > 0) {
+                            aniDirection = AniDirection.TopRight;
+                        }
+                        else if (vector.x < 0) {
+                            aniDirection = AniDirection.TopLeft;
+                        }
+                        else {
+                            aniDirection = AniDirection.Top;
+                        }
+                    }
+                    else if (vector.y < 0) {
+                        if (vector.x > 0) {
+                            aniDirection = AniDirection.DownRight;
+                        }
+                        else if (vector.x < 0) {
+                            aniDirection = AniDirection.DownLeft;
+                        }
+                        else {
+                            aniDirection = AniDirection.Down;
+                        }
+                    }
+                    else {
+                        if (vector.x > 0) {
+                            aniDirection = AniDirection.Right;
+                        }
+                        else if (vector.x < 0) {
+                            aniDirection = AniDirection.Left;
+                        }
+                    }
+                    break;
             }
+            
 
             return aniDirection;
         }
