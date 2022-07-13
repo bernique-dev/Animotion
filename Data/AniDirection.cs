@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Animotion {
     public enum AniDirection {
-        Down, DownLeft, DownRight, Left, Right, Top, TopLeft, TopRight
+        Down, DownLeft, DownRight, Left, Right, Up, UpLeft, UpRight
     }
 
     public static class AniDirectionExtensions {
@@ -27,14 +27,14 @@ namespace Animotion {
                 case AniDirection.Right:
                     result = Vector2.right;
                     break;
-                case AniDirection.Top:
+                case AniDirection.Up:
                     result = Vector2.up;
                     break;
-                case AniDirection.TopLeft:
-                    result = (AniDirection.Top.GetVector2() + AniDirection.Left.GetVector2()).normalized;
+                case AniDirection.UpLeft:
+                    result = (AniDirection.Up.GetVector2() + AniDirection.Left.GetVector2()).normalized;
                     break;
-                case AniDirection.TopRight:
-                    result = (AniDirection.Top.GetVector2() + AniDirection.Right.GetVector2()).normalized;
+                case AniDirection.UpRight:
+                    result = (AniDirection.Up.GetVector2() + AniDirection.Right.GetVector2()).normalized;
                     break;
             }
             return result;
@@ -50,19 +50,19 @@ namespace Animotion {
                     if (Mathf.Abs(vector.x) > Mathf.Abs(vector.y)) {
                         aniDirection = vector.x > 0 ? AniDirection.Right : AniDirection.Left;
                     } else {
-                        aniDirection = vector.y > 0 ? AniDirection.Top : AniDirection.Down;
+                        aniDirection = vector.y > 0 ? AniDirection.Up : AniDirection.Down;
                     }
                     break;
                 case AnimotionClipsDataMode.EightDirections:
                     if (vector.y > 0) {
                         if (vector.x > 0) {
-                            aniDirection = AniDirection.TopRight;
+                            aniDirection = AniDirection.UpRight;
                         }
                         else if (vector.x < 0) {
-                            aniDirection = AniDirection.TopLeft;
+                            aniDirection = AniDirection.UpLeft;
                         }
                         else {
-                            aniDirection = AniDirection.Top;
+                            aniDirection = AniDirection.Up;
                         }
                     }
                     else if (vector.y < 0) {

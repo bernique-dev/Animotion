@@ -61,13 +61,13 @@ namespace Animotion {
             GUILayout.FlexibleSpace();
 
             EditorGUILayout.BeginVertical(GUILayout.Width(size.x), GUILayout.Height(size.y* 3));
-            if (mode.Contains(AniDirection.TopLeft)) EditorGUILayout.PropertyField(topLeftACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
+            if (mode.Contains(AniDirection.UpLeft)) EditorGUILayout.PropertyField(topLeftACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
             if (mode.Contains(AniDirection.Left)) EditorGUILayout.PropertyField(leftACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
             if (mode.Contains(AniDirection.DownLeft)) EditorGUILayout.PropertyField(downLeftACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.BeginVertical(GUILayout.Width(size.x), GUILayout.Height(size.y* 3 + 4 * offset / 10));
-            if (mode.Contains(AniDirection.Top)) EditorGUILayout.PropertyField(topACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
+            if (mode.Contains(AniDirection.Up)) EditorGUILayout.PropertyField(topACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
             GUILayout.FlexibleSpace();
             if (mode.Contains(AniDirection.Down)) EditorGUILayout.PropertyField(downACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
             EditorGUILayout.EndVertical();
@@ -75,7 +75,7 @@ namespace Animotion {
             EditorGUILayout.BeginVertical(GUILayout.Width(size.x), GUILayout.Height(size.y* 3));
             if (mode.Contains(AniDirection.DownRight)) EditorGUILayout.PropertyField(topRightACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
             if (mode.Contains(AniDirection.Right)) EditorGUILayout.PropertyField(rightACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
-            if (mode.Contains(AniDirection.TopRight)) EditorGUILayout.PropertyField(downRightACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
+            if (mode.Contains(AniDirection.UpRight)) EditorGUILayout.PropertyField(downRightACProperty, GUIContent.none, GUILayout.Height(size.y)); else GUILayout.FlexibleSpace();
             EditorGUILayout.EndVertical();
 
             GUILayout.FlexibleSpace();

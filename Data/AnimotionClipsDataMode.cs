@@ -17,10 +17,10 @@ namespace Animotion {
                     result = (new AniDirection[] { AniDirection.Left, AniDirection.Right }).Contains(direction);
                     break;
                 case AnimotionClipsDataMode.FourDirections:
-                    result = (new AniDirection[] { AniDirection.Down, AniDirection.Left, AniDirection.Right, AniDirection.Top }).Contains(direction);
+                    result = (new AniDirection[] { AniDirection.Down, AniDirection.Left, AniDirection.Right, AniDirection.Up }).Contains(direction);
                     break;
                 case AnimotionClipsDataMode.EightDirections:
-                    result = (new AniDirection[] { AniDirection.Down, AniDirection.DownLeft, AniDirection.DownRight, AniDirection.Left, AniDirection.Right, AniDirection.Top, AniDirection.TopLeft, AniDirection.TopRight }).Contains(direction);
+                    result = (new AniDirection[] { AniDirection.Down, AniDirection.DownLeft, AniDirection.DownRight, AniDirection.Left, AniDirection.Right, AniDirection.Up, AniDirection.UpLeft, AniDirection.UpRight }).Contains(direction);
                     break;
             }
             return result;

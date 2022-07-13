@@ -14,12 +14,12 @@ namespace Animotion {
         public AnimotionClip downAnimotionClip;
         public AnimotionClip leftAnimotionClip;
         public AnimotionClip rightAnimotionClip;
-        public AnimotionClip topAnimotionClip;
+        public AnimotionClip upAnimotionClip;
 
         public AnimotionClip downLeftAnimotionClip;
         public AnimotionClip downRightAnimotionClip;
-        public AnimotionClip topLeftAnimotionClip;
-        public AnimotionClip topRightAnimotionClip;
+        public AnimotionClip upLeftAnimotionClip;
+        public AnimotionClip upRightAnimotionClip;
 
 
         public AnimotionClip GetAnimotionClip(AniDirection direction) {
@@ -41,14 +41,14 @@ namespace Animotion {
                     case AniDirection.Right:
                         clip = rightAnimotionClip;
                         break;
-                    case AniDirection.Top:
-                        clip = topAnimotionClip;
+                    case AniDirection.Up:
+                        clip = upAnimotionClip;
                         break;
-                    case AniDirection.TopLeft:
-                        clip = topLeftAnimotionClip;
+                    case AniDirection.UpLeft:
+                        clip = upLeftAnimotionClip;
                         break;
-                    case AniDirection.TopRight:
-                        clip = topRightAnimotionClip;
+                    case AniDirection.UpRight:
+                        clip = upRightAnimotionClip;
                         break;
                 }
 
