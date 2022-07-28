@@ -7,6 +7,9 @@ namespace Animotion {
     public class AnimotionAnimator : MonoBehaviour {
 
         private SpriteRenderer spriteRenderer;
+        public bool animateOnStart = true;
+        public int frame;
+        private bool isTimerRunning;
 
 
         public NodeData currentNode {
@@ -36,13 +39,10 @@ namespace Animotion {
             }
         }
 
-        public bool animateOnStart = true;
 
         public Dictionary<string, bool> booleans;
 
 
-        public int frame;
-        private bool isTimerRunning;
 
         private void Start() {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -88,12 +88,15 @@ namespace Animotion {
             //}
         }
 
+        public void Play() {
+            isTimerRunning = true;
+        }
+
+        public void Pause() {
+            isTimerRunning = false;
+        }
 
         private void FixedUpdate() {
-
-
-
-
             if (isTimerRunning) {
                 if (animotionClip) {
                     frame += 1;
