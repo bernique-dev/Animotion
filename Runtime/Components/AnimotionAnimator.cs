@@ -32,7 +32,7 @@ namespace Animotion {
 
         public TreeData treeData;
         // Hideable
-        public AniDirection aniDirection;
+        private AniDirection aniDirection;
         public AnimotionClip animotionClip {
             get {
                 return currentNode ? currentNode.hasMultipleDirections ? currentNode.GetAnimotionClip(aniDirection):currentNode.GetAnimotionClip(): null;
@@ -97,6 +97,7 @@ namespace Animotion {
         }
 
         private void FixedUpdate() {
+            Debug.LogError("FixedUpdate " + (isTimerRunning ? "[RUNNING]" : "[PAUSE]") + " " + (animateOnStart ? "[START]" : "[PAS START]") + " " + (animotionClip ? "[CLIP]" : "[PAS CLIP]"));
             if (isTimerRunning) {
                 if (animotionClip) {
                     frame += 1;

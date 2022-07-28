@@ -9,7 +9,7 @@ namespace Animotion {
 
         public NodeData root {
             get {
-                return nodes.Find(n => n.isRoot);
+                return nodes.Find(n => n != null && n.isRoot);
             }
         }
 
@@ -64,14 +64,19 @@ namespace Animotion {
             serializedNodes.Clear();
             serializedLinks.Clear();
             foreach (NodeData nodeData in nodes) {
+#if UNITY_EDITOR
                 nodeData.SaveData();
+#endif
                 serializedNodes.Add(JsonUtility.ToJson(nodeData));
             }
             foreach (LinkData linkData in links) {
                 serializedLinks.Add(JsonUtility.ToJson(linkData));
             }
+#if UNITY_EDITOR
             EditorUtility.SetDirty(this);
+#endif
         }
+
 
         public void Unserialize() {
             nodes.Clear();
@@ -79,12 +84,14 @@ namespace Animotion {
             foreach (string serializedNode in serializedNodes) {
                 NodeData nodeData = ScriptableObject.CreateInstance<NodeData>();
                 JsonUtility.FromJsonOverwrite(serializedNode, nodeData);
+#if UNITY_EDITOR
                 if (nodeData.animotionClipsDataPath != "") {
                     nodeData.animotionClipsData = AssetDatabase.LoadAssetAtPath<AnimotionClipsData>(nodeData.animotionClipsDataPath);
                 }
                 if (nodeData.animotionClipPath != "") {
                     nodeData.animotionClip = AssetDatabase.LoadAssetAtPath<AnimotionClip>(nodeData.animotionClipPath);
                 }
+#endif
                 nodes.Add(nodeData);
             }
             foreach (string serializedLink in serializedLinks) {
@@ -92,7 +99,9 @@ namespace Animotion {
                 JsonUtility.FromJsonOverwrite(serializedLink, linkData);
                 links.Add(linkData);
             }
+#if UNITY_EDITOR
            EditorUtility.SetDirty(this);
+#endif
         }
 
         public NodeData GetNode(int id) {
@@ -102,27 +111,37 @@ namespace Animotion {
         public void SetRoot(NodeData nodeData) {
             if (root) root.isRoot = false;
             nodeData.isRoot = true;
+#if UNITY_EDITOR
             EditorUtility.SetDirty(this);
+#endif
         }
 
         public void AddNode(NodeData node) {
             nodes.Add(node);
+#if UNITY_EDITOR
             EditorUtility.SetDirty(this);
+#endif
         }
 
         public void DeleteNode(NodeData node) {
             nodes.Remove(node);
+#if UNITY_EDITOR
             EditorUtility.SetDirty(this);
+#endif
         }
         public void DeleteNode(int id) {
             DeleteNode(nodes.Find(node => node.id == id));
+#if UNITY_EDITOR
             EditorUtility.SetDirty(this);
+#endif
         }
 
         public void Clear() {
             nodes.Clear();
             links.Clear();
+#if UNITY_EDITOR
             EditorUtility.SetDirty(this);
+#endif
         }
     }
 }

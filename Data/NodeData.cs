@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using UnityEditor.Animations;
+
 using UnityEditor;
 
 namespace Animotion {
@@ -56,7 +56,7 @@ namespace Animotion {
                 return children.Count;
             }
         }
-
+#if UNITY_EDITOR
         public void SaveData() {
             if (animotionClipsData) {
                 animotionClipsDataPath = AssetDatabase.GetAssetPath(animotionClipsData);
@@ -65,7 +65,7 @@ namespace Animotion {
                 animotionClipPath = AssetDatabase.GetAssetPath(animotionClip);
             }
         }
-
+#endif
 
     }
 }
