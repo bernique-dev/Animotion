@@ -34,12 +34,12 @@ namespace Animotion {
             downACProperty = serializedObject.FindProperty("downAnimotionClip");
             leftACProperty = serializedObject.FindProperty("leftAnimotionClip");
             rightACProperty = serializedObject.FindProperty("rightAnimotionClip");
-            topACProperty = serializedObject.FindProperty("topAnimotionClip");
+            topACProperty = serializedObject.FindProperty("upAnimotionClip");
 
             downLeftACProperty = serializedObject.FindProperty("downLeftAnimotionClip");
             downRightACProperty = serializedObject.FindProperty("downRightAnimotionClip");
-            topLeftACProperty = serializedObject.FindProperty("topLeftAnimotionClip");
-            topRightACProperty = serializedObject.FindProperty("topRightAnimotionClip");
+            topLeftACProperty = serializedObject.FindProperty("upLeftAnimotionClip");
+            topRightACProperty = serializedObject.FindProperty("upRightAnimotionClip");
         }
         public override void OnInspectorGUI() {
 

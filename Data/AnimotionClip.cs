@@ -8,7 +8,19 @@ public class AnimotionClip : ScriptableObject {
     
     public int length;
     public bool loop = true;
-    [SerializeField] private List<FrameData> frameDataList;
+    private List<FrameData> frameDataList {
+        get {
+            if (m_frameDataList == null) {
+                m_frameDataList = new List<FrameData>();
+            }
+            return m_frameDataList;
+        }
+        set {
+            m_frameDataList = value;
+        }
+    }
+    [SerializeField] private List<FrameData> m_frameDataList;
+
 
     private int referenceMax {
         get {

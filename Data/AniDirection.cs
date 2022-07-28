@@ -47,7 +47,7 @@ namespace Animotion {
                     aniDirection = vector.x > 0 ? AniDirection.Right : AniDirection.Left;
                     break;
                 case AnimotionClipsDataMode.FourDirections:
-                    if (Mathf.Abs(vector.x) > Mathf.Abs(vector.y)) {
+                    if (Mathf.Abs(vector.x) >= Mathf.Abs(vector.y)) {
                         aniDirection = vector.x > 0 ? AniDirection.Right : AniDirection.Left;
                     } else {
                         aniDirection = vector.y > 0 ? AniDirection.Up : AniDirection.Down;
