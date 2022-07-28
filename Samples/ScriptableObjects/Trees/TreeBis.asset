@@ -12,17 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3afc8e4c75ddff246bdbe93ec0d748a5, type: 3}
   m_Name: TreeBis
   m_EditorClassIdentifier: 
-  m_serializedNodes:
-  - '{"id":0,"isRoot":true,"position":{"x":-182.5,"y":-112.5},"nodeName":"node0","animotionClipsDataPath":"Packages/com.bernique.animotion/ScriptableObjects/Trees/animotionTree0Clips.asset","animotionClipPath":"","hasMultipleDirections":true,"animotionClipsData":{"instanceID":51350},"animotionClip":{"instanceID":0},"children":[1]}'
-  - '{"id":1,"isRoot":false,"position":{"x":110.5,"y":-30.5},"nodeName":"node1","animotionClipsDataPath":"Packages/com.bernique.animotion/ScriptableObjects/Trees/animotionTree0Clips
-    1.asset","animotionClipPath":"","hasMultipleDirections":true,"animotionClipsData":{"instanceID":51262},"animotionClip":{"instanceID":0},"children":[0]}'
-  m_serializedLinks:
-  - '{"startNodeId":1,"endNodeId":0,"trueBooleanNames":[],"falseBooleanNames":["isWalking"],"reverseTrueBooleanNames":["isWalking"],"reverseFalseBooleanNames":[]}'
   m_nodes:
-  - {fileID: 0}
-  - {fileID: 0}
-  links:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b0145a925c2989e4297ac11767954277, type: 2}
+  - {fileID: 11400000, guid: 70587d967ee3c0a49bf4fca9d65c7113, type: 2}
+  - {fileID: 11400000, guid: 1de5ed355e408a24d8c2391d8b121734, type: 2}
+  m_links:
+  - {fileID: 11400000, guid: ae1812d47ce31bc48af374fe2726cf26, type: 2}
   booleanList:
   - isWalking
   - isIdle

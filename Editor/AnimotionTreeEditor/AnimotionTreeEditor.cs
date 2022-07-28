@@ -61,7 +61,6 @@ namespace Animotion {
         }
 
         private void OnEnable() {
-            if (tree) tree.Unserialize();
             Initiate();
         }
 
@@ -87,7 +86,6 @@ namespace Animotion {
             }
             try {
                 EditorApplication.playModeStateChanged += ModeChanged;
-                EditorApplication.quitting += tree.Unserialize;
             } catch {
 
             }
@@ -172,7 +170,9 @@ namespace Animotion {
             }
             GUILayout.FlexibleSpace();
             if (tree) {
-                GUILayout.Label(tree.name + (animotionAnimator ? " (" + animotionAnimator.gameObject.name +")" : ""));
+                if (GUILayout.Button(tree.name + (animotionAnimator ? " (" + animotionAnimator.gameObject.name + ")" : ""), EditorStyles.toolbarButton)) {
+                    Selection.activeObject = tree;
+                }
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -237,7 +237,6 @@ namespace Animotion {
             AnimotionTreeNodeEditor atne = ScriptableObject.CreateInstance<AnimotionTreeNodeEditor>();
             atne.SetValues(newNode, this);
             drawnNodes.Add(atne);
-            tree.Serialize();
         }
 
 
@@ -256,7 +255,7 @@ namespace Animotion {
         /// </summary>
         /// <param name="link">Link data</param>
         public void DeleteLink(LinkData link) {
-            tree.links.Remove(link);
+            tree.DeleteLink(link);
             tree.GetNode(link.startNodeId).children.Remove(link.endNodeId);
             if (link is BidirectionalLinkData) tree.GetNode(link.endNodeId).children.Remove(link.startNodeId);
             DrawLinks();
@@ -303,12 +302,12 @@ namespace Animotion {
                     BidirectionalLinkData bidirectionalLinkData = linkData as BidirectionalLinkData;
                     bidirectionalLinkData.reverseTrueBooleanNames = reverseLink.trueBooleanNames;
                     bidirectionalLinkData.reverseFalseBooleanNames = reverseLink.falseBooleanNames;
-                    tree.links.Remove(reverseLink);
+                    tree.DeleteLink(reverseLink);
                     
                 }
                 linkData.startNodeId = start.node.id;
                 linkData.endNodeId = end.node.id;
-                tree.links.Add(linkData);
+                tree.AddLink(linkData);
             }
 
             DrawLinks();

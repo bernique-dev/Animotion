@@ -2,10 +2,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.IO;
+using Microsoft.VisualBasic;
 
 namespace Animotion {
     [CreateAssetMenu(menuName = "Animotion/Animotion Tree")]
     public class TreeData : ScriptableObject {
+
+        private string previousName;
 
         public NodeData root {
             get {
@@ -13,22 +18,11 @@ namespace Animotion {
             }
         }
 
-        public List<string> serializedNodes {
+        public string folderPath {
             get {
-                if (m_serializedNodes == null) m_serializedNodes = new List<string>();
-                return m_serializedNodes;
+                return GetFolderPath() + "/" + name;
             }
-        }
-        public List<string> m_serializedNodes;
-
-
-        public List<string> serializedLinks {
-            get {
-                if (m_serializedLinks == null) m_serializedLinks = new List<string>();
-                return m_serializedLinks;
-            }
-        }
-        public List<string> m_serializedLinks;
+        } 
 
         public List<NodeData> nodes {
             get {
@@ -60,49 +54,6 @@ namespace Animotion {
         public List<string> booleanList;
 
 
-        public void Serialize() {
-            serializedNodes.Clear();
-            serializedLinks.Clear();
-            foreach (NodeData nodeData in nodes) {
-#if UNITY_EDITOR
-                nodeData.SaveData();
-#endif
-                serializedNodes.Add(JsonUtility.ToJson(nodeData));
-            }
-            foreach (LinkData linkData in links) {
-                serializedLinks.Add(JsonUtility.ToJson(linkData));
-            }
-#if UNITY_EDITOR
-            EditorUtility.SetDirty(this);
-#endif
-        }
-
-
-        public void Unserialize() {
-            nodes.Clear();
-            links.Clear();
-            foreach (string serializedNode in serializedNodes) {
-                NodeData nodeData = ScriptableObject.CreateInstance<NodeData>();
-                JsonUtility.FromJsonOverwrite(serializedNode, nodeData);
-#if UNITY_EDITOR
-                if (nodeData.animotionClipsDataPath != "") {
-                    nodeData.animotionClipsData = AssetDatabase.LoadAssetAtPath<AnimotionClipsData>(nodeData.animotionClipsDataPath);
-                }
-                if (nodeData.animotionClipPath != "") {
-                    nodeData.animotionClip = AssetDatabase.LoadAssetAtPath<AnimotionClip>(nodeData.animotionClipPath);
-                }
-#endif
-                nodes.Add(nodeData);
-            }
-            foreach (string serializedLink in serializedLinks) {
-                LinkData linkData = serializedLink.Contains("reverse") ? ScriptableObject.CreateInstance<BidirectionalLinkData>() : ScriptableObject.CreateInstance<LinkData>();
-                JsonUtility.FromJsonOverwrite(serializedLink, linkData);
-                links.Add(linkData);
-            }
-#if UNITY_EDITOR
-           EditorUtility.SetDirty(this);
-#endif
-        }
 
         public NodeData GetNode(int id) {
             return nodes.Find(n => n.id == id);
@@ -118,8 +69,16 @@ namespace Animotion {
 
         public void AddNode(NodeData node) {
             nodes.Add(node);
+            //if (Directory.Exists()) {
+
+            //}
+            Debug.Log(Directory.Exists(folderPath));
+            if (!Directory.Exists(folderPath)) {
+                Directory.CreateDirectory(folderPath);
+            }
+            AssetDatabase.CreateAsset(node, folderPath + "/node" + node.id + ".asset");
 #if UNITY_EDITOR
-            EditorUtility.SetDirty(this);
+                EditorUtility.SetDirty(this);
 #endif
         }
 
@@ -129,8 +88,33 @@ namespace Animotion {
             EditorUtility.SetDirty(this);
 #endif
         }
+
+        public void AddLink(LinkData link) {
+            links.Add(link);
+            //if (Directory.Exists()) {
+
+            //}
+            Debug.Log(Directory.Exists(folderPath));
+            if (!Directory.Exists(folderPath)) {
+                Directory.CreateDirectory(folderPath);
+            }
+            AssetDatabase.CreateAsset(link, folderPath + "/link" + link.startNodeId +"-" + link.endNodeId + ".asset");
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+#endif
+        }
+
+        public void DeleteLink(LinkData link) {
+            links.Remove(link);
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+#endif
+        }
+
+
         public void DeleteNode(int id) {
             DeleteNode(nodes.Find(node => node.id == id));
+            AssetDatabase.DeleteAsset(folderPath + "/node" + id + ".asset");
 #if UNITY_EDITOR
             EditorUtility.SetDirty(this);
 #endif
@@ -142,6 +126,25 @@ namespace Animotion {
 #if UNITY_EDITOR
             EditorUtility.SetDirty(this);
 #endif
+        }
+
+
+        private string GetFolderPath() {
+            string[] splitString = AssetDatabase.GetAssetPath(this).Split(new char[] { '/' });
+            return String.Join("/", splitString.Take(splitString.Length - 1));
+        }
+
+
+        private void OnValidate() {
+            //Debug.Log("OnValidate : " + name + " previous : " + previousName);
+            if (previousName != name && previousName != "") {
+                string previousFolderPath = GetFolderPath() + "/" + previousName;
+                string currentFolderPath = GetFolderPath() + "/" + name;
+                //Debug.Log(previousFolderPath + "->" + currentFolderPath);
+                AssetDatabase.MoveAsset(previousFolderPath, currentFolderPath);
+                AssetDatabase.Refresh();
+            }
+            previousName = name;
         }
     }
 }

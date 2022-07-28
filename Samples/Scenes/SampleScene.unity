@@ -275,7 +275,6 @@ GameObject:
   - component: {fileID: 1682613109}
   - component: {fileID: 1682613108}
   - component: {fileID: 1682613107}
-  - component: {fileID: 1682613110}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -290,7 +289,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682613106}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f811a7bcbe5e83d40a59dc6ff2d172f0, type: 3}
   m_Name: 
@@ -302,7 +301,6 @@ MonoBehaviour:
   currentNodeLinks: []
   currentNodeReverseLinks: []
   treeData: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
-  aniDirection: 3
 --- !u!212 &1682613108
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -370,17 +368,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1682613110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682613106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49ecc643b71d3bb4dba1d15205d38b86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animotionClip: {fileID: 11400000, guid: 100dc3dc519890f449e54e881c8fc793, type: 2}
-  animateOnStart: 0

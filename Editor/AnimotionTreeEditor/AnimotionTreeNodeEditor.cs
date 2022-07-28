@@ -92,7 +92,11 @@ namespace Animotion {
                         Selection.activeObject = node;
                         GenericMenu menu = new GenericMenu();
                         menu.AddItem(new GUIContent("Create link"), false, () => StartLinkCreation());
-                        menu.AddItem(new GUIContent("Set Root"), false, () => tree.SetRoot(node));
+                        menu.AddItem(new GUIContent("Set Root"), false, () => {
+                            tree.SetRoot(node);
+                            EditorUtility.SetDirty(node);
+                            EditorUtility.SetDirty(tree);
+                        ;});
 
                         menu.AddSeparator("");
                         menu.AddItem(new GUIContent("Delete"), false, () => animotionTreeEditor.DeleteNode(node.id));
@@ -127,13 +131,12 @@ namespace Animotion {
                 lastPosition = node.position;
                 Vector2 newPosition = e.mousePosition - new Vector2(Screen.width, Screen.height) / 2;
                 animotionTreeEditor.MoveSelectedNodes(newPosition - lastPosition);
-                EditorUtility.SetDirty(tree);
             }
             if (e.type == EventType.MouseUp) {
                 isMoved = false;
+                EditorUtility.SetDirty(node);
+                EditorUtility.SetDirty(tree);
             }
-
-            animotionTreeEditor.tree.Serialize();
         }
 
         public void StartLinkCreation() {
