@@ -18,11 +18,13 @@ namespace Animotion {
             }
         }
 
+#if UNITY_EDITOR
         public string folderPath {
             get {
                 return GetFolderPath() + "/" + name;
             }
-        } 
+        }
+#endif
 
         public List<NodeData> nodes {
             get {
@@ -51,7 +53,13 @@ namespace Animotion {
         }
         public List<LinkData> m_links;
 
-        public List<string> booleanList;
+        public List<string> booleanList {
+            get {
+                if (m_booleanList == null) m_booleanList = new List<string>();
+                return m_booleanList;
+            }
+        }
+        public List<string> m_booleanList;
 
 
 
@@ -69,15 +77,12 @@ namespace Animotion {
 
         public void AddNode(NodeData node) {
             nodes.Add(node);
-            //if (Directory.Exists()) {
-
-            //}
+#if UNITY_EDITOR
             Debug.Log(Directory.Exists(folderPath));
             if (!Directory.Exists(folderPath)) {
                 Directory.CreateDirectory(folderPath);
             }
             AssetDatabase.CreateAsset(node, folderPath + "/node" + node.id + ".asset");
-#if UNITY_EDITOR
                 EditorUtility.SetDirty(this);
 #endif
         }
@@ -91,15 +96,11 @@ namespace Animotion {
 
         public void AddLink(LinkData link) {
             links.Add(link);
-            //if (Directory.Exists()) {
-
-            //}
-            Debug.Log(Directory.Exists(folderPath));
+#if UNITY_EDITOR
             if (!Directory.Exists(folderPath)) {
                 Directory.CreateDirectory(folderPath);
             }
             AssetDatabase.CreateAsset(link, folderPath + "/link" + link.startNodeId +"-" + link.endNodeId + ".asset");
-#if UNITY_EDITOR
             EditorUtility.SetDirty(this);
 #endif
         }
@@ -114,8 +115,8 @@ namespace Animotion {
 
         public void DeleteNode(int id) {
             DeleteNode(nodes.Find(node => node.id == id));
-            AssetDatabase.DeleteAsset(folderPath + "/node" + id + ".asset");
 #if UNITY_EDITOR
+            AssetDatabase.DeleteAsset(folderPath + "/node" + id + ".asset");
             EditorUtility.SetDirty(this);
 #endif
         }
@@ -129,13 +130,15 @@ namespace Animotion {
         }
 
 
+#if UNITY_EDITOR
         private string GetFolderPath() {
             string[] splitString = AssetDatabase.GetAssetPath(this).Split(new char[] { '/' });
             return String.Join("/", splitString.Take(splitString.Length - 1));
         }
-
+#endif
 
         private void OnValidate() {
+#if UNITY_EDITOR
             //Debug.Log("OnValidate : " + name + " previous : " + previousName);
             if (previousName != name && previousName != "") {
                 string previousFolderPath = GetFolderPath() + "/" + previousName;
@@ -143,8 +146,9 @@ namespace Animotion {
                 //Debug.Log(previousFolderPath + "->" + currentFolderPath);
                 AssetDatabase.MoveAsset(previousFolderPath, currentFolderPath);
                 AssetDatabase.Refresh();
-            }
-            previousName = name;
+        }
+        previousName = name;
+#endif
         }
     }
 }
