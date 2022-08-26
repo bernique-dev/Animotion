@@ -12,6 +12,7 @@ namespace Animotion {
         public List<string> trueBooleanNames;
         public List<string> falseBooleanNames;
 
+
         //! Transfert des listes dans booleans
         public Dictionary<string, bool> booleans;
 

@@ -22,3 +22,4 @@ MonoBehaviour:
   animotionClipsData: {fileID: 0}
   animotionClip: {fileID: 0}
   children: 
+  waitForEnd: 0

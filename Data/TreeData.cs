@@ -53,14 +53,13 @@ namespace Animotion {
         }
         public List<LinkData> m_links;
 
-        public List<string> booleanList {
+        public List<TreeProperty> propertyList {
             get {
-                if (m_booleanList == null) m_booleanList = new List<string>();
-                return m_booleanList;
+                if (m_propertyList == null) m_propertyList = new List<TreeProperty>();
+                return m_propertyList;
             }
         }
-        public List<string> m_booleanList;
-
+        public List<TreeProperty> m_propertyList;
 
 
         public NodeData GetNode(int id) {

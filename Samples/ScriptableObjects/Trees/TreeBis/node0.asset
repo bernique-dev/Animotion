@@ -19,6 +19,7 @@ MonoBehaviour:
   animotionClipsDataPath: 
   animotionClipPath: 
   hasMultipleDirections: 0
-  animotionClipsData: {fileID: 0}
+  animotionClipsData: {fileID: 11400000, guid: 9d33d8bf1090d1943a56bae61a3fb8b5, type: 2}
   animotionClip: {fileID: 0}
   children: 
+  waitForEnd: 0

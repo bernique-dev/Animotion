@@ -180,6 +180,7 @@ namespace Animotion {
         public override void ProcessEvent(Event e) {
             if (focusedWindow == this && mouseOverWindow == this) {
                 if (e.isMouse) {
+                    GUI.FocusControl(null);
                     // Right click for parameters
                     if (IsNotContained(e.mousePosition)) {
                         if (e.type == EventType.ContextClick) {

@@ -55,8 +55,8 @@ namespace Animotion {
 
         private void InitiateBooleans() {
             booleans = new Dictionary<string, bool>();
-            foreach (string boolName in treeData.booleanList) {
-                booleans.Add(boolName, false);
+            foreach (TreeProperty property in treeData.propertyList) {
+                booleans.Add(property.name, false);
             }
         }
 

@@ -18,9 +18,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1de5ed355e408a24d8c2391d8b121734, type: 2}
   m_links:
   - {fileID: 11400000, guid: ae1812d47ce31bc48af374fe2726cf26, type: 2}
-  booleanList:
-  - isWalking
-  - isIdle
-  - isRolling
-  - isRunning
-  - isAttacking
+  m_propertyList:
+  - name: property
+    type: 0
+    m_booleanValue: 1
+  - name: trigger
+    type: 1
+    m_booleanValue: 1

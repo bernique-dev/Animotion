@@ -11,16 +11,17 @@ namespace Animotion {
             AnimotionAnimator animotionAnimator = (AnimotionAnimator)target;
 
             if (animotionAnimator.treeData != null) {
-                foreach (string boolName in animotionAnimator.treeData.booleanList) {
+                foreach (TreeProperty property in animotionAnimator.treeData.propertyList) {
+                    string propertyName = property.name;
                     EditorGUILayout.BeginHorizontal();
 
-                    GUILayout.Label(boolName);
+                    GUILayout.Label(propertyName);
                     GUILayout.FlexibleSpace();
 
-                    bool currentBool = animotionAnimator.GetBool(boolName);
+                    bool currentBool = animotionAnimator.GetBool(propertyName);
                     bool modifiedBool = EditorGUILayout.Toggle(currentBool);
                     if (currentBool != modifiedBool) {
-                        animotionAnimator.SetBool(boolName, modifiedBool);
+                        animotionAnimator.SetBool(propertyName, modifiedBool);
                     }
 
 
