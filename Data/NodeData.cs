@@ -30,6 +30,8 @@ namespace Animotion {
 
         public List<int> children;
 
+        public bool waitForEnd = false;
+
         public void SetValues(string n, Vector2 _position) {
             id = idCounter;
             idCounter++;

@@ -32,7 +32,7 @@ namespace Animotion {
 
         public TreeData treeData;
         // Hideable
-        private AniDirection aniDirection;
+        private AniDirection aniDirection = AniDirection.Right;
         public AnimotionClip animotionClip {
             get {
                 return currentNode ? currentNode.hasMultipleDirections ? currentNode.GetAnimotionClip(aniDirection):currentNode.GetAnimotionClip(): null;
@@ -61,11 +61,22 @@ namespace Animotion {
         }
 
         public void SetDirection(Vector2 delta) {
-            SetDirection(delta.GetAniDirection());
+            if (currentNode) {
+                if (currentNode.hasMultipleDirections) {
+                    SetDirection(delta.GetAniDirection(currentNode.animotionClipsData.mode));
+                }
+                else {
+                    SetDirection(delta.GetAniDirection());
+                }
+            }
         }
 
         public void SetDirection(AniDirection _aniDirection) {
-            aniDirection = _aniDirection;
+            if (currentNode.hasMultipleDirections) {
+                aniDirection = _aniDirection.GetVector2().GetAniDirection(currentNode.animotionClipsData.mode);
+            } else {
+                aniDirection = _aniDirection;
+            }
         } 
 
         public void SetBool(string boolName, bool value) {
@@ -112,47 +123,49 @@ namespace Animotion {
                     frame = 0;
                 }
             }
-
-            foreach (LinkData link in currentNodeLinks) {
-                if (link) {
-                    bool takeLink = true;
-                    foreach (string trueBoolName in link.trueBooleanNames) {
-                        if (!GetBool(trueBoolName)) {
-                            takeLink = false;
-                            break;
-                        }
-                    }
-                    foreach (string falseBoolName in link.falseBooleanNames) {
-                        if (GetBool(falseBoolName)) {
-                            takeLink = false;
-                            break;
-                        }
-                    }
-                    if (takeLink) {
-                        currentNode = treeData.GetNode(link.endNodeId);
-                    }
-
-                    BidirectionalLinkData bidirectionalLink = link as BidirectionalLinkData;
-                    if (bidirectionalLink) {
-                        takeLink = true;
-                        foreach (string trueBoolName in bidirectionalLink.reverseTrueBooleanNames) {
+            if (!currentNode.waitForEnd || (frame == 0)) {
+                foreach (LinkData link in currentNodeLinks) {
+                    if (link) {
+                        bool takeLink = true;
+                        foreach (string trueBoolName in link.trueBooleanNames) {
                             if (!GetBool(trueBoolName)) {
                                 takeLink = false;
                                 break;
                             }
                         }
-                        foreach (string falseBoolName in bidirectionalLink.reverseFalseBooleanNames) {
+                        foreach (string falseBoolName in link.falseBooleanNames) {
                             if (GetBool(falseBoolName)) {
                                 takeLink = false;
                                 break;
                             }
                         }
                         if (takeLink) {
-                            currentNode = treeData.GetNode(bidirectionalLink.startNodeId);
-                            break;
+                            currentNode = treeData.GetNode(link.endNodeId);
+                        }
+
+                        BidirectionalLinkData bidirectionalLink = link as BidirectionalLinkData;
+                        if (bidirectionalLink) {
+                            takeLink = true;
+                            foreach (string trueBoolName in bidirectionalLink.reverseTrueBooleanNames) {
+                                if (!GetBool(trueBoolName)) {
+                                    takeLink = false;
+                                    break;
+                                }
+                            }
+                            foreach (string falseBoolName in bidirectionalLink.reverseFalseBooleanNames) {
+                                if (GetBool(falseBoolName)) {
+                                    takeLink = false;
+                                    break;
+                                }
+                            }
+                            if (takeLink) {
+                                currentNode = treeData.GetNode(bidirectionalLink.startNodeId);
+                                break;
+                            }
                         }
                     }
                 }
+            
                 
             }
         }

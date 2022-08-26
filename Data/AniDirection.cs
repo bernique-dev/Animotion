@@ -41,7 +41,7 @@ namespace Animotion {
         }
 
         public static AniDirection GetAniDirection(this Vector2 vector, AnimotionClipsDataMode mode = AnimotionClipsDataMode.EightDirections) {
-            AniDirection aniDirection = AniDirection.Down;
+            AniDirection aniDirection = AniDirection.Left;
             switch (mode) {
                 case AnimotionClipsDataMode.TwoDirections:
                     aniDirection = vector.x > 0 ? AniDirection.Right : AniDirection.Left;
@@ -86,8 +86,6 @@ namespace Animotion {
                     }
                     break;
             }
-            
-
             return aniDirection;
         }
 

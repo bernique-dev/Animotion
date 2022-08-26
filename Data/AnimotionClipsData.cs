@@ -51,7 +51,6 @@ namespace Animotion {
                         clip = upRightAnimotionClip;
                         break;
                 }
-
                 return clip;
             } else {
                 throw new Exception(" Unvalid AnimotionClipsDataMode | " + direction + " asked while mode is " + mode);

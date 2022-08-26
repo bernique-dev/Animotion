@@ -145,7 +145,7 @@ namespace Animotion {
                 string currentFolderPath = GetFolderPath() + "/" + name;
                 //Debug.Log(previousFolderPath + "->" + currentFolderPath);
                 AssetDatabase.MoveAsset(previousFolderPath, currentFolderPath);
-                AssetDatabase.Refresh();
+                //AssetDatabase.Refresh();
         }
         previousName = name;
 #endif
