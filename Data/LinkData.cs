@@ -9,13 +9,31 @@ namespace Animotion {
         public int startNodeId;
         public int endNodeId;
 
-        public List<string> trueBooleanNames;
-        public List<string> falseBooleanNames;
+        public List<TreePropertyCondition> reverseConditions {
+            get {
+                if (m_conditions == null) m_conditions = new List<TreePropertyCondition>();
+                return m_conditions;
+            }
+            set {
+                m_conditions = value;
+            }
+        }
+        public List<TreePropertyCondition> m_conditions;
 
+        [HideInInspector] public TreeData tree;
+        public List<TreeProperty> properties {
+            get {
+                return tree.properties;
+            }
+        }
 
-        //! Transfert des listes dans booleans
-        public Dictionary<string, bool> booleans;
+        public void SaveConditions() {
+            foreach(TreePropertyCondition condition in reverseConditions) {
 
+                //AssetDatabase.CreateAsset(condition, tree.folderPath + "/condition" + condition.id + ".asset");
+                //EditorUtility.SetDirty(this);
+            }
+        }
 
     }
 }

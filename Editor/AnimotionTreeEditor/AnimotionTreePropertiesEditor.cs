@@ -29,13 +29,14 @@ namespace Animotion {
 
                 Rect newPropertyFields = new Rect(new Vector2(5, rect.yMin + 5 * 9 / 16), new Vector2(rect.width - 5, 25));
                 if (GUI.Button(new Rect(newPropertyFields.min, new Vector2(newPropertyFields.height, newPropertyFields.height)), buttonTexture)) {
-                    TreeProperty property = new TreeProperty("property", newPropertyType);
-
+                    TreeProperty property = CreateInstance<TreeProperty>();
+                    property.SetValues(newPropertyType.ToString(), newPropertyType);
                     switch (property.type) {
                         case TreePropertyType.Boolean:
                             property.value = false;
                             break;
                         case TreePropertyType.Trigger:
+                            property.value = false;
                             break;
                         case TreePropertyType.Integer:
                             break;
@@ -43,17 +44,23 @@ namespace Animotion {
                             break;
                     }
 
-                    animotionTreeEditor.tree.propertyList.Add(property);
+                    animotionTreeEditor.tree.AddProperty(property);
                 }
                 GUIStyle popupStyle = new GUIStyle(EditorStyles.popup);
                 popupStyle.fixedHeight = newPropertyFields.height;
                 newPropertyType = (TreePropertyType)EditorGUI.EnumPopup(new Rect(newPropertyFields.min + new Vector2(30,0), new Vector2(newPropertyFields.width - 35, newPropertyFields.height)) , newPropertyType, popupStyle);
 
                 Handles.DrawLine(new Vector2(rect.xMin, 60), new Vector2(rect.xMax, 60));
-                for (int i = 0; i < animotionTreeEditor.tree.propertyList.Count; i++) {
-                    TreeProperty property = animotionTreeEditor.tree.propertyList[i];
+                for (int i = 0; i < animotionTreeEditor.tree.properties.Count; i++) {
+                    TreeProperty property = animotionTreeEditor.tree.properties[i];
 
                     Rect propertyRect = new Rect(new Vector2(rect.xMin, 60 + 25 * i), new Vector2(rect.width, 25));
+
+                    if (propertyRect.Contains(Event.current.mousePosition) && Event.current.type == EventType.ContextClick) {
+                        GenericMenu menu = new GenericMenu();
+                        menu.AddItem(new GUIContent("Delete"), false, () => animotionTreeEditor.tree.DeleteProperty(property));
+                        menu.ShowAsContext();
+                    }
 
                     bool isBoolTrue = false;
                     if (animotionTreeEditor.animotionAnimator) {
@@ -78,11 +85,13 @@ namespace Animotion {
                             }
                             break;
                         case TreePropertyType.Integer:
+                            property.value = EditorGUI.IntField(new Rect(new Vector2(propertyFieldRect.xMax - propertyFieldRect.height * 1.45f, propertyFieldRect.yMin), new Vector2(propertyFieldRect.height* 1.45f, propertyFieldRect.height)), property.value == null ? 0 : (int)property.value);
                             break;
                         case TreePropertyType.Float:
+                            property.value = EditorGUI.FloatField(new Rect(new Vector2(propertyFieldRect.xMax - propertyFieldRect.height * 1.45f, propertyFieldRect.yMin), new Vector2(propertyFieldRect.height * 1.45f, propertyFieldRect.height)), property.value == null ? 0 : (float)property.value);
                             break;
                     }
-
+                    EditorUtility.SetDirty(property);
                 }
             }
             Handles.EndGUI();

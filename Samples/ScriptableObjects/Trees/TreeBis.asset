@@ -18,10 +18,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1de5ed355e408a24d8c2391d8b121734, type: 2}
   m_links:
   - {fileID: 11400000, guid: ae1812d47ce31bc48af374fe2726cf26, type: 2}
-  m_propertyList:
-  - name: property
-    type: 0
-    m_booleanValue: 1
-  - name: trigger
-    type: 1
-    m_booleanValue: 1
+  - {fileID: 11400000, guid: 4be3186d1c3acbf48a3a8321317624f7, type: 2}
+  - {fileID: 11400000, guid: d8f760c459bc254459eeafe38a7bf6c2, type: 2}
+  m_properties:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: a9195423d6176ba4ba0a59632702369d, type: 2}
+  - {fileID: 11400000, guid: 97f123274df3ba24a85304a034144ce1, type: 2}
+  - {fileID: 11400000, guid: 103e52b9544117441b2f5337e4ec780c, type: 2}

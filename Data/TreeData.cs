@@ -53,13 +53,13 @@ namespace Animotion {
         }
         public List<LinkData> m_links;
 
-        public List<TreeProperty> propertyList {
+        public List<TreeProperty> properties {
             get {
-                if (m_propertyList == null) m_propertyList = new List<TreeProperty>();
-                return m_propertyList;
+                if (m_properties == null) m_properties = new List<TreeProperty>();
+                return m_properties;
             }
         }
-        public List<TreeProperty> m_propertyList;
+        [SerializeField] private List<TreeProperty> m_properties;
 
 
         public NodeData GetNode(int id) {
@@ -82,7 +82,7 @@ namespace Animotion {
                 Directory.CreateDirectory(folderPath);
             }
             AssetDatabase.CreateAsset(node, folderPath + "/node" + node.id + ".asset");
-                EditorUtility.SetDirty(this);
+            EditorUtility.SetDirty(this);
 #endif
         }
 
@@ -119,6 +119,35 @@ namespace Animotion {
             EditorUtility.SetDirty(this);
 #endif
         }
+
+        public void AddProperty(TreeProperty property) {
+            properties.Add(property);
+#if UNITY_EDITOR
+            Debug.Log(Directory.Exists(folderPath));
+            if (!Directory.Exists(folderPath)) {
+                Directory.CreateDirectory(folderPath);
+            }
+            AssetDatabase.CreateAsset(property, folderPath + "/property" + property.id + ".asset");
+            EditorUtility.SetDirty(this);
+#endif
+        }
+
+        public void DeleteProperty(int id) {
+            DeleteProperty(properties.Find(p => p.id == id));
+#if UNITY_EDITOR
+            AssetDatabase.DeleteAsset(folderPath + "/property" + id + ".asset");
+            EditorUtility.SetDirty(this);
+#endif
+        }
+
+        public void DeleteProperty(TreeProperty property) {
+            properties.Remove(property);
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+#endif
+        }
+
+
 
         public void Clear() {
             nodes.Clear();

@@ -32,7 +32,7 @@ namespace Animotion {
 
         public TreeData treeData;
         // Hideable
-        private AniDirection aniDirection = AniDirection.Right;
+        [SerializeField] private AniDirection aniDirection = AniDirection.Right;
         public AnimotionClip animotionClip {
             get {
                 return currentNode ? currentNode.hasMultipleDirections ? currentNode.GetAnimotionClip(aniDirection):currentNode.GetAnimotionClip(): null;
@@ -40,7 +40,11 @@ namespace Animotion {
         }
 
 
-        public Dictionary<string, bool> booleans;
+        public List<TreeProperty> properties {
+            get {
+                return treeData ? treeData.properties : null;
+            }
+        }
 
 
 
@@ -53,12 +57,6 @@ namespace Animotion {
             if (treeData) currentNode = treeData.root;
         }
 
-        private void InitiateBooleans() {
-            booleans = new Dictionary<string, bool>();
-            foreach (TreeProperty property in treeData.propertyList) {
-                booleans.Add(property.name, false);
-            }
-        }
 
         public void SetDirection(Vector2 delta) {
             if (currentNode) {
@@ -79,14 +77,19 @@ namespace Animotion {
             }
         } 
 
-        public void SetBool(string boolName, bool value) {
-            if (booleans == null) InitiateBooleans();
-            booleans[boolName] = value;
+        public void SetObject(string propertyName, object value) {
+            properties.Find(p => p.name == propertyName).value = value;
         }
 
-        public bool GetBool(string boolName) {
-            if (booleans == null) InitiateBooleans();
-            return booleans[boolName];
+        public object GetObject(string propertyName) {
+            return properties.Find(p => p.name == propertyName).value;
+        }
+
+        public T GetProperty<T>(string propertyName) {
+            return (T) GetObject(propertyName);
+        }
+        public void SetProperty<T>(string propertyName, T value) {
+            SetObject(propertyName, value);
         }
 
         private void Update() {
@@ -127,39 +130,24 @@ namespace Animotion {
                 foreach (LinkData link in currentNodeLinks) {
                     if (link) {
                         bool takeLink = true;
-                        foreach (string trueBoolName in link.trueBooleanNames) {
-                            if (!GetBool(trueBoolName)) {
-                                takeLink = false;
-                                break;
-                            }
-                        }
-                        foreach (string falseBoolName in link.falseBooleanNames) {
-                            if (GetBool(falseBoolName)) {
-                                takeLink = false;
-                                break;
-                            }
-                        }
+
+                        //Check
+                        takeLink = CheckConditions(link.reverseConditions);
                         if (takeLink) {
                             currentNode = treeData.GetNode(link.endNodeId);
+                            frame = 0;
                         }
 
                         BidirectionalLinkData bidirectionalLink = link as BidirectionalLinkData;
                         if (bidirectionalLink) {
                             takeLink = true;
-                            foreach (string trueBoolName in bidirectionalLink.reverseTrueBooleanNames) {
-                                if (!GetBool(trueBoolName)) {
-                                    takeLink = false;
-                                    break;
-                                }
-                            }
-                            foreach (string falseBoolName in bidirectionalLink.reverseFalseBooleanNames) {
-                                if (GetBool(falseBoolName)) {
-                                    takeLink = false;
-                                    break;
-                                }
-                            }
+
+                            //Check
+                            takeLink = CheckConditions(bidirectionalLink.reverseConditions);
+
                             if (takeLink) {
                                 currentNode = treeData.GetNode(bidirectionalLink.startNodeId);
+                                frame = 0;
                                 break;
                             }
                         }
@@ -168,6 +156,39 @@ namespace Animotion {
             
                 
             }
+        }
+
+        private bool CheckConditions(List<TreePropertyCondition> conditions) {
+            bool takeLink = true;
+            foreach (TreePropertyCondition condition in conditions) {
+                condition.Process();
+                switch (condition.property.type) {
+                    case TreePropertyType.Boolean:
+                        if (!condition.boolCondition((bool)condition.property.value)) {
+                            takeLink = false;
+                        }
+                        break;
+                    case TreePropertyType.Trigger:
+                        if ((bool)condition.property.value) {
+                            condition.property.value = false;
+                        } else {
+                            takeLink = false;
+                        }
+                        break;
+                    case TreePropertyType.Integer:
+                        if (!condition.intCondition((int)condition.property.value, condition.intValue)) {
+                            takeLink = false;
+                        }
+                        break;
+                    case TreePropertyType.Float:
+                        if (!condition.floatCondition((float)condition.property.value, condition.floatValue)) {
+                            takeLink = false;
+                        }
+                        break;
+                }
+                if (!takeLink) break;
+            }
+            return takeLink;
         }
 
         private void OnDrawGizmos() {

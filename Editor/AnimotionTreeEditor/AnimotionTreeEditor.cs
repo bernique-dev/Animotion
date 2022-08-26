@@ -297,17 +297,20 @@ namespace Animotion {
             start.isLinkBeingCreated = false;
             start.node.children.Add(end.node.id);
             if (!tree.links.Find(l => l.startNodeId == start.node.id && l.endNodeId == end.node.id)) {
-                LinkData reverseLink = tree.links.Find(l => l.startNodeId == end.node.id && l.endNodeId == start.node.id);
-                LinkData linkData = reverseLink ? ScriptableObject.CreateInstance<BidirectionalLinkData>() : ScriptableObject.CreateInstance<LinkData>();
-                if (reverseLink) {
+                LinkData reverseLinkData = tree.links.Find(l => l.startNodeId == end.node.id && l.endNodeId == start.node.id);
+                LinkData linkData = reverseLinkData ? ScriptableObject.CreateInstance<BidirectionalLinkData>() : ScriptableObject.CreateInstance<LinkData>();
+                linkData.tree = tree;
+                if (reverseLinkData) {
                     BidirectionalLinkData bidirectionalLinkData = linkData as BidirectionalLinkData;
-                    bidirectionalLinkData.reverseTrueBooleanNames = reverseLink.trueBooleanNames;
-                    bidirectionalLinkData.reverseFalseBooleanNames = reverseLink.falseBooleanNames;
-                    tree.DeleteLink(reverseLink);
-                    
+                    bidirectionalLinkData.reverseConditions = reverseLinkData.reverseConditions;
+                    bidirectionalLinkData.reverseConditions = linkData.reverseConditions;
+                    linkData.startNodeId = end.node.id;
+                    linkData.endNodeId = start.node.id;
+                    tree.DeleteLink(reverseLinkData);
+                } else {
+                    linkData.startNodeId = start.node.id;
+                    linkData.endNodeId = end.node.id;
                 }
-                linkData.startNodeId = start.node.id;
-                linkData.endNodeId = end.node.id;
                 tree.AddLink(linkData);
             }
 

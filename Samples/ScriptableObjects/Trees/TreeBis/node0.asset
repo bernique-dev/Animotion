@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   isRoot: 1
-  position: {x: 285.5, y: -171.5}
+  position: {x: -15.5, y: -168.5}
   nodeName: node0
   animotionClipsDataPath: 
   animotionClipPath: 
-  hasMultipleDirections: 0
+  hasMultipleDirections: 1
   animotionClipsData: {fileID: 11400000, guid: 9d33d8bf1090d1943a56bae61a3fb8b5, type: 2}
   animotionClip: {fileID: 0}
-  children: 
+  children: 01000000
   waitForEnd: 0

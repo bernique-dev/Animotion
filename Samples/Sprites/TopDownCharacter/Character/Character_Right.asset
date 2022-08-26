@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   length: 20
   loop: 1
-  frameDataList:
+  m_frameDataList:
   - frame: 0
     sprite: {fileID: 866786914, guid: 3e93194250edb004fbed253f58062b95, type: 3}
   - frame: 0
@@ -23,11 +23,11 @@ MonoBehaviour:
     sprite: {fileID: 0}
   - frame: 0
     sprite: {fileID: 0}
-  - frame: 0
+  - frame: 4
     sprite: {fileID: 0}
   - frame: 5
     sprite: {fileID: -1335253390, guid: 3e93194250edb004fbed253f58062b95, type: 3}
-  - frame: 0
+  - frame: 6
     sprite: {fileID: 0}
   - frame: 7
     sprite: {fileID: 0}
@@ -47,91 +47,3 @@ MonoBehaviour:
     sprite: {fileID: 0}
   - frame: 15
     sprite: {fileID: 449772513, guid: 3e93194250edb004fbed253f58062b95, type: 3}
-  - frame: 16
-    sprite: {fileID: 0}
-  - frame: 17
-    sprite: {fileID: 0}
-  - frame: 18
-    sprite: {fileID: 0}
-  - frame: 19
-    sprite: {fileID: 0}
-  - frame: 0
-    sprite: {fileID: 0}
-  - frame: 21
-    sprite: {fileID: 0}
-  - frame: 22
-    sprite: {fileID: 0}
-  - frame: 23
-    sprite: {fileID: 0}
-  - frame: 24
-    sprite: {fileID: 0}
-  - frame: 25
-    sprite: {fileID: 0}
-  - frame: 26
-    sprite: {fileID: 0}
-  - frame: 27
-    sprite: {fileID: 0}
-  - frame: 28
-    sprite: {fileID: 0}
-  - frame: 29
-    sprite: {fileID: 0}
-  - frame: 0
-    sprite: {fileID: 0}
-  - frame: 31
-    sprite: {fileID: 0}
-  - frame: 32
-    sprite: {fileID: 0}
-  - frame: 33
-    sprite: {fileID: 0}
-  - frame: 34
-    sprite: {fileID: 0}
-  - frame: 35
-    sprite: {fileID: 0}
-  - frame: 36
-    sprite: {fileID: 0}
-  - frame: 37
-    sprite: {fileID: 0}
-  - frame: 38
-    sprite: {fileID: 0}
-  - frame: 39
-    sprite: {fileID: 0}
-  - frame: 40
-    sprite: {fileID: 0}
-  - frame: 41
-    sprite: {fileID: 0}
-  - frame: 42
-    sprite: {fileID: 0}
-  - frame: 43
-    sprite: {fileID: 0}
-  - frame: 44
-    sprite: {fileID: 0}
-  - frame: 0
-    sprite: {fileID: 0}
-  - frame: 46
-    sprite: {fileID: 0}
-  - frame: 47
-    sprite: {fileID: 0}
-  - frame: 48
-    sprite: {fileID: 0}
-  - frame: 49
-    sprite: {fileID: 0}
-  - frame: 50
-    sprite: {fileID: 0}
-  - frame: 51
-    sprite: {fileID: 0}
-  - frame: 52
-    sprite: {fileID: 0}
-  - frame: 53
-    sprite: {fileID: 0}
-  - frame: 54
-    sprite: {fileID: 0}
-  - frame: 55
-    sprite: {fileID: 0}
-  - frame: 56
-    sprite: {fileID: 0}
-  - frame: 57
-    sprite: {fileID: 0}
-  - frame: 58
-    sprite: {fileID: 0}
-  - frame: 59
-    sprite: {fileID: 0}

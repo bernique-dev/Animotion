@@ -7,8 +7,16 @@ namespace Animotion {
     [Serializable]
     public class BidirectionalLinkData : LinkData {
 
-        public List<string> reverseTrueBooleanNames;
-        public List<string> reverseFalseBooleanNames;
+        public List<TreePropertyCondition> reverseConditions {
+            get {
+                if (m_reverseConditions == null) m_reverseConditions = new List<TreePropertyCondition>();
+                return m_reverseConditions;
+            }
+            set {
+                m_reverseConditions = value;
+            }
+        }
+        public List<TreePropertyCondition> m_reverseConditions;
 
         //! Transfert des listes dans booleans
         public Dictionary<string, bool> reverseBooleans;

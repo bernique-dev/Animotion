@@ -4,9 +4,11 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class TreeProperty {
+public class TreeProperty : ScriptableObject {
 
-    public string name;
+    public int id;
+    public static int idCounter;
+    public new string name;
     public TreePropertyType type;
 
     public object value {
@@ -20,12 +22,15 @@ public class TreeProperty {
                     result = m_booleanValue;
                     break;
                 case TreePropertyType.Integer:
+                    result = m_intValue;
                     break;
                 case TreePropertyType.Float:
+                    result = m_floatValue;
                     break;
             }
             return result;
         }
+
         set {
             switch (type) {
                 case TreePropertyType.Boolean:
@@ -35,16 +40,22 @@ public class TreeProperty {
                     m_booleanValue = (bool)value;
                     break;
                 case TreePropertyType.Integer:
+                    m_intValue = (int)value;
                     break;
                 case TreePropertyType.Float:
+                    m_floatValue = (float)value;
                     break;
             }
         }
     }
 
     [SerializeField] /*[HideInInspector]*/ private bool m_booleanValue;
+    [SerializeField] /*[HideInInspector]*/ private int m_intValue;
+    [SerializeField] /*[HideInInspector]*/ private float m_floatValue;
 
-    public TreeProperty(string _name, TreePropertyType _type) {
+    public void SetValues(string _name, TreePropertyType _type) {
+        id = idCounter;
+        idCounter++;
         name = _name;
         type = _type;
     }

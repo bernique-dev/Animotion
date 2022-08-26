@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   length: 20
   loop: 1
-  frameDataList:
+  m_frameDataList:
   - frame: 0
     sprite: {fileID: 1339003694, guid: 3daaea8c9f0fb6d4eaad87702abbee1d, type: 3}
   - frame: 0
@@ -23,11 +23,11 @@ MonoBehaviour:
     sprite: {fileID: 0}
   - frame: 0
     sprite: {fileID: 0}
-  - frame: 4
+  - frame: 0
     sprite: {fileID: 0}
   - frame: 5
     sprite: {fileID: -1747403876, guid: 3daaea8c9f0fb6d4eaad87702abbee1d, type: 3}
-  - frame: 6
+  - frame: 0
     sprite: {fileID: 0}
   - frame: 7
     sprite: {fileID: 0}
