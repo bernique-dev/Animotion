@@ -16,6 +16,20 @@ namespace Animotion {
 
         private TreePropertyType newPropertyType;
 
+
+        private List<TreeProperty> properties {
+            get {
+                List<TreeProperty> tmpProperties = animotionTreeEditor.tree.properties;
+                if (animotionTreeEditor.animotionAnimator) {
+                    if (Application.isPlaying) {
+                        tmpProperties = animotionTreeEditor.animotionAnimator.properties;
+                    }
+                }
+
+                return tmpProperties;
+            }
+        }
+
         public override void Draw() {
             base.Draw();
             Handles.BeginGUI();
@@ -45,14 +59,23 @@ namespace Animotion {
                     }
 
                     animotionTreeEditor.tree.AddProperty(property);
+                    EditorUtility.SetDirty(animotionTreeEditor.tree);
                 }
                 GUIStyle popupStyle = new GUIStyle(EditorStyles.popup);
                 popupStyle.fixedHeight = newPropertyFields.height;
                 newPropertyType = (TreePropertyType)EditorGUI.EnumPopup(new Rect(newPropertyFields.min + new Vector2(30,0), new Vector2(newPropertyFields.width - 35, newPropertyFields.height)) , newPropertyType, popupStyle);
 
+
+                if (animotionTreeEditor.animotionAnimator) {
+                } else {
+                    if (Application.isPlaying) {
+                        EditorGUI.BeginDisabledGroup(true);
+                    }
+                }
+
                 Handles.DrawLine(new Vector2(rect.xMin, 60), new Vector2(rect.xMax, 60));
-                for (int i = 0; i < animotionTreeEditor.tree.properties.Count; i++) {
-                    TreeProperty property = animotionTreeEditor.tree.properties[i];
+                for (int i = 0; i < properties.Count; i++) {
+                    TreeProperty property = properties[i];
 
                     Rect propertyRect = new Rect(new Vector2(rect.xMin, 60 + 25 * i), new Vector2(rect.width, 25));
 
@@ -62,18 +85,16 @@ namespace Animotion {
                         menu.ShowAsContext();
                     }
 
-                    bool isBoolTrue = false;
-                    if (animotionTreeEditor.animotionAnimator) {
-                        //isBoolTrue = animotionTreeEditor.animotionAnimator.GetBool(property);
-                    }
 
-                    Handles.DrawSolidRectangleWithOutline(propertyRect, isBoolTrue ? AnimotionTreeEditor.BACKGROUND_COLOR : AnimotionTreeEditor.LIGHT_BACKGROUND_COLOR, AnimotionTreeEditor.BORDER_COLOR);
+                    Handles.DrawSolidRectangleWithOutline(propertyRect, AnimotionTreeEditor.LIGHT_BACKGROUND_COLOR, AnimotionTreeEditor.BORDER_COLOR);
                     //Handles.Label(new Vector2(20, 65 + i * 25), booleanName);
 
                     Rect propertyFieldRect = new Rect(new Vector2(rect.xMin + 2.5f, 60 + 25 * i + 2f), new Vector2(rect.width - 5f, 20));
                     float gap = 5f;
                     Rect propertyNameFieldRect = new Rect(propertyFieldRect.min, new Vector2(4 * propertyFieldRect.width / 5 - gap / 2, propertyFieldRect.height));
                     property.name = EditorGUI.TextField(propertyNameFieldRect, property.name);
+
+                    EditorGUI.BeginChangeCheck();
 
                     switch (property.type) {
                         case TreePropertyType.Boolean:
@@ -91,7 +112,21 @@ namespace Animotion {
                             property.value = EditorGUI.FloatField(new Rect(new Vector2(propertyFieldRect.xMax - propertyFieldRect.height * 1.45f, propertyFieldRect.yMin), new Vector2(propertyFieldRect.height * 1.45f, propertyFieldRect.height)), property.value == null ? 0 : (float)property.value);
                             break;
                     }
+
+                    if (EditorGUI.EndChangeCheck()) {
+                        //if (animotionTreeEditor.animotionAnimator) {
+                        //    animotionTreeEditor.animotionAnimator.UpdateProperties();
+                        //}
+                    }
+
                     EditorUtility.SetDirty(property);
+                }
+
+                if (animotionTreeEditor.animotionAnimator) {
+                } else {
+                    if (Application.isPlaying) {
+                        EditorGUI.EndDisabledGroup();
+                    }
                 }
             }
             Handles.EndGUI();

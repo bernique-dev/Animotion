@@ -16,9 +16,9 @@ MonoBehaviour:
   endNodeId: 0
   m_conditions:
   - id: 0
-    property: {fileID: 11400000, guid: a9195423d6176ba4ba0a59632702369d, type: 2}
+    property: {fileID: 11400000, guid: 97f123274df3ba24a85304a034144ce1, type: 2}
     tree: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
     conditionIndex: 0
-    intValue: 0
+    intValue: 15
     floatValue: 0
   tree: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}

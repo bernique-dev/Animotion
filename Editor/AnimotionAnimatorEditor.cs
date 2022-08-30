@@ -11,7 +11,7 @@ namespace Animotion {
             AnimotionAnimator animotionAnimator = (AnimotionAnimator)target;
 
             if (animotionAnimator.treeData != null) {
-                foreach (TreeProperty property in animotionAnimator.treeData.properties) {
+                foreach (TreeProperty property in animotionAnimator.properties) {
                     string propertyName = property.name;
                     EditorGUILayout.BeginHorizontal();
 

@@ -22,4 +22,4 @@ MonoBehaviour:
   animotionClipsData: {fileID: 11400000, guid: 9d33d8bf1090d1943a56bae61a3fb8b5, type: 2}
   animotionClip: {fileID: 0}
   children: 01000000
-  waitForEnd: 0
+  waitForEnd: 1

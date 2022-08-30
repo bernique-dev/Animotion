@@ -21,22 +21,4 @@ MonoBehaviour:
     conditionIndex: 0
     intValue: 5
     floatValue: 0
-  - id: 0
-    property: {fileID: 0}
-    tree: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
-    conditionIndex: 0
-    intValue: 5
-    floatValue: 0
-  - id: 0
-    property: {fileID: 11400000, guid: a9195423d6176ba4ba0a59632702369d, type: 2}
-    tree: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
-    conditionIndex: 0
-    intValue: 5
-    floatValue: 0
-  - id: 0
-    property: {fileID: 11400000, guid: 103e52b9544117441b2f5337e4ec780c, type: 2}
-    tree: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
-    conditionIndex: 0
-    intValue: 5
-    floatValue: 2.15
   tree: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}

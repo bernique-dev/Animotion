@@ -22,12 +22,12 @@ namespace Animotion {
 
             GUILayout.Label(linkData.startNodeId + " -> " + linkData.endNodeId, centeredStyle);
 
-            for (int i = 0; i < linkData.reverseConditions.Count; i++) {
-                if (linkData.reverseConditions[i] == null) {
+            for (int i = 0; i < linkData.conditions.Count; i++) {
+                if (linkData.conditions[i] == null) {
                     //linkData.conditions[i] = ScriptableObject.CreateInstance<TreePropertyCondition>();
                 }
-                linkData.reverseConditions[i].tree = linkData.tree;
-                linkData.reverseConditions[i].treePropertyCondition = linkData.reverseConditions[i];
+                linkData.conditions[i].tree = linkData.tree;
+                linkData.conditions[i].treePropertyCondition = linkData.conditions[i];
             }
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_conditions"));
 

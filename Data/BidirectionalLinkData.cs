@@ -18,9 +18,6 @@ namespace Animotion {
         }
         public List<TreePropertyCondition> m_reverseConditions;
 
-        //! Transfert des listes dans booleans
-        public Dictionary<string, bool> reverseBooleans;
-
 
     }
 }

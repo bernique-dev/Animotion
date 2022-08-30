@@ -9,7 +9,7 @@ namespace Animotion {
         public int startNodeId;
         public int endNodeId;
 
-        public List<TreePropertyCondition> reverseConditions {
+        public List<TreePropertyCondition> conditions {
             get {
                 if (m_conditions == null) m_conditions = new List<TreePropertyCondition>();
                 return m_conditions;
@@ -21,19 +21,6 @@ namespace Animotion {
         public List<TreePropertyCondition> m_conditions;
 
         [HideInInspector] public TreeData tree;
-        public List<TreeProperty> properties {
-            get {
-                return tree.properties;
-            }
-        }
-
-        public void SaveConditions() {
-            foreach(TreePropertyCondition condition in reverseConditions) {
-
-                //AssetDatabase.CreateAsset(condition, tree.folderPath + "/condition" + condition.id + ".asset");
-                //EditorUtility.SetDirty(this);
-            }
-        }
 
     }
 }

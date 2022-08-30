@@ -41,10 +41,17 @@ namespace Animotion {
 
         public TreePropertyCondition treePropertyCondition;
 
-        public void SetValues(TreeProperty _property) {
+        public TreePropertyCondition(TreeProperty _property) {
             property = _property;
             if (id < 0) id = idCounter;
             idCounter++;
+        }
+
+        public TreePropertyCondition Copy(TreeProperty treeProperty) {
+            TreePropertyCondition condition = new TreePropertyCondition(treeProperty);
+            condition.intValue = intValue;
+            condition.floatValue = floatValue;
+            return condition;
         }
 
         public void Process() {
@@ -98,6 +105,25 @@ namespace Animotion {
             return GetBoolConditionMethods().FirstOrDefault(can => can.name == name);
         }
 
+        public override string ToString() {
+            string conditionString = "XXX";
+            switch (property.type) {
+                case TreePropertyType.Boolean:
+                    conditionString = GetBoolConditionMethods()[conditionIndex].name;
+                    break;
+                case TreePropertyType.Trigger:
+                    conditionString = "triggers";
+                    break;
+                case TreePropertyType.Integer:
+                    conditionString = GetIntConditionMethods()[conditionIndex].name + " " + intValue;
+                    break;
+                case TreePropertyType.Float:
+                    conditionString = GetFloatConditionMethods()[conditionIndex].name + " " + floatValue;
+                    break;
+            }
+            return property.name + " (" + property.value + ") " + conditionString + " ?";
+        }
+
     }
 
     public class ConditionAndName<T> {
@@ -114,7 +140,6 @@ namespace Animotion {
             name = _name;
             twoParametersFunction = _function;
         }
-
 
         public bool Apply(T parameter) {
             return oneParameterFunction(parameter);

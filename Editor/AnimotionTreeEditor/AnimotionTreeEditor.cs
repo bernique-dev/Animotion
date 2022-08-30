@@ -41,7 +41,6 @@ namespace Animotion {
 
         public AnimotionAnimator animotionAnimator {
             get {
-                GameObject activeGameObject = Selection.activeGameObject;
                 if (activeGameObject) {
                     AnimotionAnimator aa = activeGameObject.GetComponent<AnimotionAnimator>();
                     return aa ? (aa.treeData == tree ? aa : null) : null;
@@ -49,6 +48,7 @@ namespace Animotion {
                 return null;
             }
         }
+        private GameObject activeGameObject;
 
         [MenuItem("Animotion/Animotion Tree Editor")]
         public static void ShowWindow() {
@@ -107,6 +107,12 @@ namespace Animotion {
 
         public override void Draw() {
             Handles.BeginGUI();
+
+            if (Selection.activeGameObject && Selection.activeGameObject.GetComponent<AnimotionAnimator>()) {
+                activeGameObject = Selection.activeGameObject;
+            }
+
+
             DrawMenuBar();
 
             if (drawnNodes.Count > 0) {
@@ -302,8 +308,8 @@ namespace Animotion {
                 linkData.tree = tree;
                 if (reverseLinkData) {
                     BidirectionalLinkData bidirectionalLinkData = linkData as BidirectionalLinkData;
-                    bidirectionalLinkData.reverseConditions = reverseLinkData.reverseConditions;
-                    bidirectionalLinkData.reverseConditions = linkData.reverseConditions;
+                    bidirectionalLinkData.reverseConditions = reverseLinkData.conditions;
+                    bidirectionalLinkData.reverseConditions = linkData.conditions;
                     linkData.startNodeId = end.node.id;
                     linkData.endNodeId = start.node.id;
                     tree.DeleteLink(reverseLinkData);

@@ -60,4 +60,9 @@ public class TreeProperty : ScriptableObject {
         type = _type;
     }
 
+    public void SetValues(TreeProperty treeProperty) {
+        SetValues(treeProperty.name, treeProperty.type);
+        value = treeProperty.value;
+    }
+
 }
