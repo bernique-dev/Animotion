@@ -16,8 +16,6 @@ MonoBehaviour:
   isRoot: 0
   position: {x: -103.5, y: 79.5}
   nodeName: node2
-  animotionClipsDataPath: 
-  animotionClipPath: 
   hasMultipleDirections: 0
   animotionClipsData: {fileID: 0}
   animotionClip: {fileID: 0}

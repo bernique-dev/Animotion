@@ -176,8 +176,14 @@ namespace Animotion {
             }
             GUILayout.FlexibleSpace();
             if (tree) {
-                if (GUILayout.Button(tree.name + (animotionAnimator ? " (" + animotionAnimator.gameObject.name + ")" : ""), EditorStyles.toolbarButton)) {
+                if (GUILayout.Button(tree.name, EditorStyles.toolbarButton)) {
                     Selection.activeObject = tree;
+                }
+                if (activeGameObject) {
+                    if (GUILayout.Button(activeGameObject.name, EditorStyles.toolbarButton)) {
+                        if (activeGameObject == Selection.activeGameObject) Selection.activeGameObject = null;
+                        activeGameObject = null;
+                    }
                 }
             }
             EditorGUILayout.EndHorizontal();

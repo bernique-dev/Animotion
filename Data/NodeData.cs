@@ -18,12 +18,6 @@ namespace Animotion {
 
         public string nodeName;
 
-        /// <summary>
-        /// Only used for serialization
-        /// </summary>
-        [HideInInspector] public string animotionClipsDataPath;
-        [HideInInspector] public string animotionClipPath;
-
         public bool hasMultipleDirections;
         public AnimotionClipsData animotionClipsData;
         public AnimotionClip animotionClip;
@@ -58,16 +52,6 @@ namespace Animotion {
                 return children.Count;
             }
         }
-#if UNITY_EDITOR
-        public void SaveData() {
-            if (animotionClipsData) {
-                animotionClipsDataPath = AssetDatabase.GetAssetPath(animotionClipsData);
-            }
-            if (animotionClip) {
-                animotionClipPath = AssetDatabase.GetAssetPath(animotionClip);
-            }
-        }
-#endif
 
     }
 }
