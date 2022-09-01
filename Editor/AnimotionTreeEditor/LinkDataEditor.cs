@@ -10,9 +10,8 @@ namespace Animotion {
 
         protected GUIStyle centeredStyle;
 
-        protected bool conditionsFoldout;
-
         public override void OnInspectorGUI() {
+            //base.OnInspectorGUI();
             serializedObject.Update();
             LinkData linkData = target as LinkData;
 
@@ -20,7 +19,7 @@ namespace Animotion {
             _centeredStyle.alignment = TextAnchor.MiddleCenter;
             centeredStyle = _centeredStyle;
 
-            GUILayout.Label(linkData.startNodeId + " -> " + linkData.endNodeId, centeredStyle);
+            GUILayout.Label(linkData.tree.GetNode(linkData.startNodeId).nodeName + " -> " + linkData.tree.GetNode(linkData.endNodeId).nodeName, centeredStyle);
 
             for (int i = 0; i < linkData.conditions.Count; i++) {
                 if (linkData.conditions[i] == null) {

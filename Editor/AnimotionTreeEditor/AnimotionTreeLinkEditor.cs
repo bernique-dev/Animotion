@@ -46,12 +46,16 @@ namespace Animotion {
                 end = endNode.rect.center;
                 Vector2[] startSidesCenter = new Vector2[] {
                     startNode.rect.GetTopSideCenter(),
-                    startNode.rect.GetDownSideCenter()
+                    startNode.rect.GetRightSideCenter(),
+                    startNode.rect.GetDownSideCenter(),
+                    startNode.rect.GetLeftSideCenter()
                 };
 
                 Vector2[] endSidesCenter = new Vector2[] {
                     endNode.rect.GetTopSideCenter(),
-                    endNode.rect.GetDownSideCenter()
+                    endNode.rect.GetRightSideCenter(),
+                    endNode.rect.GetDownSideCenter(),
+                    endNode.rect.GetLeftSideCenter()
                 };
 
                 DrawingUtils.FindClosestSegment(startSidesCenter, endSidesCenter, ref start, ref end);

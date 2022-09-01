@@ -24,7 +24,7 @@ namespace Animotion {
             //Debug.Log(propertySerializedProperty);
             //Debug.Log(treeSerializedProperty);
 
-            EditorGUI.BeginChangeCheck();
+            //EditorGUI.BeginChangeCheck();
 
             if (tree) {
                 int propertyIndex = EditorGUI.Popup(new Rect(position.min, new Vector2(position.width / 3, position.height)), treeProperty != null ? tree.properties.IndexOf(treeProperty) : 0, tree.properties.Select(p => p.name).ToArray());
@@ -48,7 +48,7 @@ namespace Animotion {
                 }
 
 
-                if (EditorGUI.EndChangeCheck()) {
+                //if (EditorGUI.EndChangeCheck()) {
                     property.FindPropertyRelative("property").objectReferenceValue = tree.properties[propertyIndex] as UnityEngine.Object;
 
                     switch (tree.properties[propertyIndex].type) {
@@ -65,7 +65,7 @@ namespace Animotion {
                             break;
                     }
                     property.FindPropertyRelative("conditionIndex").intValue = propertyConditionIndex;
-                }
+                //}
             }
 
             //Handles.BeginGUI();

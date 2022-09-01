@@ -22,5 +22,10 @@ namespace Animotion {
 
         [HideInInspector] public TreeData tree;
 
+        public virtual string ToString() {
+            return tree ? (tree.GetNode(startNodeId).nodeName + " -> " + tree.GetNode(endNodeId).nodeName) : (startNodeId + "->" + endNodeId);
+        }
+
+
     }
 }

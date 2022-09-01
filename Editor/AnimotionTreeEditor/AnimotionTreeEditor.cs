@@ -314,8 +314,8 @@ namespace Animotion {
                 linkData.tree = tree;
                 if (reverseLinkData) {
                     BidirectionalLinkData bidirectionalLinkData = linkData as BidirectionalLinkData;
-                    bidirectionalLinkData.reverseConditions = reverseLinkData.conditions;
-                    bidirectionalLinkData.reverseConditions = linkData.conditions;
+                    bidirectionalLinkData.conditions = reverseLinkData.conditions;
+                    bidirectionalLinkData.reverseConditions = new List<TreePropertyCondition>();
                     linkData.startNodeId = end.node.id;
                     linkData.endNodeId = start.node.id;
                     tree.DeleteLink(reverseLinkData);

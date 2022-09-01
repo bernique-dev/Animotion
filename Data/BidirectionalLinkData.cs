@@ -19,5 +19,9 @@ namespace Animotion {
         public List<TreePropertyCondition> m_reverseConditions;
 
 
+        public override string ToString() {
+            return tree ? (tree.GetNode(startNodeId).nodeName + " -- " + tree.GetNode(endNodeId).nodeName) : (startNodeId + "--" + endNodeId);
+        }
+
     }
 }

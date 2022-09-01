@@ -9,7 +9,7 @@ namespace Animotion {
         private SpriteRenderer spriteRenderer;
         public bool animateOnStart = true;
         public int frame;
-        private bool isTimerRunning;
+        [SerializeField] private bool isTimerRunning;
 
 
         public NodeData currentNode {
@@ -22,22 +22,28 @@ namespace Animotion {
                     currentNodeChildren = currentNode.children.Select(id => treeData.nodes.Find(t => t.id == id)).ToList();
                     List<LinkData> tmp_currentNodeLinks = currentNode.children.Select(id => treeData.links.Find(l => (l.startNodeId == currentNode.id && l.endNodeId == id) || (l.endNodeId == currentNode.id && l.startNodeId == id && l is BidirectionalLinkData))).Distinct().ToList();
                     currentNodeLinks = new List<LinkData>();
+                    currentNodeReverseLinks = new List<BidirectionalLinkData>();
                     foreach (LinkData link in tmp_currentNodeLinks) {
-                        LinkData newLink = link is BidirectionalLinkData ? ScriptableObject.CreateInstance<BidirectionalLinkData>() : ScriptableObject.CreateInstance<LinkData>();
+                        LinkData newLink = ScriptableObject.CreateInstance<LinkData>();
                         newLink.name = link.name;
-                        newLink.startNodeId = link.startNodeId;
-                        newLink.endNodeId = link.endNodeId;
-                        foreach (TreePropertyCondition condition in link.conditions) {
-                            newLink.conditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
-                        }
-                        if (link is BidirectionalLinkData) {
-                            foreach (TreePropertyCondition condition in (newLink as BidirectionalLinkData).reverseConditions) {
-                                (newLink as BidirectionalLinkData).reverseConditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
+                        newLink.tree = treeData;
+                        if (link.startNodeId == currentNode.id) {
+                            newLink.startNodeId = link.startNodeId;
+                            newLink.endNodeId = link.endNodeId;
+                            foreach (TreePropertyCondition condition in link.conditions) {
+                                newLink.conditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
+                            }
+                        } else {
+                            newLink.endNodeId = link.startNodeId;
+                            newLink.startNodeId = link.endNodeId;
+                            foreach (TreePropertyCondition condition in (link as BidirectionalLinkData).reverseConditions) {
+                                newLink.conditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
                             }
                         }
                         currentNodeLinks.Add(newLink);
                     }
                 }
+                //Debug.Log("[" + gameObject + " | " + animotionClip + "]");
             }
         }
         public NodeData m_currentNode;
@@ -65,7 +71,7 @@ namespace Animotion {
         
         [SerializeField] private List<TreeProperty> m_properties;
 
-        private void Start() {
+        private void Awake() {
             spriteRenderer = GetComponent<SpriteRenderer>();
             if (animotionClip) {
                 spriteRenderer.sprite = animotionClip.GetFrame(0).sprite;
@@ -106,6 +112,7 @@ namespace Animotion {
         } 
 
         public void SetObject(string propertyName, object value) {
+            //Debug.Log("[" + gameObject.name + "] " + propertyName + " -> "  + value);
             properties.Find(p => p.name == propertyName).value = value;
         }
 
@@ -164,7 +171,6 @@ namespace Animotion {
             foreach (LinkData link in links) {
                 if (link) {
                     bool takeLink = true;
-
                     //Check
                     takeLink = CheckConditions(link.conditions);
                     if (takeLink) {
@@ -172,25 +178,11 @@ namespace Animotion {
                         frame = 0;
                         return;
                     }
-
-                    BidirectionalLinkData bidirectionalLink = link as BidirectionalLinkData;
-                    if (bidirectionalLink) {
-                        takeLink = true;
-
-                        //Check
-                        takeLink = CheckConditions(bidirectionalLink.reverseConditions);
-
-                        if (takeLink) {
-                            currentNode = treeData.GetNode(bidirectionalLink.startNodeId);
-                            frame = 0;
-                            break;
-                        }
-                    }
                 }
             }
         }
 
-        private bool CheckConditions(List<TreePropertyCondition> conditions) {
+    private bool CheckConditions(List<TreePropertyCondition> conditions) {
             bool takeLink = true;
             foreach (TreePropertyCondition condition in conditions) {
                 condition.Process();

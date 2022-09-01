@@ -10,7 +10,7 @@ namespace Animotion {
         public override void OnInspectorGUI() {
             BidirectionalLinkData biLinkData = target as BidirectionalLinkData;
             base.OnInspectorGUI();
-            GUILayout.Label(biLinkData.endNodeId + " -> " + biLinkData.startNodeId, centeredStyle);
+            GUILayout.Label(biLinkData.tree.GetNode(biLinkData.endNodeId).nodeName + " -> " + biLinkData.tree.GetNode(biLinkData.startNodeId).nodeName, centeredStyle);
 
             for (int i = 0; i < biLinkData.reverseConditions.Count; i++) {
                 if (biLinkData.reverseConditions[i] == null) {
@@ -22,7 +22,6 @@ namespace Animotion {
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_reverseConditions"));
 
             serializedObject.ApplyModifiedProperties();
-
         }
 
     }

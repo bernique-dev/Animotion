@@ -49,8 +49,12 @@ namespace Animotion {
 
         public TreePropertyCondition Copy(TreeProperty treeProperty) {
             TreePropertyCondition condition = new TreePropertyCondition(treeProperty);
+            condition.boolCondition = boolCondition;
+            condition.intCondition = intCondition;
+            condition.floatCondition = floatCondition;
             condition.intValue = intValue;
             condition.floatValue = floatValue;
+            condition.conditionIndex = conditionIndex;
             return condition;
         }
 
