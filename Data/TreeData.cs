@@ -123,7 +123,7 @@ namespace Animotion {
         public void AddProperty(TreeProperty property) {
             properties.Add(property);
 #if UNITY_EDITOR
-            Debug.Log(Directory.Exists(folderPath));
+            //Debug.Log(Directory.Exists(folderPath));
             if (!Directory.Exists(folderPath)) {
                 Directory.CreateDirectory(folderPath);
             }

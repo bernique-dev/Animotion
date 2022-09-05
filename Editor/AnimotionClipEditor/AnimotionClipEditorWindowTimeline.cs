@@ -332,7 +332,7 @@ namespace Animotion {
                     }
                     // Object dropped on timeline
                     if (e.type == EventType.DragPerform) {
-                        Debug.Log(GetFrameFromTimelinePosition(e.mousePosition));
+                        //Debug.Log(GetFrameFromTimelinePosition(e.mousePosition));
                         int frameFromTimeline = GetFrameFromTimelinePosition(e.mousePosition);
 
                         for (int i = 0; i < DragAndDrop.objectReferences.Length; i++) {

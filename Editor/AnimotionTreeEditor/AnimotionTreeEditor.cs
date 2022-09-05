@@ -50,6 +50,8 @@ namespace Animotion {
         }
         private GameObject activeGameObject;
 
+        private int treeIndex;
+
         [MenuItem("Animotion/Animotion Tree Editor")]
         public static void ShowWindow() {
             EditorWindow.GetWindow(typeof(AnimotionTreeEditor), false, "Animotion Tree Editor");
@@ -109,7 +111,17 @@ namespace Animotion {
             Handles.BeginGUI();
 
             if (Selection.activeGameObject && Selection.activeGameObject.GetComponent<AnimotionAnimator>()) {
-                activeGameObject = Selection.activeGameObject;
+                if (Selection.activeGameObject != activeGameObject) {
+                    if (Selection.activeGameObject.GetComponent<AnimotionAnimator>().treeData == tree) {
+                        activeGameObject = Selection.activeGameObject;
+                    }
+                    else {
+                        if (Application.isPlaying) {
+                            activeGameObject = Selection.activeGameObject;
+                            tree = Selection.activeGameObject.GetComponent<AnimotionAnimator>().treeData;
+                        }
+                    }
+                }
             }
 
 
@@ -165,15 +177,31 @@ namespace Animotion {
         public void DrawMenuBar() {
 
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
-            if (GUILayout.Button("Clear nodes", EditorStyles.toolbarButton)) {
-                drawnNodes.Clear();
-                drawnLinks.Clear();
-                tree.Clear();
-                NodeData.idCounter = 0;
+            //if (GUILayout.Button("Clear nodes", EditorStyles.toolbarButton)) {
+            //    drawnNodes.Clear();
+            //    drawnLinks.Clear();
+            //    tree.Clear();
+            //    NodeData.idCounter = 0;
+            //}
+            //if (GUILayout.Button("Refresh display", EditorStyles.toolbarButton)) {
+            //    Initiate();
+            //}
+
+            if (Application.isPlaying) {
+                GUILayout.Label("Selection unavaible in Play Mode");
+            } else {
+                List<string> paths = AssetDatabase.FindAssets("t: TreeData").ToList().Select(uuid => AssetDatabase.GUIDToAssetPath(uuid)).ToList();
+                paths = paths.Where(p => p.Contains("Assets")).ToList();
+                List<string> pathsWithoutExtension = paths.Select(a => a.Substring(6, a.Length - 6)).ToList();
+
+                treeIndex = EditorGUILayout.Popup(treeIndex, pathsWithoutExtension.Select(a => a.Substring(1)).ToArray(), EditorStyles.toolbarDropDown);
+                TreeData tmpTree = AssetDatabase.LoadAssetAtPath<TreeData>(paths[treeIndex]);
+                if (GUILayout.Button("Select", EditorStyles.toolbarButton)) {
+                    tree = tmpTree;
+                    Initiate();
+                }
             }
-            if (GUILayout.Button("Refresh display", EditorStyles.toolbarButton)) {
-                Initiate();
-            }
+
             GUILayout.FlexibleSpace();
             if (tree) {
                 if (GUILayout.Button(tree.name, EditorStyles.toolbarButton)) {

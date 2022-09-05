@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -70,6 +71,7 @@ namespace Animotion {
         /// </summary>
         public bool isPlaying;
 
+        private int clipIndex;
 
         public void OnGUI() {
             Draw();
@@ -163,17 +165,17 @@ namespace Animotion {
                         EditorGUIUtility.ExitGUI();
                     }
                 }
-                //if (GUILayout.Button("Tools", EditorStyles.toolbarDropDown, GUILayout.Width(MENUBAR_BUTTON_WIDTH))) {
-                //    GenericMenu toolsMenu = new GenericMenu();
-                //    if (Selection.activeGameObject != null)
-                //        toolsMenu.AddItem(new GUIContent("Optimize Selected"), false, OnTools_OptimizeSelected);
-                //    else
-                //        toolsMenu.AddDisabledItem(new GUIContent("Optimize Selected"));
-                //    toolsMenu.AddSeparator("");
-                //    toolsMenu.AddItem(new GUIContent("Help..."), false, OnTools_Help);
-                //    // Offset menu from right of editor window
-                //    toolsMenu.DropDown(new Rect(MENUBAR_BUTTON_WIDTH, 0, 0, 20));
-                //}
+
+
+                List<string> paths = AssetDatabase.FindAssets("t: AnimotionClip").ToList().Select(uuid => AssetDatabase.GUIDToAssetPath(uuid)).ToList();
+                paths = paths.Where(p => p.Contains("Assets")).ToList();
+                List<string> pathsWithoutExtension = paths.Select(a => a.Substring(6, a.Length - 6)).ToList();
+
+                clipIndex = EditorGUILayout.Popup(clipIndex, pathsWithoutExtension.Select(a => a.Substring(1)).ToArray(), EditorStyles.toolbarDropDown);
+                AnimotionClip tmpAnimotionClip = AssetDatabase.LoadAssetAtPath<AnimotionClip>(paths[clipIndex]);
+                if (animotionClip != tmpAnimotionClip) {
+                    animotionClip = tmpAnimotionClip;
+                }
             }
 
             GUILayout.FlexibleSpace();

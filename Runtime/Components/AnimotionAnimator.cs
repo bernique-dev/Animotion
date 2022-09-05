@@ -1,4 +1,5 @@
 using System.Linq;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -31,6 +32,7 @@ namespace Animotion {
                             newLink.startNodeId = link.startNodeId;
                             newLink.endNodeId = link.endNodeId;
                             foreach (TreePropertyCondition condition in link.conditions) {
+                                //Debug.Log(condition.property.name + " " + (String.Join(",",properties.Select(p => p.name).ToArray())));
                                 newLink.conditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
                             }
                         } else {
@@ -52,7 +54,18 @@ namespace Animotion {
         public List<LinkData> currentNodeLinks;
         public List<BidirectionalLinkData> currentNodeReverseLinks;
 
-        public TreeData treeData;
+        public TreeData treeData {
+            get {
+                return m_treeData;
+            }
+            set {
+                Debug.Log(value);
+                m_treeData = value;
+                UpdateProperties();
+                currentNode = m_treeData.root;
+            }
+        }
+        [SerializeField] private TreeData m_treeData;
         // Hideable
         [SerializeField] private AniDirection aniDirection = AniDirection.Right;
         public AnimotionClip animotionClip {
@@ -146,6 +159,7 @@ namespace Animotion {
         }
 
         private void FixedUpdate() {
+            //Debug.Log(gameObject);
             //Debug.LogError("FixedUpdate " + (isTimerRunning ? "[RUNNING]" : "[PAUSE]") + " " + (animateOnStart ? "[START]" : "[PAS START]") + " " + (animotionClip ? "[CLIP]" : "[PAS CLIP]"));
             if (isTimerRunning) {
                 if (animotionClip) {
@@ -161,8 +175,10 @@ namespace Animotion {
                     frame = 0;
                 }
             }
-            if (!currentNode.waitForEnd || (frame == 0)) {
-                CheckLinks(currentNodeLinks);
+            if (currentNode) {
+                if (!currentNode.waitForEnd || (frame == 0)) {
+                    CheckLinks(currentNodeLinks);
+                }
             }
         }
 
@@ -193,11 +209,10 @@ namespace Animotion {
                         }
                         break;
                     case TreePropertyType.Trigger:
-                        if ((bool)condition.property.value) {
-                            condition.property.value = false;
-                        } else {
+                        if (!((bool)condition.property.value)) {
                             takeLink = false;
                         }
+                        condition.property.value = false;
                         break;
                     case TreePropertyType.Integer:
                         if (!condition.intCondition((int)condition.property.value, condition.intValue)) {
