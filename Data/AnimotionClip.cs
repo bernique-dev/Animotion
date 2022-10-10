@@ -57,6 +57,10 @@ public class AnimotionClip : ScriptableObject {
         return frameDataList.Count > frame ? frameDataList[frame] : null;
     }
 
+    public bool IsThereFrame(int frame) {
+        return GetFrame(frame) != null;
+    }
+
     public FrameData GetLastFrame(int frame) {
         for (int i = Mathf.Min(frame, frameDataList.Count - 1); i >= 0 ; i--) {
             //Debug.Log(frame + "? - " + frameDataList.Count);
@@ -67,6 +71,10 @@ public class AnimotionClip : ScriptableObject {
             }
         }
         return null;
+    }
+
+    public bool IsEmpty() {
+        return frameDataList.Count == 0;
     }
 
     public int GetFrameNumber() {

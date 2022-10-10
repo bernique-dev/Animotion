@@ -73,6 +73,8 @@ namespace Animotion {
 
         private int clipIndex;
 
+        public bool showDebug;
+
         public void OnGUI() {
             Draw();
         }
@@ -100,7 +102,7 @@ namespace Animotion {
             SetEditorDeltaTime();
 
 
-            Handles.Label(new Vector2(9 * Screen.width / 10, Screen.height / 8), (isPlaying ? "is Playing" : "is not Playing") + "\n"
+            if (showDebug) Handles.Label(new Vector2(9 * Screen.width / 10, Screen.height / 8), (isPlaying ? "is Playing" : "is not Playing") + "\n"
 
                                                                         + "Time:" + time
                                                                         + "\nInterval: " + timeline.timelineGraduationInterval
@@ -111,9 +113,7 @@ namespace Animotion {
                                                                         + "\nCurrent time: " + TimeParser.GetParsedString(time)
                                                                         + "\n"
                                                                         + "\nframeDragged=" + timeline.frameDragged
-                                                                        + "\nframeDataDragged=" + (timeline.frameDataDragged != null ? "(" + timeline.frameDataDragged.frame + ")" : "null")
-                                                                        + "\nframeSelected=" + timeline.frameSelected
-                                                                        + "\nframeDataSelected=" + (timeline.frameDataSelected != null ? "(" + timeline.frameDataSelected.frame + ")" : "null"));
+                                                                        + "\nframeDataDragged=" + (timeline.frameDataDragged != null ? "(" + timeline.frameDataDragged.frame + ")" : "null"));
         }
 
         private void SetEditorDeltaTime() {
@@ -179,7 +179,12 @@ namespace Animotion {
             }
 
             GUILayout.FlexibleSpace();
-            if (animotionClip != null) GUILayout.Label(animotionClip.name);
+            showDebug = GUILayout.Toggle(showDebug, "Debug", EditorStyles.toolbarButton);
+            if (animotionClip != null) {
+                if (GUILayout.Button(animotionClip.name, EditorStyles.toolbarButton)) {
+                    Selection.activeObject = animotionClip;
+                }
+            }
             EditorGUILayout.EndHorizontal();
         }
     }

@@ -155,11 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animateOnStart: 1
   frame: 0
+  isTimerRunning: 0
   m_currentNode: {fileID: 0}
   currentNodeChildren: []
   currentNodeLinks: []
   currentNodeReverseLinks: []
-  treeData: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
+  m_treeData: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
   aniDirection: 4
   m_properties: []
 --- !u!212 &511095132
@@ -345,11 +346,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animateOnStart: 1
   frame: 0
+  isTimerRunning: 0
   m_currentNode: {fileID: 0}
   currentNodeChildren: []
   currentNodeLinks: []
   currentNodeReverseLinks: []
-  treeData: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
+  m_treeData: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
   aniDirection: 4
   m_properties: []
 --- !u!212 &1682613108

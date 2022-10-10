@@ -132,16 +132,9 @@ namespace Animotion {
             }
         }
         public FrameData frameDataDragged = null;
-        public int frameSelected {
-            get {
-                return frameDataSelected != null ? frameDataSelected.frame : -1;
-            }
-        }
-        public FrameData frameDataSelected = null;
 
 
         private void OnEnable() {
-            frameDataSelected = null;
             frameDataDragged= null;
         }
 
@@ -216,12 +209,7 @@ namespace Animotion {
 
 
             if (animotionClip) {
-                //Draws small strokes to show selection
-                if (frameDataSelected != null && frameDataDragged == null) {
-                    Rect spriteRect = RectUtils.GetRect(timelineRect.min + new Vector2(TIMELINE_GRADUATION_X_OFFSET + frameSelected * timelineGraduationInterval / 100, timelineSpriteHeight), timelineSpriteSize);
-                    Handles.DrawLine(spriteRect.min + Vector2.up * spriteRect.height / 4, new Vector2(spriteRect.xMin, spriteRect.yMax) - Vector2.up * spriteRect.height / 4);
-                    Handles.DrawLine(new Vector2(spriteRect.xMax, spriteRect.yMin) + Vector2.up * spriteRect.height / 4, spriteRect.max - Vector2.up * spriteRect.height / 4);
-                }
+                
                 //Draws frames' sprite
                 for (int i = 0; i <= Mathf.Max(animotionClip.length, animotionClip.GetFrameNumber()); i++) {
                     if (i < animotionClip.GetFrameNumber()) {
@@ -301,7 +289,6 @@ namespace Animotion {
                                 Rect rect = RectUtils.GetRect(timelineRect.min + new Vector2(TIMELINE_GRADUATION_X_OFFSET + i * timelineGraduationInterval / 100, timelineRect.height / 2), Vector2.one * 25);
                                 if (rect.Contains(e.mousePosition) && e.type == EventType.MouseDown) {
                                     if (frameDragged < 0) {
-                                        frameDataSelected = animotionClip.GetFrame(i);
                                         frameDataDragged = animotionClip.GetFrame(i);
                                         animotionClip.DeleteFrame(frameDragged);
                                     }
@@ -316,9 +303,16 @@ namespace Animotion {
                     if (e.type == EventType.ContextClick) {
                         int frame = GetFrameFromTimelinePosition(e.mousePosition);
                         GenericMenu menu = new GenericMenu();
-                        menu.AddItem(new GUIContent(frame.ToString()), false, () => Debug.Log(frame));
-                        menu.AddItem(new GUIContent("Erase Key"), false, () => animotionClip.DeleteFrame(frame));
-                        menu.AddItem(new GUIContent("Delete Keys"), false, () => animotionClip.DeleteAllFrames());
+                        //menu.AddItem(new GUIContent(frame.ToString()), false, () => Debug.Log(frame));
+                        if (animotionClip.IsThereFrame(frame)) {
+                            menu.AddItem(new GUIContent("Erase Key"), false, () => animotionClip.DeleteFrame(frame));
+                        }
+                        if (animotionClip.IsThereFrame(frame)) {
+                            menu.AddItem(new GUIContent("Delete Keys"), !animotionClip.IsEmpty(), () => animotionClip.DeleteAllFrames());
+                        }
+                        else {
+                            menu.AddDisabledItem(new GUIContent("Delete Keys"));
+                        }
                         menu.ShowAsContext();
                     }
                 }
@@ -352,7 +346,6 @@ namespace Animotion {
                     //  Moves times only if frame not selected
                     if (frameDataDragged == null) {
                         if (e.button == 0) {
-                            frameDataSelected = null;
                             animotionEditorWindow.time = GetRoundedTimeFromTimelinePosition(e.mousePosition);
                         }
                         if (e.button == 2) {
