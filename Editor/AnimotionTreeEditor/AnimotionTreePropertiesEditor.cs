@@ -39,6 +39,10 @@ namespace Animotion {
             Handles.color = Color.white;
 
             if (animotionTreeEditor.tree) {
+
+                if (Application.isPlaying) {
+                    EditorGUI.BeginDisabledGroup(true);
+                }
                 Texture2D buttonTexture = EditorGUIUtility.Load("Assets/Animotion/Editor/Sprites/medical_healthcare_cross.png") as Texture2D;
 
                 Rect newPropertyFields = new Rect(new Vector2(5, rect.yMin + 5 * 9 / 16), new Vector2(rect.width - 5, 25));
@@ -65,6 +69,10 @@ namespace Animotion {
                 popupStyle.fixedHeight = newPropertyFields.height;
                 newPropertyType = (TreePropertyType)EditorGUI.EnumPopup(new Rect(newPropertyFields.min + new Vector2(30,0), new Vector2(newPropertyFields.width - 35, newPropertyFields.height)) , newPropertyType, popupStyle);
 
+
+                if (Application.isPlaying) {
+                    EditorGUI.EndDisabledGroup();
+                }
 
                 if (animotionTreeEditor.animotionAnimator) {
                 } else {

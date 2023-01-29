@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5174c6fa06032524cb1249712c3ccc21, type: 3}
-  m_Name: animotionTree0Clips 1
+  m_Name: MoveClips
   m_EditorClassIdentifier: 
   mode: 1
-  downAnimotionClip: {fileID: 11400000, guid: a979de30366a36b419ee618e2c06d319, type: 2}
-  leftAnimotionClip: {fileID: 11400000, guid: c48fd8499805b454abd99e096d999f72, type: 2}
-  rightAnimotionClip: {fileID: 11400000, guid: 0a47ee75a9c1db9428b6df0afe5b9913, type: 2}
-  topAnimotionClip: {fileID: 11400000, guid: b0ee87161d25e2e4d86407bd449b195a, type: 2}
+  downAnimotionClip: {fileID: 11400000, guid: 8ad2f93e15c8bed4b8f1d62a2771c5ee, type: 2}
+  leftAnimotionClip: {fileID: 11400000, guid: 100dc3dc519890f449e54e881c8fc793, type: 2}
+  rightAnimotionClip: {fileID: 11400000, guid: abd8fd247d0f07c4c93c6116c4ecfd89, type: 2}
+  topAnimotionClip: {fileID: 11400000, guid: 0d333329998a6f0408a6e8e06815bf3b, type: 2}
   downLeftAnimotionClip: {fileID: 0}
   downRightAnimotionClip: {fileID: 0}
   topLeftAnimotionClip: {fileID: 0}

@@ -23,7 +23,7 @@ namespace Animotion {
                 }
             }
 
-            base.OnInspectorGUI();
+            //base.OnInspectorGUI();
         }
 
     }
