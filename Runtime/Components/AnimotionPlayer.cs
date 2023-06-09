@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Animotion {
     public class AnimotionPlayer : MonoBehaviour {
 
-        public AnimotionClip animotionClip;
+        public AniClip animotionClip;
         private SpriteRenderer spriteRenderer;
         private Image image;
         public bool animateOnStart = true;
@@ -26,7 +26,7 @@ namespace Animotion {
             if (isTimerRunning) {
                 if (animotionClip) {
                     frame += 1;
-                    FrameData frameData = animotionClip.GetLastFrame(frame);
+                    AniFrame frameData = animotionClip.GetLastFrame(frame);
                     if (frameData == null) Debug.Log(frame + " (" + frame + ")/" + animotionClip.length);
                     if (spriteRenderer) spriteRenderer.sprite = frameData.sprite;
                     if (image) image.sprite = frameData.sprite;

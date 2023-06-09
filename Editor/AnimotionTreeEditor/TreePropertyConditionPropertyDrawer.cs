@@ -19,7 +19,7 @@ namespace Animotion {
             SerializedProperty propertySerializedProperty = property.FindPropertyRelative(nameof(TreePropertyCondition.property));
             TreeProperty treeProperty = propertySerializedProperty != null ? (TreeProperty)propertySerializedProperty.objectReferenceValue : null;
             SerializedProperty treeSerializedProperty = property.FindPropertyRelative(nameof(TreePropertyCondition.tree));
-            TreeData tree = treeSerializedProperty != null ? (TreeData)treeSerializedProperty.objectReferenceValue : null;
+            AniTree tree = treeSerializedProperty != null ? (AniTree)treeSerializedProperty.objectReferenceValue : null;
 
             //Debug.Log(propertySerializedProperty);
             //Debug.Log(treeSerializedProperty);

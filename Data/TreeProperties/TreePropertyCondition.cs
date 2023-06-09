@@ -29,7 +29,7 @@ namespace Animotion {
         public static Func<bool, bool> IsBoolFalse = (b) => b is false;
 
         [SerializeReference] [SerializeField] [HideInInspector] public TreeProperty property;
-        [SerializeReference] [SerializeField] [HideInInspector] public TreeData tree;
+        [SerializeReference] [SerializeField] [HideInInspector] public AniTree tree;
 
         public int conditionIndex;
 

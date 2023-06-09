@@ -135,12 +135,12 @@ GameObject:
   - component: {fileID: 511095132}
   - component: {fileID: 511095131}
   m_Layer: 0
-  m_Name: Sprite (1)
+  m_Name: Character 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &511095131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,16 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f811a7bcbe5e83d40a59dc6ff2d172f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animateOnStart: 1
-  frame: 0
-  isTimerRunning: 0
-  m_currentNode: {fileID: 0}
-  currentNodeChildren: []
-  currentNodeLinks: []
-  currentNodeReverseLinks: []
-  m_treeData: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
-  aniDirection: 4
-  m_properties: []
 --- !u!212 &511095132
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -314,6 +304,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1642416358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae5e34bd737a734c9ed0661be2451f2, type: 3}
+  m_Name: link0-1
+  m_EditorClassIdentifier: 
+  startNodeId: 0
+  endNodeId: 1
+  m_conditions:
+  - id: 0
+    property: {fileID: 1853503143}
+    tree: {fileID: 0}
+    conditionIndex: 0
+    intValue: 0
+    floatValue: 0
+  tree: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
 --- !u!1 &1682613106
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,36 +336,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1682613109}
   - component: {fileID: 1682613108}
-  - component: {fileID: 1682613107}
+  - component: {fileID: 1682613110}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Character 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1682613107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682613106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f811a7bcbe5e83d40a59dc6ff2d172f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animateOnStart: 1
-  frame: 0
-  isTimerRunning: 0
-  m_currentNode: {fileID: 0}
-  currentNodeChildren: []
-  currentNodeLinks: []
-  currentNodeReverseLinks: []
-  m_treeData: {fileID: 11400000, guid: 2305f7858d385ba41b11de993f35a550, type: 2}
-  aniDirection: 4
-  m_properties: []
 --- !u!212 &1682613108
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -421,3 +411,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1682613110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682613106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe44da27db96f3844add1339ca8c69cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animateOnStart: 1
+  frame: 0
+  isTimerRunning: 0
+  m_currentNode: {fileID: 11400000, guid: bf59c8eafa637874fa908b0fce8045bc, type: 2}
+  currentNodeChildren:
+  - {fileID: 11400000, guid: 53cd13450c915f7408d5a3bf27938b12, type: 2}
+  currentNodeLinks:
+  - {fileID: 1642416358}
+  currentNodeReverseLinks: []
+  m_treeData: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
+  aniDirection: 4
+  m_properties:
+  - {fileID: 1853503143}
+--- !u!114 &1853503143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e8d9871ec55b048b6fa31e70d90f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 82
+  name: Param1
+  type: 2
+  m_booleanValue: 0
+  m_intValue: 0
+  m_floatValue: 0

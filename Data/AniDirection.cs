@@ -40,20 +40,20 @@ namespace Animotion {
             return result;
         }
 
-        public static AniDirection GetAniDirection(this Vector2 vector, AnimotionClipsDataMode mode = AnimotionClipsDataMode.EightDirections) {
+        public static AniDirection GetAniDirection(this Vector2 vector, AniClipGroupMode mode = AniClipGroupMode.EightDirections) {
             AniDirection aniDirection = AniDirection.Left;
             switch (mode) {
-                case AnimotionClipsDataMode.TwoDirections:
+                case AniClipGroupMode.TwoDirections:
                     aniDirection = vector.x > 0 ? AniDirection.Right : AniDirection.Left;
                     break;
-                case AnimotionClipsDataMode.FourDirections:
+                case AniClipGroupMode.FourDirections:
                     if (Mathf.Abs(vector.x) >= Mathf.Abs(vector.y)) {
                         aniDirection = vector.x > 0 ? AniDirection.Right : AniDirection.Left;
                     } else {
                         aniDirection = vector.y > 0 ? AniDirection.Up : AniDirection.Down;
                     }
                     break;
-                case AnimotionClipsDataMode.EightDirections:
+                case AniClipGroupMode.EightDirections:
                     if (vector.y > 0) {
                         if (vector.x > 0) {
                             aniDirection = AniDirection.UpRight;
