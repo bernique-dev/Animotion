@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31e8d9871ec55b048b6fa31e70d90f76, type: 3}
-  m_Name: property0
+  m_Name: property1
   m_EditorClassIdentifier: 
-  id: 0
-  name: Type
-  type: 2
+  id: 1
+  name: Speed
+  type: 3
   m_booleanValue: 0
   m_intValue: 0
   m_floatValue: 0

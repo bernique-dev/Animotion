@@ -199,12 +199,15 @@ namespace Animotion {
             if (Application.isPlaying) {
                 GUILayout.Label("Selection unavaible in Play Mode");
             } else {
-
-                treeIndex = EditorGUILayout.Popup(treeIndex, pathsWithoutExtension.Select(a => a.Substring(1)).ToArray(), EditorStyles.toolbarDropDown);
-                if (GUILayout.Button("Select", EditorStyles.toolbarButton)) {
-                    AniTree tmpTree = AssetDatabase.LoadAssetAtPath<AniTree>(paths[treeIndex]);
-                    tree = tmpTree;
-                    Initiate();
+                if (paths.Count <= 0) {
+                    GUILayout.Label("No tree found in project");
+                } else {
+                    treeIndex = EditorGUILayout.Popup(treeIndex, pathsWithoutExtension.Select(a => a.Substring(1)).ToArray(), EditorStyles.toolbarDropDown);
+                    if (GUILayout.Button("Select", EditorStyles.toolbarButton)) {
+                        AniTree tmpTree = AssetDatabase.LoadAssetAtPath<AniTree>(paths[treeIndex]);
+                        tree = tmpTree;
+                        Initiate();
+                    }
                 }
             }
 

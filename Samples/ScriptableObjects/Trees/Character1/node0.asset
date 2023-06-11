@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   isRoot: 1
-  position: {x: 303.5, y: -167}
+  position: {x: 320.5, y: -209}
   nodeName: Walking
   hasMultipleDirections: 1
   animotionClipsData: {fileID: 11400000, guid: f0e6c6410d9a00145bfcd6051cf2d3f0, type: 2}

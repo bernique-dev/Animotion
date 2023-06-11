@@ -75,8 +75,20 @@ namespace Animotion {
 
         public bool showDebug;
 
+
+        private List<string> paths;
+        private List<string> pathsWithoutExtension;
+
         public void OnGUI() {
             Draw();
+        }
+
+        private void OnEnable() {
+            RefreshPaths();
+        }
+
+        private void OnFocus() {
+            RefreshPaths();
         }
 
         public override void Draw() {
@@ -142,6 +154,12 @@ namespace Animotion {
             }
         }
 
+        public void RefreshPaths() {
+            paths = AssetDatabase.FindAssets("t: AniClip").ToList().Select(uuid => AssetDatabase.GUIDToAssetPath(uuid)).ToList();
+            paths = paths.Where(p => p.Contains("Assets")).ToList();
+            pathsWithoutExtension = paths.Select(a => a.Substring(6, a.Length - 6)).ToList();
+        }
+
         /// <summary>
         /// Draw the menubar
         /// </summary>
@@ -166,15 +184,15 @@ namespace Animotion {
                     }
                 }
 
-
-                List<string> paths = AssetDatabase.FindAssets("t: AniClip").ToList().Select(uuid => AssetDatabase.GUIDToAssetPath(uuid)).ToList();
-                paths = paths.Where(p => p.Contains("Assets")).ToList();
-                List<string> pathsWithoutExtension = paths.Select(a => a.Substring(6, a.Length - 6)).ToList();
-
-                clipIndex = EditorGUILayout.Popup(clipIndex, pathsWithoutExtension.Select(a => a.Substring(1)).ToArray(), EditorStyles.toolbarDropDown);
-                AniClip tmpAnimotionClip = AssetDatabase.LoadAssetAtPath<AniClip>(paths[clipIndex]);
-                if (animotionClip != tmpAnimotionClip) {
-                    animotionClip = tmpAnimotionClip;
+                if (paths.Count <= 0) {
+                    GUILayout.Label("No tree found in project");
+                }
+                else {
+                    clipIndex = EditorGUILayout.Popup(clipIndex, pathsWithoutExtension.Select(a => a.Substring(1)).ToArray(), EditorStyles.toolbarDropDown);
+                    AniClip tmpAnimotionClip = AssetDatabase.LoadAssetAtPath<AniClip>(paths[clipIndex]);
+                    if (animotionClip != tmpAnimotionClip) {
+                        animotionClip = tmpAnimotionClip;
+                    }
                 }
             }
 

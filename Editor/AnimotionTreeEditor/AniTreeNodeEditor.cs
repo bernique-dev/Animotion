@@ -46,9 +46,6 @@ namespace Animotion {
                     backgroundColor = animotionTreeEditor.animotionAnimator.currentNode.id == node.id ? new Color32(125, 0, 0, 255) : backgroundColor;
                 }
             }
-            if (isMoved) {
-                backgroundColor = Color.magenta;
-            }
             // Draws the node's rectangle
             Handles.DrawSolidRectangleWithOutline(rect, backgroundColor, isSelected ? Color.white : AniTreeEditor.BORDER_COLOR);
             if (animotionAnimator) {
