@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: property0
   m_EditorClassIdentifier: 
   id: 0
-  name: Param1
-  type: 2
+  name: Speed
+  type: 3
   m_booleanValue: 0
   m_intValue: 0
   m_floatValue: 0

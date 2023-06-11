@@ -51,6 +51,8 @@ namespace Animotion {
         private GameObject activeGameObject;
 
         private int treeIndex;
+        private List<string> paths;
+        private List<string> pathsWithoutExtension;
 
         [MenuItem("Animotion/Animotion Tree Editor")]
         public static void ShowWindow() {
@@ -60,10 +62,12 @@ namespace Animotion {
 
         private void OnFocus() {
             Initiate();
+            RefreshPaths();
         }
 
         private void OnEnable() {
             Initiate();
+            RefreshPaths();
         }
 
 
@@ -83,7 +87,7 @@ namespace Animotion {
             if (drawnNodes == null) drawnNodes = new List<AniTreeNodeEditor>();
             if (drawnLinks == null) drawnLinks = new List<AniTreeLinkEditor>();
             if (propertiesEditor == null) {
-                propertiesEditor = ScriptableObject.CreateInstance<AniTreePropertiesEditor>();
+                propertiesEditor = CreateInstance<AniTreePropertiesEditor>();
                 propertiesEditor.animotionTreeEditor = this;
             }
             try {
@@ -99,6 +103,12 @@ namespace Animotion {
                     node.isLinkBeingCreated = false;
                 }
             }
+        }
+
+        public void RefreshPaths() {
+            paths = AssetDatabase.FindAssets("t: AniTree").ToList().Select(uuid => AssetDatabase.GUIDToAssetPath(uuid)).ToList();
+            paths = paths.Where(p => p.Contains("Assets")).ToList();
+            pathsWithoutExtension = paths.Select(a => a.Substring(6, a.Length - 6)).ToList();
         }
 
         private void OnGUI() {
@@ -123,7 +133,6 @@ namespace Animotion {
                     }
                 }
             }
-
 
             DrawMenuBar();
 
@@ -190,13 +199,10 @@ namespace Animotion {
             if (Application.isPlaying) {
                 GUILayout.Label("Selection unavaible in Play Mode");
             } else {
-                List<string> paths = AssetDatabase.FindAssets("t: AniTree").ToList().Select(uuid => AssetDatabase.GUIDToAssetPath(uuid)).ToList();
-                paths = paths.Where(p => p.Contains("Assets")).ToList();
-                List<string> pathsWithoutExtension = paths.Select(a => a.Substring(6, a.Length - 6)).ToList();
 
                 treeIndex = EditorGUILayout.Popup(treeIndex, pathsWithoutExtension.Select(a => a.Substring(1)).ToArray(), EditorStyles.toolbarDropDown);
-                AniTree tmpTree = AssetDatabase.LoadAssetAtPath<AniTree>(paths[treeIndex]);
                 if (GUILayout.Button("Select", EditorStyles.toolbarButton)) {
+                    AniTree tmpTree = AssetDatabase.LoadAssetAtPath<AniTree>(paths[treeIndex]);
                     tree = tmpTree;
                     Initiate();
                 }
@@ -397,9 +403,19 @@ namespace Animotion {
         /// Moves selected nodes
         /// </summary>
         /// <param name="delta">Movement's delta</param>
-        public void MoveSelectedNodes(Vector2 delta) {
+        public void MoveSelectedNodesWithDelta(Vector2 delta) {
             foreach (AniTreeNodeEditor node in drawnNodes.FindAll(dN => selectedNodes.Contains(dN.node.id))) {
                 node.node.position += delta - centerOffset;
+            }
+        }
+
+        /// <summary>
+        /// Moves selected nodes
+        /// </summary>
+        /// <param name="newPosition">Primarily moved node's new position</param>
+        public void MoveSelectedNodesWithPosition(Vector2 newPosition) {
+            foreach (AniTreeNodeEditor node in drawnNodes.FindAll(dN => selectedNodes.Contains(dN.node.id))) {
+                node.node.position += newPosition - node.node.position;
             }
         }
 

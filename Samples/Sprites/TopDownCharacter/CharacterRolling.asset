@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d8df5f9bddbe1479df5d1a9dd3025b, type: 3}
+  m_Name: CharacterRolling
+  m_EditorClassIdentifier: 
+  mode: 0
+  downAnimotionClip: {fileID: 0}
+  leftAnimotionClip: {fileID: 11400000, guid: 861a0c4ade9fa2345b1023a80ed8aee3, type: 2}
+  rightAnimotionClip: {fileID: 11400000, guid: c21a378387002014dadde5569069aa97, type: 2}
+  upAnimotionClip: {fileID: 0}
+  downLeftAnimotionClip: {fileID: 0}
+  downRightAnimotionClip: {fileID: 0}
+  upLeftAnimotionClip: {fileID: 0}
+  upRightAnimotionClip: {fileID: 0}

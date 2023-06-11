@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   isRoot: 1
-  position: {x: 37.5, y: -15}
-  nodeName: Left
-  hasMultipleDirections: 0
-  animotionClipsData: {fileID: 0}
-  animotionClip: {fileID: 11400000, guid: 374e5a2b4363a744e81b681f99b7afcd, type: 2}
+  position: {x: 303.5, y: -167}
+  nodeName: Walking
+  hasMultipleDirections: 1
+  animotionClipsData: {fileID: 11400000, guid: f0e6c6410d9a00145bfcd6051cf2d3f0, type: 2}
+  animotionClip: {fileID: 0}
   children: 01000000
   waitForEnd: 0

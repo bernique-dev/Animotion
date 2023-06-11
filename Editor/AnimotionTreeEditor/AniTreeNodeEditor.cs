@@ -18,12 +18,16 @@ namespace Animotion {
 
         public bool isLinkBeingCreated;
 
+        private Vector2 rectCenterOffset = Vector2.zero;
+
         public Rect rect {
             get {
                 Vector2 rectangleSize = new Vector2(100, 35);
                 return RectUtils.GetRect(new Vector2(Screen.width / 2, Screen.height / 2) + node.position + animotionTreeEditor.centerOffset, rectangleSize);
             }
         }
+
+        private bool didRectContain;
 
         public void SetValues(AniNode _node, AniTreeEditor _animotionTreeEditor) {
             node = _node;
@@ -42,6 +46,9 @@ namespace Animotion {
                     backgroundColor = animotionTreeEditor.animotionAnimator.currentNode.id == node.id ? new Color32(125, 0, 0, 255) : backgroundColor;
                 }
             }
+            if (isMoved) {
+                backgroundColor = Color.magenta;
+            }
             // Draws the node's rectangle
             Handles.DrawSolidRectangleWithOutline(rect, backgroundColor, isSelected ? Color.white : AniTreeEditor.BORDER_COLOR);
             if (animotionAnimator) {
@@ -52,12 +59,12 @@ namespace Animotion {
                         if (animotionClip) {
                             Color translucentColor = Color.white;
                             // Draws the progression of the animator inside a state (GameObject with AnimotionAnimator needs to be selected)
-                            Handles.DrawSolidRectangleWithOutline(new Rect(rect.min + new Vector2(1,rect.height - 1), new Vector2(rect.width * animotionTreeEditor.animotionAnimator.frame / animotionClip.length, rect.height / 100) - new Vector2(2, 2)), translucentColor, translucentColor);
+                            Handles.DrawSolidRectangleWithOutline(new Rect(rect.min + new Vector2(1, rect.height - 1), new Vector2(rect.width * animotionTreeEditor.animotionAnimator.frame / animotionClip.length, rect.height / 100) - new Vector2(2, 2)), translucentColor, translucentColor);
                         }
                     }
                 }
             }
-            Handles.Label(rect.min, node.nodeName + (node.animotionClipsData ? "\n"+ node.animotionClipsData.name: ""));
+            Handles.Label(rect.min, node.nodeName + (node.animotionClipsData ? "\n" + node.animotionClipsData.name : ""));
 
             if (isLinkBeingCreated) {
                 Vector2[] startSidesCenter = new Vector2[] {
@@ -79,7 +86,8 @@ namespace Animotion {
 
         public override void ProcessEvent(Event e) {
             base.ProcessEvent(e);
-            if (rect.Contains(e.mousePosition)) {
+            var doesRectContain = rect.Contains(e.mousePosition);
+            if (doesRectContain) {
                 if (e.isMouse) {
                     // Selects a node
                     if (e.type == EventType.MouseDown && e.button == 0 && !isMoved) {
@@ -96,7 +104,8 @@ namespace Animotion {
                             tree.SetRoot(node);
                             EditorUtility.SetDirty(node);
                             EditorUtility.SetDirty(tree);
-                        ;});
+                            ;
+                        });
 
                         menu.AddSeparator("");
                         menu.AddItem(new GUIContent("Delete"), false, () => animotionTreeEditor.DeleteNode(node.id));
@@ -123,17 +132,23 @@ namespace Animotion {
                     }
                 }
             }
+            var center = new Vector2(Screen.width, Screen.height) / 2;
             if ((e.type == EventType.MouseDrag && e.button == 0) && isSelected) {
+                if (!isMoved) {
+                    didRectContain = doesRectContain;
+                    rectCenterOffset = e.mousePosition - node.position - center - animotionTreeEditor.centerOffset;
+                }
                 isMoved = true;
             }
             // Handles the movement of the node
             if (isMoved) {
-                lastPosition = node.position;
-                Vector2 newPosition = e.mousePosition - new Vector2(Screen.width, Screen.height) / 2;
-                animotionTreeEditor.MoveSelectedNodes(newPosition - lastPosition);
+                lastPosition = node.position + animotionTreeEditor.centerOffset;
+                Vector2 newPosition = e.mousePosition - center + animotionTreeEditor.centerOffset;
+                if (didRectContain) animotionTreeEditor.MoveSelectedNodesWithDelta(newPosition - lastPosition - rectCenterOffset);
             }
             if (e.type == EventType.MouseUp) {
                 isMoved = false;
+                didRectContain = false;
                 EditorUtility.SetDirty(node);
                 EditorUtility.SetDirty(tree);
             }

@@ -12,12 +12,11 @@ namespace Animotion {
         public int frame;
         [SerializeField] private bool isTimerRunning;
 
-
         public AniNode currentNode {
             get {
                 return m_currentNode;
             }
-             set {
+            set {
                 m_currentNode = value;
                 if (value) {
                     currentNodeChildren = currentNode.children.Select(id => aniTree.nodes.Find(t => t.id == id)).ToList();
@@ -35,7 +34,8 @@ namespace Animotion {
                                 //Debug.Log(condition.property.name + " " + (String.Join(",",properties.Select(p => p.name).ToArray())));
                                 newLink.conditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
                             }
-                        } else {
+                        }
+                        else {
                             newLink.endNodeId = link.startNodeId;
                             newLink.startNodeId = link.endNodeId;
                             foreach (TreePropertyCondition condition in (link as AniBidirectionalLink).reverseConditions) {
@@ -66,13 +66,18 @@ namespace Animotion {
         }
         [SerializeField] private AniTree m_treeData;
         // Hideable
-        [SerializeField] private AniDirection aniDirection = AniDirection.Right;
+        [SerializeField] private AniDirection m_aniDirection = AniDirection.Right;
         public AniClip animotionClip {
             get {
-                return currentNode ? currentNode.hasMultipleDirections ? currentNode.GetAnimotionClip(aniDirection):currentNode.GetAnimotionClip(): null;
+                return currentNode ? currentNode.hasMultipleDirections ? currentNode.GetAnimotionClip(m_aniDirection) : currentNode.GetAnimotionClip() : null;
             }
         }
 
+        public AniDirection direction {
+            get {
+                return m_aniDirection;
+            }
+        }
 
         public List<TreeProperty> properties {
             get {
@@ -80,7 +85,7 @@ namespace Animotion {
             }
         }
 
-        
+
         [SerializeField] private List<TreeProperty> m_properties;
 
         private void Awake() {
@@ -117,11 +122,12 @@ namespace Animotion {
 
         public void SetDirection(AniDirection _aniDirection) {
             if (currentNode.hasMultipleDirections) {
-                aniDirection = _aniDirection.GetVector2().GetAniDirection(currentNode.animotionClipsData.mode);
-            } else {
-                aniDirection = _aniDirection;
+                m_aniDirection = _aniDirection.GetVector2().GetAniDirection(currentNode.animotionClipsData.mode);
             }
-        } 
+            else {
+                m_aniDirection = _aniDirection;
+            }
+        }
 
         public void SetObject(string propertyName, object value) {
             //Debug.Log("[" + gameObject.name + "] " + propertyName + " -> "  + value);
@@ -133,7 +139,7 @@ namespace Animotion {
         }
 
         public T GetProperty<T>(string propertyName) {
-            return (T) GetObject(propertyName);
+            return (T)GetObject(propertyName);
         }
         public void SetProperty<T>(string propertyName, T value) {
             SetObject(propertyName, value);
@@ -170,7 +176,8 @@ namespace Animotion {
                         frame = 0;
                         isTimerRunning = animotionClip.loop;
                     }
-                } else {
+                }
+                else {
                     frame = 0;
                 }
             }
@@ -197,7 +204,7 @@ namespace Animotion {
             }
         }
 
-    private bool CheckConditions(List<TreePropertyCondition> conditions) {
+        private bool CheckConditions(List<TreePropertyCondition> conditions) {
             bool takeLink = true;
             foreach (TreePropertyCondition condition in conditions) {
                 condition.Process();
@@ -231,7 +238,7 @@ namespace Animotion {
 
         private void OnDrawGizmos() {
 #if UNITY_EDITOR
-            if (currentNode) Handles.Label(transform.position,currentNode.nodeName);
+            if (currentNode) Handles.Label(transform.position, currentNode.nodeName);
 #endif
         }
 
