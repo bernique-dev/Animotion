@@ -9,7 +9,10 @@ namespace Animotion {
         public override void OnInspectorGUI() {
             Animotor animotor = (Animotor)target;
 
-            animotor.aniTree = (AniTree)EditorGUILayout.ObjectField(animotor.aniTree, typeof(AniTree), false);
+            var aniTree = (AniTree)EditorGUILayout.ObjectField(animotor.aniTree, typeof(AniTree), false);
+            if (aniTree != animotor.aniTree) {
+                animotor.aniTree = aniTree;
+            }
 
             if (animotor.aniTree != null) {
                 foreach (TreeProperty property in animotor.properties) {

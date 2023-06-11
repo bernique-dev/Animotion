@@ -59,7 +59,6 @@ namespace Animotion {
                 return m_treeData;
             }
             set {
-                Debug.Log(value);
                 m_treeData = value;
                 UpdateProperties();
                 currentNode = m_treeData.root;

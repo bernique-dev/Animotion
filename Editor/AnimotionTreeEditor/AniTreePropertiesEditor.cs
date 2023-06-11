@@ -35,10 +35,10 @@ namespace Animotion {
             Handles.BeginGUI();
 
             Handles.color = AniTreeEditor.BORDER_COLOR;
-            Handles.DrawLine(new Vector2(rect.xMax, rect.yMin), rect.max);
             Handles.color = Color.white;
 
             if (animotionTreeEditor.tree) {
+                Handles.DrawSolidRectangleWithOutline(new Rect(new Vector2(0, AniTreeEditor.MENUBAR_BUTTON_HEIGHT + 1), new Vector2(rect.xMax, rect.yMax)), AniTreeEditor.BACKGROUND_COLOR, AniTreeEditor.BORDER_COLOR);
 
                 if (Application.isPlaying) {
                     EditorGUI.BeginDisabledGroup(true);
