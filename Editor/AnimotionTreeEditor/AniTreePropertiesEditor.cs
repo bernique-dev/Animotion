@@ -19,7 +19,7 @@ namespace Animotion {
 
         private List<TreeProperty> properties {
             get {
-                List<TreeProperty> tmpProperties = animotionTreeEditor.tree.properties;
+                List<TreeProperty> tmpProperties = animotionTreeEditor.tree.GetProperties();
                 if (animotionTreeEditor.animotionAnimator) {
                     if (Application.isPlaying) {
                         tmpProperties = animotionTreeEditor.animotionAnimator.properties;

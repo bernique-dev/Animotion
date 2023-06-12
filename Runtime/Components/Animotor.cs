@@ -14,16 +14,21 @@ namespace Animotion {
 
         public AniNode currentNode {
             get {
+                if (m_currentNode == null) {
+                    if (m_aniTree) {
+                        m_currentNode = m_aniTree.GetRoot();
+                    }
+                }
                 return m_currentNode;
             }
             set {
                 m_currentNode = value;
                 if (value) {
-                    currentNodeChildren = currentNode.children.Select(id => aniTree.nodes.Find(t => t.id == id)).ToList();
-                    List<AniLink> tmp_currentNodeLinks = currentNode.children.Select(id => aniTree.links.Find(l => (l.startNodeId == currentNode.id && l.endNodeId == id) || (l.endNodeId == currentNode.id && l.startNodeId == id && l is AniBidirectionalLink))).Distinct().ToList();
+                    currentNodeChildren = currentNode.children.Select(id => aniTree.GetNodes().Find(t => t.id == id)).ToList();
+                    List<AniLink> tmpCurrentNodeLinks = currentNode.children.Select(id => aniTree.GetLinks().Find(l => (l.startNodeId == currentNode.id && l.endNodeId == id) || (l.endNodeId == currentNode.id && l.startNodeId == id && l is AniBidirectionalLink))).Distinct().ToList();
                     currentNodeLinks = new List<AniLink>();
                     currentNodeReverseLinks = new List<AniBidirectionalLink>();
-                    foreach (AniLink link in tmp_currentNodeLinks) {
+                    foreach (AniLink link in tmpCurrentNodeLinks) {
                         AniLink newLink = ScriptableObject.CreateInstance<AniLink>();
                         newLink.name = link.name;
                         newLink.tree = aniTree;
@@ -56,15 +61,15 @@ namespace Animotion {
 
         public AniTree aniTree {
             get {
-                return m_treeData;
+                return m_aniTree;
             }
             set {
-                m_treeData = value;
+                m_aniTree = value;
                 UpdateProperties();
-                currentNode = m_treeData.root;
+                currentNode = m_aniTree.GetRoot();
             }
         }
-        [SerializeField] private AniTree m_treeData;
+        [SerializeField] private AniTree m_aniTree;
         // Hideable
         [SerializeField] private AniDirection m_aniDirection = AniDirection.Right;
         public AniClip animotionClip {
@@ -81,7 +86,7 @@ namespace Animotion {
 
         public List<TreeProperty> properties {
             get {
-                return m_properties != null ? m_properties : aniTree.properties;
+                return m_properties != null ? m_properties : aniTree.GetProperties();
             }
         }
 
@@ -96,13 +101,13 @@ namespace Animotion {
             isTimerRunning = animateOnStart;
             if (aniTree) {
                 UpdateProperties();
-                currentNode = aniTree.root;
+                currentNode = aniTree.GetRoot();
             }
         }
 
         public void UpdateProperties() {
             m_properties = new List<TreeProperty>();
-            foreach (TreeProperty treeProperty in aniTree.properties) {
+            foreach (TreeProperty treeProperty in aniTree.GetProperties()) {
                 TreeProperty newTreeProperty = ScriptableObject.CreateInstance<TreeProperty>();
                 newTreeProperty.SetValues(treeProperty);
                 m_properties.Add(newTreeProperty);
@@ -112,7 +117,7 @@ namespace Animotion {
         public void SetDirection(Vector2 delta) {
             if (currentNode) {
                 if (currentNode.hasMultipleDirections) {
-                    SetDirection(delta.GetAniDirection(currentNode.animotionClipsData.mode));
+                    SetDirection(delta.GetAniDirection(currentNode.clipGroup.mode));
                 }
                 else {
                     SetDirection(delta.GetAniDirection());
@@ -122,7 +127,7 @@ namespace Animotion {
 
         public void SetDirection(AniDirection _aniDirection) {
             if (currentNode.hasMultipleDirections) {
-                m_aniDirection = _aniDirection.GetVector2().GetAniDirection(currentNode.animotionClipsData.mode);
+                m_aniDirection = _aniDirection.GetVector2().GetAniDirection(currentNode.clipGroup.mode);
             }
             else {
                 m_aniDirection = _aniDirection;

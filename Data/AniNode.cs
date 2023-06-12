@@ -19,12 +19,13 @@ namespace Animotion {
         public string nodeName;
 
         public bool hasMultipleDirections;
-        public AniClipGroup animotionClipsData;
-        public AniClip animotionClip;
+        public AniClipGroup clipGroup;
+        public AniClip clip;
 
         public List<int> children;
 
         public bool waitForEnd = false;
+
 
         public void SetValues(string n, Vector2 _position) {
             id = idCounter;
@@ -39,11 +40,11 @@ namespace Animotion {
         }
 
         public AniClip GetAnimotionClip() {
-            return animotionClip;
+            return clip;
         }
 
         public AniClip GetAnimotionClip(AniDirection direction) {
-            return animotionClipsData.GetAnimotionClip(direction);
+            return clipGroup.GetAnimotionClip(direction);
         }
 
 

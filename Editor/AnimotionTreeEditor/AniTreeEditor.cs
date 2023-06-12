@@ -92,11 +92,12 @@ namespace Animotion {
             }
             try {
                 EditorApplication.playModeStateChanged += ModeChanged;
-            } catch {
+            }
+            catch {
 
             }
             if (tree) {
-                AniNode.idCounter = tree.nodes.Count;
+                AniNode.idCounter = tree.GetNodes().Count;
                 DrawNodes();
                 DrawLinks();
                 foreach (AniTreeNodeEditor node in drawnNodes) {
@@ -144,16 +145,17 @@ namespace Animotion {
 
             string str = AniNode.idCounter + "\n";
             if (tree) {
-                foreach (AniNode node in tree.nodes) {
+                var nodesAndChildren = tree.GetNodesAndChildren();
+                foreach (AniNode node in tree.GetNodes()) {
                     if (node) {
-                        str += node.nodeName 
-                                + " (" + node.id + ")" 
-                                + " (" + tree.nodeAndChildren[node].Count + ")\n";
+                        str += node.nodeName
+                                + " (" + node.id + ")"
+                                + " (" + nodesAndChildren[node.id].Count + ")\n";
                     }
                 }
-                foreach (AniLink link in tree.links) {
+                foreach (AniLink link in tree.GetLinks()) {
                     if (link) {
-                        str += link.startNodeId + " " + (link is AniBidirectionalLink ? "<":"-") + "-> " + link.endNodeId + "\n";
+                        str += link.startNodeId + " " + (link is AniBidirectionalLink ? "<" : "-") + "-> " + link.endNodeId + "\n";
                     }
                 }
             }
@@ -166,7 +168,7 @@ namespace Animotion {
             foreach (AniTreeNodeEditor animotionTreeNode in drawnNodes) {
                 animotionTreeNode.isSelected = selectedNodes.Contains(animotionTreeNode.node.id);
                 animotionTreeNode.Draw();
-                animotionTreeNode.ProcessEvent(Event.current);
+                if (tree.AreNodesSelectable()) animotionTreeNode.ProcessEvent(Event.current);
             }
 
             str += "Nodes: " + drawnNodes.Count + " | Links: " + drawnLinks.Count;
@@ -198,13 +200,15 @@ namespace Animotion {
 
             if (Application.isPlaying) {
                 GUILayout.Label("Selection unavaible in Play Mode");
-            } else {
+            }
+            else {
                 if (paths.Count <= 0) {
                     GUILayout.Label("No tree found in project");
-                } else {
+                }
+                else {
                     treeIndex = EditorGUILayout.Popup(treeIndex, pathsWithoutExtension.Select(a => a.Substring(1)).ToArray(), EditorStyles.toolbarDropDown);
-                    if (GUILayout.Button("Select", EditorStyles.toolbarButton)) {
-                        AniTree tmpTree = AssetDatabase.LoadAssetAtPath<AniTree>(paths[treeIndex]);
+                    AniTree tmpTree = AssetDatabase.LoadAssetAtPath<AniTree>(paths[treeIndex]);
+                    if (tmpTree != tree) {
                         tree = tmpTree;
                         Initiate();
                     }
@@ -237,7 +241,8 @@ namespace Animotion {
                                 foreach (AniTreeNodeEditor node in drawnNodes) {
                                     node.isLinkBeingCreated = false;
                                 }
-                            } else {
+                            }
+                            else {
                                 GenericMenu menu = new GenericMenu();
                                 menu.AddItem(new GUIContent("Create new state"), false, () => CreateNode(e.mousePosition));
                                 menu.ShowAsContext();
@@ -280,11 +285,11 @@ namespace Animotion {
         /// </summary>
         /// <param name="mousePos">Mouse position</param>
         public void CreateNode(Vector2 mousePos) {
-            AniNode newNode = ScriptableObject.CreateInstance<AniNode>();
+            AniNode newNode = CreateInstance<AniNode>();
             newNode.SetValues("node" + AniNode.idCounter, mousePos - new Vector2(Screen.width / 2, Screen.height / 2));
             tree.AddNode(newNode);
-            if (!tree.root) tree.SetRoot(newNode);
-            AniTreeNodeEditor atne = ScriptableObject.CreateInstance<AniTreeNodeEditor>();
+            if (!tree.GetRoot()) tree.SetRoot(newNode);
+            AniTreeNodeEditor atne = CreateInstance<AniTreeNodeEditor>();
             atne.SetValues(newNode, this);
             drawnNodes.Add(atne);
         }
@@ -345,9 +350,10 @@ namespace Animotion {
         public void CreateLink(AniTreeNodeEditor start, AniTreeNodeEditor end) {
             start.isLinkBeingCreated = false;
             start.node.children.Add(end.node.id);
-            if (!tree.links.Find(l => l.startNodeId == start.node.id && l.endNodeId == end.node.id)) {
-                AniLink reverseLinkData = tree.links.Find(l => l.startNodeId == end.node.id && l.endNodeId == start.node.id);
-                AniLink linkData = reverseLinkData ? ScriptableObject.CreateInstance<AniBidirectionalLink>() : ScriptableObject.CreateInstance<AniLink>();
+            var links = tree.GetLinks();
+            if (!links.Find(l => l.startNodeId == start.node.id && l.endNodeId == end.node.id)) {
+                AniLink reverseLinkData = links.Find(l => l.startNodeId == end.node.id && l.endNodeId == start.node.id);
+                AniLink linkData = reverseLinkData ? CreateInstance<AniBidirectionalLink>() : CreateInstance<AniLink>();
                 linkData.tree = tree;
                 if (reverseLinkData) {
                     AniBidirectionalLink bidirectionalLinkData = linkData as AniBidirectionalLink;
@@ -356,7 +362,8 @@ namespace Animotion {
                     linkData.startNodeId = end.node.id;
                     linkData.endNodeId = start.node.id;
                     tree.DeleteLink(reverseLinkData);
-                } else {
+                }
+                else {
                     linkData.startNodeId = start.node.id;
                     linkData.endNodeId = end.node.id;
                 }
@@ -436,8 +443,9 @@ namespace Animotion {
         /// </summary>
         public void DrawNodes() {
             drawnNodes = new List<AniTreeNodeEditor>();
-            foreach (AniNode node in tree.nodes) {
-                AniTreeNodeEditor atne = ScriptableObject.CreateInstance<AniTreeNodeEditor>();
+            var variant = tree as AniTreeVariant;
+            foreach (AniNode node in tree.GetNodes()) {
+                AniTreeNodeEditor atne = CreateInstance<AniTreeNodeEditor>();
                 atne.SetValues(node, this);
                 drawnNodes.Add(atne);
             }
@@ -448,7 +456,7 @@ namespace Animotion {
         /// </summary>
         public void DrawLinks() {
             drawnLinks = new List<AniTreeLinkEditor>();
-            foreach (AniLink linkData in tree.links) {
+            foreach (AniLink linkData in tree.GetLinks()) {
                 DrawLink(linkData);
             }
         }

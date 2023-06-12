@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1fed05cabd7f94983b7100fea9d560, type: 3}
+  m_Name: _Idle
+  m_EditorClassIdentifier: 
+  length: 70
+  loop: 1
+  m_frameDataList:
+  - frame: 0
+    sprite: {fileID: 1073976817, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 1
+    sprite: {fileID: 0}
+  - frame: 2
+    sprite: {fileID: 0}
+  - frame: 3
+    sprite: {fileID: 0}
+  - frame: 4
+    sprite: {fileID: 0}
+  - frame: 5
+    sprite: {fileID: 0}
+  - frame: 6
+    sprite: {fileID: 0}
+  - frame: 7
+    sprite: {fileID: -258384963, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 8
+    sprite: {fileID: 0}
+  - frame: 9
+    sprite: {fileID: 0}
+  - frame: 10
+    sprite: {fileID: 0}
+  - frame: 11
+    sprite: {fileID: 0}
+  - frame: 12
+    sprite: {fileID: 0}
+  - frame: 13
+    sprite: {fileID: 0}
+  - frame: 14
+    sprite: {fileID: 2003784607, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 15
+    sprite: {fileID: 0}
+  - frame: 16
+    sprite: {fileID: 0}
+  - frame: 17
+    sprite: {fileID: 0}
+  - frame: 18
+    sprite: {fileID: 0}
+  - frame: 19
+    sprite: {fileID: 0}
+  - frame: 20
+    sprite: {fileID: 0}
+  - frame: 21
+    sprite: {fileID: -1688360668, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 22
+    sprite: {fileID: 0}
+  - frame: 23
+    sprite: {fileID: 0}
+  - frame: 24
+    sprite: {fileID: 0}
+  - frame: 25
+    sprite: {fileID: 0}
+  - frame: 26
+    sprite: {fileID: 0}
+  - frame: 27
+    sprite: {fileID: 0}
+  - frame: 28
+    sprite: {fileID: -1244865883, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 0
+    sprite: {fileID: 0}
+  - frame: 30
+    sprite: {fileID: 0}
+  - frame: 31
+    sprite: {fileID: 0}
+  - frame: 32
+    sprite: {fileID: 0}
+  - frame: 33
+    sprite: {fileID: 0}
+  - frame: 34
+    sprite: {fileID: 0}
+  - frame: 35
+    sprite: {fileID: -868650482, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 36
+    sprite: {fileID: 0}
+  - frame: 37
+    sprite: {fileID: 0}
+  - frame: 38
+    sprite: {fileID: 0}
+  - frame: 39
+    sprite: {fileID: 0}
+  - frame: 40
+    sprite: {fileID: 0}
+  - frame: 41
+    sprite: {fileID: 0}
+  - frame: 42
+    sprite: {fileID: -551974062, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 43
+    sprite: {fileID: 0}
+  - frame: 44
+    sprite: {fileID: 0}
+  - frame: 45
+    sprite: {fileID: 0}
+  - frame: 46
+    sprite: {fileID: 0}
+  - frame: 47
+    sprite: {fileID: 0}
+  - frame: 48
+    sprite: {fileID: 0}
+  - frame: 49
+    sprite: {fileID: 1010020995, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 50
+    sprite: {fileID: 0}
+  - frame: 51
+    sprite: {fileID: 0}
+  - frame: 52
+    sprite: {fileID: 0}
+  - frame: 53
+    sprite: {fileID: 0}
+  - frame: 54
+    sprite: {fileID: 0}
+  - frame: 55
+    sprite: {fileID: 0}
+  - frame: 56
+    sprite: {fileID: -230389350, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}
+  - frame: 57
+    sprite: {fileID: 0}
+  - frame: 58
+    sprite: {fileID: 0}
+  - frame: 59
+    sprite: {fileID: 0}
+  - frame: 60
+    sprite: {fileID: 0}
+  - frame: 61
+    sprite: {fileID: 0}
+  - frame: 62
+    sprite: {fileID: 0}
+  - frame: 63
+    sprite: {fileID: 1904539789, guid: 8ecb9b436d4393247af4055a8cc94f09, type: 3}

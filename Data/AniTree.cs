@@ -12,48 +12,48 @@ namespace Animotion {
 
         private string previousName;
 
-        public AniNode root {
+        private AniNode root {
             get {
                 return nodes.Find(n => n != null && n.isRoot);
             }
         }
 
 #if UNITY_EDITOR
-        public string folderPath {
+        private string folderPath {
             get {
                 return GetFolderPath() + "/" + name;
             }
         }
 #endif
 
-        public List<AniNode> nodes {
+        private List<AniNode> nodes {
             get {
                 if (m_nodes == null) m_nodes = new List<AniNode>();
                 return m_nodes;
             }
         }
-        public List<AniNode> m_nodes;
+        private List<AniNode> m_nodes;
 
-        public Dictionary<AniNode, List<AniNode>> nodeAndChildren {
+        private Dictionary<int, List<AniNode>> nodesAndChildren {
             get {
-                Dictionary<AniNode, List<AniNode>> result = new Dictionary<AniNode, List<AniNode>>();
+                Dictionary<int, List<AniNode>> result = new Dictionary<int, List<AniNode>>();
 
                 foreach (AniNode parent in nodes) {
-                    result.Add(parent, nodes.Where(nd => parent.children.Contains(nd.id)).ToList());
+                    result.Add(parent.id, nodes.Where(nd => parent.children.Contains(nd.id)).ToList());
                 }
                 return result;
             }
         }
 
-        public List<AniLink> links {
+        private List<AniLink> links {
             get {
                 if (m_links == null) m_links = new List<AniLink>();
                 return m_links;
             }
         }
-        public List<AniLink> m_links;
+        private List<AniLink> m_links;
 
-        public List<TreeProperty> properties {
+        private List<TreeProperty> properties {
             get {
                 if (m_properties == null) m_properties = new List<TreeProperty>();
                 return m_properties;
@@ -62,8 +62,32 @@ namespace Animotion {
         [SerializeField] private List<TreeProperty> m_properties;
 
 
-        public AniNode GetNode(int id) {
+        public virtual bool AreNodesSelectable() {
+            return true;
+        }
+
+        public virtual AniNode GetRoot() {
+            return root;
+        }
+
+        public virtual List<AniNode> GetNodes() {
+            return nodes;
+        }
+
+        public virtual Dictionary<int, List<AniNode>> GetNodesAndChildren() {
+            return nodesAndChildren;
+        }
+
+        public virtual List<AniLink> GetLinks() {
+            return links;
+        }
+
+        public virtual AniNode GetNode(int id) {
             return nodes.Find(n => n.id == id);
+        }
+
+        public virtual List<TreeProperty> GetProperties() {
+            return properties;
         }
 
         public void SetRoot(AniNode nodeData) {

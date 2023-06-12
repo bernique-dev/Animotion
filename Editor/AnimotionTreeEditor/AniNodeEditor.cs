@@ -19,9 +19,9 @@ namespace Animotion {
             node.hasMultipleDirections = animotionType == AnimotionType.WithDirections;
 
             if (node.hasMultipleDirections) {
-                node.animotionClipsData = (AniClipGroup)EditorGUILayout.ObjectField("Animotions", node.animotionClipsData, typeof(AniClipGroup), false);
+                node.clipGroup = (AniClipGroup)EditorGUILayout.ObjectField("Animotions", node.clipGroup, typeof(AniClipGroup), false);
             } else {
-                node.animotionClip = (AniClip)EditorGUILayout.ObjectField("Animotion", node.animotionClip, typeof(AniClip), false);
+                node.clip = (AniClip)EditorGUILayout.ObjectField("Animotion", node.clip, typeof(AniClip), false);
             }
 
             var rect = EditorGUILayout.BeginHorizontal();

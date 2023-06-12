@@ -27,11 +27,11 @@ namespace Animotion {
             //EditorGUI.BeginChangeCheck();
 
             if (tree) {
-                int propertyIndex = EditorGUI.Popup(new Rect(position.min, new Vector2(position.width / 3, position.height)), treeProperty != null ? tree.properties.IndexOf(treeProperty) : 0, tree.properties.Select(p => p.name).ToArray());
+                int propertyIndex = EditorGUI.Popup(new Rect(position.min, new Vector2(position.width / 3, position.height)), treeProperty != null ? tree.GetProperties().IndexOf(treeProperty) : 0, tree.GetProperties().Select(p => p.name).ToArray());
 
-                float fieldWidth = (2 * position.width / 3) / (tree.properties[propertyIndex].type.GetConditionFieldsNumber() - 1);
+                float fieldWidth = (2 * position.width / 3) / (tree.GetProperties()[propertyIndex].type.GetConditionFieldsNumber() - 1);
                 //Debug.Log(property.FindPropertyRelative("treePropertyCondition").objectReferenceValue);
-                switch (tree.properties[propertyIndex].type) {
+                switch (tree.GetProperties()[propertyIndex].type) {
                     case TreePropertyType.Boolean:
                         propertyConditionIndex = EditorGUI.Popup(new Rect(position.min + new Vector2(position.width - fieldWidth, 0), new Vector2(fieldWidth, position.height)), property.FindPropertyRelative("conditionIndex").intValue, TreePropertyCondition.GetBoolConditionMethods().Select(expr => expr.name).ToArray());
                         break;
@@ -49,22 +49,22 @@ namespace Animotion {
 
 
                 //if (EditorGUI.EndChangeCheck()) {
-                    property.FindPropertyRelative("property").objectReferenceValue = tree.properties[propertyIndex] as UnityEngine.Object;
+                property.FindPropertyRelative("property").objectReferenceValue = tree.GetProperties()[propertyIndex] as UnityEngine.Object;
 
-                    switch (tree.properties[propertyIndex].type) {
-                        case TreePropertyType.Boolean:
-                            if (propertyConditionIndex >= TreePropertyCondition.GetBoolConditionMethods().Count) propertyConditionIndex = 0;
-                            break;
-                        case TreePropertyType.Trigger:
-                            break;
-                        case TreePropertyType.Integer:
-                            property.FindPropertyRelative("intValue").intValue = (int)value;
-                            break;
-                        case TreePropertyType.Float:
-                            property.FindPropertyRelative("floatValue").floatValue = (float)value;
-                            break;
-                    }
-                    property.FindPropertyRelative("conditionIndex").intValue = propertyConditionIndex;
+                switch (tree.GetProperties()[propertyIndex].type) {
+                    case TreePropertyType.Boolean:
+                        if (propertyConditionIndex >= TreePropertyCondition.GetBoolConditionMethods().Count) propertyConditionIndex = 0;
+                        break;
+                    case TreePropertyType.Trigger:
+                        break;
+                    case TreePropertyType.Integer:
+                        property.FindPropertyRelative("intValue").intValue = (int)value;
+                        break;
+                    case TreePropertyType.Float:
+                        property.FindPropertyRelative("floatValue").floatValue = (float)value;
+                        break;
+                }
+                property.FindPropertyRelative("conditionIndex").intValue = propertyConditionIndex;
                 //}
             }
 

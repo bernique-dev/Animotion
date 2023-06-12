@@ -61,7 +61,7 @@ namespace Animotion {
                     }
                 }
             }
-            Handles.Label(rect.min, node.nodeName + (node.animotionClipsData ? "\n" + node.animotionClipsData.name : ""));
+            Handles.Label(rect.min, node.nodeName + (node.clip ? "\n" + node.clip.name : "") + (node.clipGroup ? "\n" + node.clipGroup.name : ""));
 
             if (isLinkBeingCreated) {
                 Vector2[] startSidesCenter = new Vector2[] {
@@ -122,7 +122,7 @@ namespace Animotion {
                     // Object dropped
                     if (e.type == EventType.DragPerform) {
                         foreach (var obj in DragAndDrop.objectReferences) {
-                            if (obj is AniClipGroup) node.animotionClipsData = obj as AniClipGroup;
+                            if (obj is AniClipGroup) node.clipGroup = obj as AniClipGroup;
                         }
                         isSelected = false;
                         EditorUtility.SetDirty(tree);

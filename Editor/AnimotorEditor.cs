@@ -7,6 +7,8 @@ namespace Animotion {
     public class AnimotorEditor : Editor {
 
         public override void OnInspectorGUI() {
+            //base.OnInspectorGUI();
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             Animotor animotor = (Animotor)target;
 
             var aniTree = (AniTree)EditorGUILayout.ObjectField(animotor.aniTree, typeof(AniTree), false);
