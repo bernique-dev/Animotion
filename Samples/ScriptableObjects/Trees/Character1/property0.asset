@@ -16,5 +16,5 @@ MonoBehaviour:
   name: Type
   type: 2
   m_booleanValue: 0
-  m_intValue: 0
+  m_intValue: 1
   m_floatValue: 0

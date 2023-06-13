@@ -18,7 +18,7 @@ MonoBehaviour:
   - id: 0
     property: {fileID: 11400000, guid: ebd218f59646eba41a61999e89b4aa2f, type: 2}
     tree: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
-    conditionIndex: 0
+    conditionIndex: 4
     intValue: 0
     floatValue: 0
   tree: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
@@ -26,6 +26,6 @@ MonoBehaviour:
   - id: 0
     property: {fileID: 11400000, guid: ebd218f59646eba41a61999e89b4aa2f, type: 2}
     tree: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
-    conditionIndex: 4
+    conditionIndex: 0
     intValue: 0
     floatValue: 0
