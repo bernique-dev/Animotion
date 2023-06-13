@@ -32,7 +32,6 @@ public class AniTreeVariant : AniTree {
         get {
             var nodes = aniTree.GetNodes();
             if (m_bindings == null || m_bindings.Count != nodes.Count) {
-                Debug.Log("m_bindings");
                 m_bindings = new List<Binding>();
                 nodes.ForEach(n => m_bindings.Add(new Binding(n.id, n.hasMultipleDirections, null, null)));
             }

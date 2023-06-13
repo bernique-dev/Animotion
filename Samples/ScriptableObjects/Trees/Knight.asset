@@ -12,5 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4301ed093a8734b94efbebee49e3e8, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: 
+  m_nodes: []
+  m_links: []
   m_properties: []
   aniTree: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
+  m_bindings:
+  - nodeId: 0
+    hasMultipleDirections: 0
+    clip: {fileID: 11400000, guid: 27bd11c9af5d5b94380f8c51f48cf237, type: 2}
+    clipGroup: {fileID: 0}
+  - nodeId: 1
+    hasMultipleDirections: 0
+    clip: {fileID: 11400000, guid: 5b2b1f964990111489a4c9c129ee3cbe, type: 2}
+    clipGroup: {fileID: 0}

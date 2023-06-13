@@ -7,6 +7,7 @@ using System.IO;
 using Microsoft.VisualBasic;
 
 namespace Animotion {
+    [Serializable]
     [CreateAssetMenu(menuName = "Animotion/Animotion Tree")]
     public class AniTree : ScriptableObject {
 
@@ -32,7 +33,7 @@ namespace Animotion {
                 return m_nodes;
             }
         }
-        private List<AniNode> m_nodes;
+        [SerializeField] private List<AniNode> m_nodes;
 
         private Dictionary<int, List<AniNode>> nodesAndChildren {
             get {
@@ -51,7 +52,7 @@ namespace Animotion {
                 return m_links;
             }
         }
-        private List<AniLink> m_links;
+        [SerializeField] private List<AniLink> m_links;
 
         private List<TreeProperty> properties {
             get {

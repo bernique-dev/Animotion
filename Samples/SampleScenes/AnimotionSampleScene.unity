@@ -123,6 +123,46 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &25836626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e8d9871ec55b048b6fa31e70d90f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 2
+  name: Type
+  type: 2
+  m_booleanValue: 0
+  m_intValue: 1
+  m_floatValue: 0
+--- !u!114 &59579252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae5e34bd737a734c9ed0661be2451f2, type: 3}
+  m_Name: link0-1
+  m_EditorClassIdentifier: 
+  startNodeId: 0
+  endNodeId: 1
+  m_conditions:
+  - id: 0
+    property: {fileID: 506354999}
+    tree: {fileID: 0}
+    conditionIndex: 4
+    intValue: 0
+    floatValue: 0
+  tree: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
 --- !u!1 &199259440
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,13 +263,35 @@ MonoBehaviour:
   animateOnStart: 1
   frame: 0
   isTimerRunning: 0
-  m_currentNode: {fileID: 0}
-  currentNodeChildren: []
-  currentNodeLinks: []
+  m_currentNode: {fileID: 923061349}
+  currentNodeChildren:
+  - {fileID: 1067680980}
+  currentNodeLinks:
+  - {fileID: 1560773896}
   currentNodeReverseLinks: []
-  m_treeData: {fileID: 0}
+  aniTree: {fileID: 11400000, guid: 591a8b14c3fdebc4ca02db1ffe59b4a0, type: 2}
   m_aniDirection: 4
-  m_properties: []
+  m_properties:
+  - {fileID: 25836626}
+  - {fileID: 2129582133}
+--- !u!114 &506354999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e8d9871ec55b048b6fa31e70d90f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  name: Type
+  type: 2
+  m_booleanValue: 0
+  m_intValue: 1
+  m_floatValue: 0
 --- !u!1 &511095130
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +473,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1642416358
+--- !u!114 &838371823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e8d9871ec55b048b6fa31e70d90f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
+  name: Speed
+  type: 3
+  m_booleanValue: 0
+  m_intValue: 0
+  m_floatValue: 0
+--- !u!114 &923061349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a127b90bce33ed4cb722505756b394c, type: 3}
+  m_Name: node0(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  isRoot: 1
+  position: {x: -2, y: -14}
+  nodeName: node0
+  hasMultipleDirections: 0
+  clipGroup: {fileID: 0}
+  clip: {fileID: 11400000, guid: c21a378387002014dadde5569069aa97, type: 2}
+  children: 01000000
+  waitForEnd: 0
+--- !u!114 &1067680980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a127b90bce33ed4cb722505756b394c, type: 3}
+  m_Name: node1(Clone)
+  m_EditorClassIdentifier: 
+  id: 1
+  isRoot: 0
+  position: {x: 27, y: -101}
+  nodeName: node1
+  hasMultipleDirections: 0
+  clipGroup: {fileID: 0}
+  clip: {fileID: 11400000, guid: 861a0c4ade9fa2345b1023a80ed8aee3, type: 2}
+  children: 00000000
+  waitForEnd: 0
+--- !u!114 &1560773896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -427,12 +549,12 @@ MonoBehaviour:
   endNodeId: 1
   m_conditions:
   - id: 0
-    property: {fileID: 1853503143}
+    property: {fileID: 25836626}
     tree: {fileID: 0}
-    conditionIndex: 0
+    conditionIndex: 4
     intValue: 0
     floatValue: 0
-  tree: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
+  tree: {fileID: 11400000, guid: 591a8b14c3fdebc4ca02db1ffe59b4a0, type: 2}
 --- !u!1 &1682613106
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,13 +659,14 @@ MonoBehaviour:
   currentNodeChildren:
   - {fileID: 11400000, guid: 53cd13450c915f7408d5a3bf27938b12, type: 2}
   currentNodeLinks:
-  - {fileID: 1642416358}
+  - {fileID: 59579252}
   currentNodeReverseLinks: []
-  m_treeData: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
+  aniTree: {fileID: 11400000, guid: d4b78a140ab0b684ebbcbfa4f0b837a5, type: 2}
   m_aniDirection: 4
   m_properties:
-  - {fileID: 1853503143}
---- !u!114 &1853503143
+  - {fileID: 506354999}
+  - {fileID: 838371823}
+--- !u!114 &2129582133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -555,9 +678,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e8d9871ec55b048b6fa31e70d90f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 82
-  name: Param1
-  type: 2
+  id: 3
+  name: Speed
+  type: 3
   m_booleanValue: 0
   m_intValue: 0
   m_floatValue: 0

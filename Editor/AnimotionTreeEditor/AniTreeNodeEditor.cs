@@ -40,7 +40,7 @@ namespace Animotion {
             Handles.color = Color.white;
             Color backgroundColor = node.isRoot ? new Color32(0, 75, 0, 255) : AniTreeEditor.NODE_BACKGROUND_COLOR;
             Animotor animotionAnimator = animotionTreeEditor.animotionAnimator;
-            if (animotionAnimator) {
+            if (Application.isPlaying && animotionAnimator != null) {
                 if (animotionAnimator.currentNode) {
                     // Changes the color if GameObject with AnimotionAnimator selected  
                     backgroundColor = animotionTreeEditor.animotionAnimator.currentNode.id == node.id ? new Color32(125, 0, 0, 255) : backgroundColor;

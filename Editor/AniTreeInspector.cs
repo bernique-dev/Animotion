@@ -10,6 +10,7 @@ public class AniTreeInspector : Editor {
     public override void OnInspectorGUI() {
         var aniTree = target as AniTree;
         if (aniTree) {
+            EditorGUI.BeginChangeCheck();
 
             var variant = aniTree as AniTreeVariant;
 
@@ -60,6 +61,9 @@ public class AniTreeInspector : Editor {
                 } else {
                     GUILayout.Label("No AniTree in variant", style);
                 }
+            }
+            if (EditorGUI.EndChangeCheck()) {
+                EditorUtility.SetDirty(variant ?? aniTree);
             }
         }
         //base.OnInspectorGUI();

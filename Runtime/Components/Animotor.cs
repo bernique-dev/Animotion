@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 
 namespace Animotion {
+    [Serializable]
     public class Animotor : MonoBehaviour {
 
         private SpriteRenderer spriteRenderer;
@@ -15,8 +16,8 @@ namespace Animotion {
         public AniNode currentNode {
             get {
                 if (m_currentNode == null) {
-                    if (m_aniTree) {
-                        m_currentNode = m_aniTree.GetRoot();
+                    if (aniTree) {
+                        m_currentNode = aniTree.GetRoot();
                     }
                 }
                 return m_currentNode;
@@ -59,22 +60,23 @@ namespace Animotion {
         public List<AniLink> currentNodeLinks;
         public List<AniBidirectionalLink> currentNodeReverseLinks;
 
-        public AniTree aniTree {
-            get {
-                return m_aniTree;
-            }
-            set {
-                m_aniTree = value;
-                UpdateProperties();
-                currentNode = m_aniTree.GetRoot();
-            }
-        }
-        [SerializeField] private AniTree m_aniTree;
+        public AniTree aniTree;
         // Hideable
         [SerializeField] private AniDirection m_aniDirection = AniDirection.Right;
         public AniClip animotionClip {
             get {
-                return currentNode ? currentNode.hasMultipleDirections ? currentNode.GetAnimotionClip(m_aniDirection) : currentNode.GetAnimotionClip() : null;
+                if (currentNode) {
+                    //Debug.Log("currentNode");
+                    if (currentNode.hasMultipleDirections) {
+                        //Debug.Log("Multiple");
+                        return currentNode.GetAnimotionClip(m_aniDirection);
+                    } else {
+                        //Debug.Log("Single");
+                        return currentNode.GetAnimotionClip();
+                    }
+                }
+                return null;
+                //return currentNode ? currentNode.hasMultipleDirections ?  : currentNode.GetAnimotionClip() : null;
             }
         }
 
@@ -100,17 +102,23 @@ namespace Animotion {
             }
             isTimerRunning = animateOnStart;
             if (aniTree) {
-                UpdateProperties();
-                currentNode = aniTree.GetRoot();
+                UpdateTree();
             }
+        }
+
+        public void UpdateTree() {
+            UpdateProperties();
+            currentNode = aniTree ? aniTree.GetRoot() : null;
         }
 
         public void UpdateProperties() {
             m_properties = new List<TreeProperty>();
-            foreach (TreeProperty treeProperty in aniTree.GetProperties()) {
-                TreeProperty newTreeProperty = ScriptableObject.CreateInstance<TreeProperty>();
-                newTreeProperty.SetValues(treeProperty);
-                m_properties.Add(newTreeProperty);
+            if (aniTree) {
+                foreach (TreeProperty treeProperty in aniTree.GetProperties()) {
+                    TreeProperty newTreeProperty = ScriptableObject.CreateInstance<TreeProperty>();
+                    newTreeProperty.SetValues(treeProperty);
+                    m_properties.Add(newTreeProperty);
+                }
             }
         }
 
