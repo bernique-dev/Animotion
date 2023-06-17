@@ -27,6 +27,7 @@ namespace Animotion {
         /// </summary>
         public static readonly float MENUBAR_BUTTON_HEIGHT = 20;
 
+        public static AniTreeEditor instance;
 
         public Vector2 centerOffset;
 
@@ -56,19 +57,23 @@ namespace Animotion {
         private List<string> paths;
         private List<string> pathsWithoutExtension;
 
-        private bool needsReset;
-
         [MenuItem("Animotion/Animotion Tree Editor")]
         public static void ShowWindow() {
             GetWindow(typeof(AniTreeEditor), false, "Animotion Tree Editor");
         }
+        public static void ShowWindow(AniTree aniTree) {
+            GetWindow(typeof(AniTreeEditor), false, "Animotion Tree Editor");
+            instance.tree = aniTree;
+            instance.Initiate();
+        }
 
 
         private void OnFocus() {
-            //RefreshPaths();
+            Initiate();
         }
 
         private void OnEnable() {
+            instance = this;
             Initiate();
             RefreshPaths();
         }

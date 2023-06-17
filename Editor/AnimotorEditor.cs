@@ -15,12 +15,18 @@ namespace Animotion {
             Animotor animotor = (Animotor)target;
             var linkedAnimotor = animotor as LinkedAnimotor;
 
+            EditorGUILayout.BeginHorizontal();
             var aniTree = EditorGUILayout.ObjectField(animotor.aniTree, typeof(AniTree), false) as AniTree;
             if (aniTree != animotor.aniTree) {
-                Debug.Log(aniTree);
                 animotor.aniTree = aniTree;
                 animotor.UpdateTree();
             }
+            EditorGUI.BeginDisabledGroup(aniTree == null);
+            if (GUILayout.Button("Open")) {
+                AniTreeEditor.ShowWindow(aniTree);
+            }
+            EditorGUI.EndDisabledGroup();
+            EditorGUILayout.EndHorizontal();
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             if (animotor.aniTree != null) {
