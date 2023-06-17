@@ -23,11 +23,12 @@ public class LinkedAnimotor : Animotor {
         return _animotor;
     }
 
-    public override void UpdatePropertyValue(string propertyName, object value, bool originalCall = true) {
-        base.UpdatePropertyValue(propertyName, value, originalCall);
-        if (originalCall) {
-            _animotor.UpdatePropertyValue(propertyName, value, false);
+    public override void UpdatePropertyValue(string propertyName, object value, bool callChildren = true, bool callParent = true) {
+        base.UpdatePropertyValue(propertyName, value, callChildren, callParent);
+        if (callParent) {
+            if (_animotor.HasProperty(propertyName)) {
+                _animotor.UpdatePropertyValue(propertyName, value, false, true);
+            }
         }
     }
-
 }

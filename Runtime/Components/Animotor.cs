@@ -141,17 +141,17 @@ namespace Animotion {
             return properties.Any(p => p.name == propertyName);
         }
 
-        public virtual void UpdatePropertyValue(string propertyName, object value, bool originalCall = true) {
+        public virtual void UpdatePropertyValue(string propertyName, object value, bool callChildren = true, bool callParent = true) {
             var propertyByName = properties.Find(p => p.name == propertyName);
             if (propertyByName != null) {
                 propertyByName.value = value;
             } else {
-                throw new ArgumentException($"No property found with name = '${propertyByName}'");
+                throw new ArgumentException($"No property found with name = '{propertyByName}'");
             }
-            if (originalCall) {
+            if (callChildren) {
                 foreach (var linkedAnimotor in linkedAnimotors) {
                     if (linkedAnimotor.HasProperty(propertyName)) {
-                        linkedAnimotor.UpdatePropertyValue(propertyName, value, false);
+                        linkedAnimotor.UpdatePropertyValue(propertyName, value, true, false);
                     }
                 }
             }
