@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Graphs;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace Animotion {
     [Serializable]
@@ -12,6 +14,14 @@ namespace Animotion {
         public bool animateOnStart = true;
         public int frame;
         [SerializeField] private bool isTimerRunning;
+
+        private List<LinkedAnimotor> linkedAnimotors {
+            get {
+                if (m_linkedAnimotors == null) { m_linkedAnimotors = new List<LinkedAnimotor>(); }
+                return m_linkedAnimotors;
+            }
+        }
+        [SerializeField] private List<LinkedAnimotor> m_linkedAnimotors;
 
         public AniNode currentNode {
             get {
@@ -40,8 +50,7 @@ namespace Animotion {
                                 //Debug.Log(condition.property.name + " " + (String.Join(",",properties.Select(p => p.name).ToArray())));
                                 newLink.conditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
                             }
-                        }
-                        else {
+                        } else {
                             newLink.endNodeId = link.startNodeId;
                             newLink.startNodeId = link.endNodeId;
                             foreach (TreePropertyCondition condition in (link as AniBidirectionalLink).reverseConditions) {
@@ -88,12 +97,12 @@ namespace Animotion {
 
         public List<TreeProperty> properties {
             get {
-                return m_properties != null ? m_properties : aniTree.GetProperties();
+                return m_properties != null ? m_properties : GetTreeProperties();
             }
         }
-
-
         [SerializeField] private List<TreeProperty> m_properties;
+
+
 
         private void Awake() {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -106,6 +115,48 @@ namespace Animotion {
             }
         }
 
+        public virtual Animotor GetAnimotor() {
+            return this;
+        }
+
+        public void LinkAnimotor(LinkedAnimotor linkedAnimotor) {
+            linkedAnimotors.Add(linkedAnimotor);
+        }
+
+        public void UnlinkAnimotor(LinkedAnimotor linkedAnimotor) {
+            linkedAnimotors.Remove(linkedAnimotor);
+        }
+
+        public List<LinkedAnimotor> GetLinkedAnimotors() {
+            return linkedAnimotors;
+        }
+
+        public void UpdatePropertyValues() {
+            foreach (var property in properties) {
+                UpdatePropertyValue(property.name, property.value);
+            }
+        }
+
+        public bool HasProperty(string propertyName) {
+            return properties.Any(p => p.name == propertyName);
+        }
+
+        public virtual void UpdatePropertyValue(string propertyName, object value, bool originalCall = true) {
+            var propertyByName = properties.Find(p => p.name == propertyName);
+            if (propertyByName != null) {
+                propertyByName.value = value;
+            } else {
+                throw new ArgumentException($"No property found with name = '${propertyByName}'");
+            }
+            if (originalCall) {
+                foreach (var linkedAnimotor in linkedAnimotors) {
+                    if (linkedAnimotor.HasProperty(propertyName)) {
+                        linkedAnimotor.UpdatePropertyValue(propertyName, value, false);
+                    }
+                }
+            }
+        }
+
         public void UpdateTree() {
             UpdateProperties();
             currentNode = aniTree ? aniTree.GetRoot() : null;
@@ -114,7 +165,7 @@ namespace Animotion {
         public void UpdateProperties() {
             m_properties = new List<TreeProperty>();
             if (aniTree) {
-                foreach (TreeProperty treeProperty in aniTree.GetProperties()) {
+                foreach (TreeProperty treeProperty in GetTreeProperties()) {
                     TreeProperty newTreeProperty = ScriptableObject.CreateInstance<TreeProperty>();
                     newTreeProperty.SetValues(treeProperty);
                     m_properties.Add(newTreeProperty);
@@ -122,12 +173,15 @@ namespace Animotion {
             }
         }
 
+        public virtual List<TreeProperty> GetTreeProperties() {
+            return aniTree.GetProperties();
+        }
+
         public void SetDirection(Vector2 delta) {
             if (currentNode) {
                 if (currentNode.hasMultipleDirections) {
                     SetDirection(delta.GetAniDirection(currentNode.clipGroup.mode));
-                }
-                else {
+                } else {
                     SetDirection(delta.GetAniDirection());
                 }
             }
@@ -136,8 +190,7 @@ namespace Animotion {
         public void SetDirection(AniDirection _aniDirection) {
             if (currentNode.hasMultipleDirections) {
                 m_aniDirection = _aniDirection.GetVector2().GetAniDirection(currentNode.clipGroup.mode);
-            }
-            else {
+            } else {
                 m_aniDirection = _aniDirection;
             }
         }
@@ -183,14 +236,14 @@ namespace Animotion {
                 if (animotionClip) {
                     frame += 1;
                     AniFrame frameData = animotionClip.GetLastFrame(frame);
-                    if (frameData == null) Debug.Log(frame + " (" + frame + ")/" + animotionClip.length);
+                    if (frameData == null)
+                        Debug.Log(frame + " (" + frame + ")/" + animotionClip.length);
                     spriteRenderer.sprite = frameData.sprite;
                     if (frame >= animotionClip.length) {
                         frame = 0;
                         isTimerRunning = animotionClip.loop;
                     }
-                }
-                else {
+                } else {
                     frame = 0;
                 }
             }
@@ -244,14 +297,16 @@ namespace Animotion {
                         }
                         break;
                 }
-                if (!takeLink) break;
+                if (!takeLink)
+                    break;
             }
             return takeLink;
         }
 
         private void OnDrawGizmos() {
 #if UNITY_EDITOR
-            if (currentNode) Handles.Label(transform.position, currentNode.nodeName);
+            if (currentNode)
+                Handles.Label(transform.position, currentNode.nodeName);
 #endif
         }
 

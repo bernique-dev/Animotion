@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   isRoot: 1
-  position: {x: 43, y: -19}
+  position: {x: -23, y: -20}
   nodeName: node0
   hasMultipleDirections: 0
   clipGroup: {fileID: 0}
-  clip: {fileID: 11400000, guid: c21a378387002014dadde5569069aa97, type: 2}
+  clip: {fileID: 11400000, guid: d2959ac805bab514e83ea3b32a265e97, type: 2}
   children: 01000000
   waitForEnd: 0

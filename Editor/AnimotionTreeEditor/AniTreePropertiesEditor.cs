@@ -20,12 +20,11 @@ namespace Animotion {
         private List<TreeProperty> properties {
             get {
                 List<TreeProperty> tmpProperties = animotionTreeEditor.tree.GetProperties();
-                if (animotionTreeEditor.animotionAnimator) {
+                if (animotionTreeEditor.animotor) {
                     if (Application.isPlaying) {
-                        tmpProperties = animotionTreeEditor.animotionAnimator.properties;
+                        tmpProperties = animotionTreeEditor.animotor.properties;
                     }
                 }
-
                 return tmpProperties;
             }
         }
@@ -67,14 +66,14 @@ namespace Animotion {
                 }
                 GUIStyle popupStyle = new GUIStyle(EditorStyles.popup);
                 popupStyle.fixedHeight = newPropertyFields.height;
-                newPropertyType = (TreePropertyType)EditorGUI.EnumPopup(new Rect(newPropertyFields.min + new Vector2(30,0), new Vector2(newPropertyFields.width - 35, newPropertyFields.height)) , newPropertyType, popupStyle);
+                newPropertyType = (TreePropertyType)EditorGUI.EnumPopup(new Rect(newPropertyFields.min + new Vector2(30, 0), new Vector2(newPropertyFields.width - 35, newPropertyFields.height)), newPropertyType, popupStyle);
 
 
                 if (Application.isPlaying) {
                     EditorGUI.EndDisabledGroup();
                 }
 
-                if (animotionTreeEditor.animotionAnimator) {
+                if (animotionTreeEditor.animotor) {
                 } else {
                     if (Application.isPlaying) {
                         EditorGUI.BeginDisabledGroup(true);
@@ -114,7 +113,7 @@ namespace Animotion {
                             }
                             break;
                         case TreePropertyType.Integer:
-                            property.value = EditorGUI.IntField(new Rect(new Vector2(propertyFieldRect.xMax - propertyFieldRect.height * 1.45f, propertyFieldRect.yMin), new Vector2(propertyFieldRect.height* 1.45f, propertyFieldRect.height)), property.value == null ? 0 : (int)property.value);
+                            property.value = EditorGUI.IntField(new Rect(new Vector2(propertyFieldRect.xMax - propertyFieldRect.height * 1.45f, propertyFieldRect.yMin), new Vector2(propertyFieldRect.height * 1.45f, propertyFieldRect.height)), property.value == null ? 0 : (int)property.value);
                             break;
                         case TreePropertyType.Float:
                             property.value = EditorGUI.FloatField(new Rect(new Vector2(propertyFieldRect.xMax - propertyFieldRect.height * 1.45f, propertyFieldRect.yMin), new Vector2(propertyFieldRect.height * 1.45f, propertyFieldRect.height)), property.value == null ? 0 : (float)property.value);
@@ -122,15 +121,15 @@ namespace Animotion {
                     }
 
                     if (EditorGUI.EndChangeCheck()) {
-                        //if (animotionTreeEditor.animotionAnimator) {
-                        //    animotionTreeEditor.animotionAnimator.UpdateProperties();
-                        //}
+                        if (animotionTreeEditor.animotor) {
+                            animotionTreeEditor.animotor.UpdatePropertyValues();
+                        }
                     }
 
                     EditorUtility.SetDirty(property);
                 }
 
-                if (animotionTreeEditor.animotionAnimator) {
+                if (animotionTreeEditor.animotor) {
                 } else {
                     if (Application.isPlaying) {
                         EditorGUI.EndDisabledGroup();

@@ -1,9 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Animotion {
-    [CustomEditor(typeof(Animotor))]
+    [CustomEditor(typeof(Animotor), true)]
     public class AnimotorEditor : Editor {
 
         public override void OnInspectorGUI() {
@@ -12,6 +13,7 @@ namespace Animotion {
             //base.OnInspectorGUI();
             //EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             Animotor animotor = (Animotor)target;
+            var linkedAnimotor = animotor as LinkedAnimotor;
 
             var aniTree = EditorGUILayout.ObjectField(animotor.aniTree, typeof(AniTree), false) as AniTree;
             if (aniTree != animotor.aniTree) {
@@ -40,6 +42,24 @@ namespace Animotion {
                     EditorGUILayout.EndHorizontal();
                 }
             }
+
+            if (linkedAnimotor != null) {
+                var baseAnimotor = EditorGUILayout.ObjectField(linkedAnimotor.GetAnimotor(), typeof(Animotor), true) as Animotor;
+                if (linkedAnimotor.GetAnimotor() != baseAnimotor) {
+                    linkedAnimotor.SetAnimotor(baseAnimotor);
+                }
+            }
+
+            var linkedAnimotors = animotor.GetLinkedAnimotors();
+            if (linkedAnimotors.Any()) {
+                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                EditorGUI.BeginDisabledGroup(true);
+                foreach (var linkedAnimotorContained in linkedAnimotors) {
+                    EditorGUILayout.ObjectField(linkedAnimotorContained, typeof(LinkedAnimotor), true);
+                }
+                EditorGUI.EndDisabledGroup();
+            }
+
             if (EditorGUI.EndChangeCheck()) {
                 EditorUtility.SetDirty(animotor);
             }

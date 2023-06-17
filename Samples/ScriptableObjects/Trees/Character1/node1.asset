@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   isRoot: 0
-  position: {x: 27, y: -101}
+  position: {x: 51, y: -96}
   nodeName: node1
   hasMultipleDirections: 0
   clipGroup: {fileID: 0}

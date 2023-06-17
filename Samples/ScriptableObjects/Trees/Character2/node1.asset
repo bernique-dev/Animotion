@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a127b90bce33ed4cb722505756b394c, type: 3}
-  m_Name: node0
+  m_Name: node1
   m_EditorClassIdentifier: 
-  id: 0
-  isRoot: 1
-  position: {x: 43, y: -19}
-  nodeName: node0
+  id: 1
+  isRoot: 0
+  position: {x: 3, y: -116}
+  nodeName: node1
   hasMultipleDirections: 0
   clipGroup: {fileID: 0}
-  clip: {fileID: 11400000, guid: c21a378387002014dadde5569069aa97, type: 2}
-  children: 01000000
+  clip: {fileID: 11400000, guid: d04ae667525e0ac4eacd6e251c96a7e4, type: 2}
+  children: 00000000
   waitForEnd: 0

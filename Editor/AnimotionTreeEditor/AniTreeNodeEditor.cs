@@ -39,11 +39,11 @@ namespace Animotion {
             base.Draw();
             Handles.color = Color.white;
             Color backgroundColor = node.isRoot ? new Color32(0, 75, 0, 255) : AniTreeEditor.NODE_BACKGROUND_COLOR;
-            Animotor animotionAnimator = animotionTreeEditor.animotionAnimator;
+            Animotor animotionAnimator = animotionTreeEditor.animotor;
             if (Application.isPlaying && animotionAnimator != null) {
                 if (animotionAnimator.currentNode) {
                     // Changes the color if GameObject with AnimotionAnimator selected  
-                    backgroundColor = animotionTreeEditor.animotionAnimator.currentNode.id == node.id ? new Color32(125, 0, 0, 255) : backgroundColor;
+                    backgroundColor = animotionTreeEditor.animotor.currentNode.id == node.id ? new Color32(125, 0, 0, 255) : backgroundColor;
                 }
             }
             // Draws the node's rectangle
@@ -56,7 +56,7 @@ namespace Animotion {
                         if (animotionClip) {
                             Color translucentColor = Color.white;
                             // Draws the progression of the animator inside a state (GameObject with AnimotionAnimator needs to be selected)
-                            Handles.DrawSolidRectangleWithOutline(new Rect(rect.min + new Vector2(1, rect.height - 1), new Vector2(rect.width * animotionTreeEditor.animotionAnimator.frame / animotionClip.length, rect.height / 100) - new Vector2(2, 2)), translucentColor, translucentColor);
+                            Handles.DrawSolidRectangleWithOutline(new Rect(rect.min + new Vector2(1, rect.height - 1), new Vector2(rect.width * animotionTreeEditor.animotor.frame / animotionClip.length, rect.height / 100) - new Vector2(2, 2)), translucentColor, translucentColor);
                         }
                     }
                 }

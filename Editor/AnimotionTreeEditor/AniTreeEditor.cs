@@ -41,7 +41,7 @@ namespace Animotion {
 
         private bool isRefreshingPaths;
 
-        public Animotor animotionAnimator {
+        public Animotor animotor {
             get {
                 if (activeGameObject) {
                     Animotor aa = activeGameObject.GetComponent<Animotor>();
@@ -84,7 +84,6 @@ namespace Animotion {
         /// Initiate drawn lits and properties Editor
         /// </summary>
         private void Initiate() {
-            var idx = 1;
             var startTime = DateTime.Now;
             if (selectedNodes == null) selectedNodes = new List<int>();
             if (selectedLinks == null) selectedLinks = new List<AniTreeLinkEditor>();
