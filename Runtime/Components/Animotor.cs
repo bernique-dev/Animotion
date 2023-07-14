@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Graphs;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace Animotion {
     [Serializable]
