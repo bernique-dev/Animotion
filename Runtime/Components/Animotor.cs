@@ -115,7 +115,12 @@ namespace Animotion {
 
         public List<TreeProperty> properties {
             get {
-                return m_properties != null ? m_properties : GetTreeProperties();
+                if (m_properties != null) {
+                    if (m_properties.All(p => p is not null)) {
+                        return m_properties;
+                    }
+                }
+                return GetTreeProperties();
             }
         }
         [SerializeField] private List<TreeProperty> m_properties;
