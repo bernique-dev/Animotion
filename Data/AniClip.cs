@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 [CreateAssetMenu(menuName="Animotion/Animotion Clip")]
 public class AniClip : ScriptableObject {
@@ -57,6 +57,10 @@ public class AniClip : ScriptableObject {
         return frameDataList.Count > frame ? frameDataList[frame] : null;
     }
 
+    public bool IsThereFrame() {
+        return frameDataList.Any();
+    }
+
     public bool IsThereFrame(int frame) {
         return GetFrame(frame) != null;
     }
@@ -73,6 +77,17 @@ public class AniClip : ScriptableObject {
         return null;
     }
 
+    public List<Sprite> GetSprites() {
+        return frameDataList.Where(f => f.sprite != null).Select(f => f.sprite).ToList();
+    }
+    public List<AniFrame> GetSpriteFrames() {
+        return frameDataList.Where(f => f != null && f.sprite != null).ToList();
+    }
+
+    public int GetSpritesNumber() {
+        return frameDataList.Count(f => f.sprite != null);
+    }
+
     public bool IsEmpty() {
         return frameDataList.Count == 0;
     }
@@ -87,6 +102,18 @@ public class AniClip : ScriptableObject {
 
     public void DeleteAllFrames() {
         frameDataList = new List<AniFrame>();
+    }
+
+    public void SpaceFramesEvenly() {
+        var spriteFrames = GetSpriteFrames();
+        var spritesNumber = spriteFrames.Count;
+        var spriteInterval = (int)(length / spritesNumber);
+        DeleteAllFrames();
+        BalanceFrames(length);
+        for (int i = 0; i < spritesNumber; i++) {
+            var sprite = spriteFrames[i];
+            AddFrame(i * spriteInterval, sprite);
+        }
     }
 
 }

@@ -304,13 +304,16 @@ namespace Animotion {
                         int frame = GetFrameFromTimelinePosition(e.mousePosition);
                         GenericMenu menu = new GenericMenu();
                         //menu.AddItem(new GUIContent(frame.ToString()), false, () => Debug.Log(frame));
+                        if (animotionClip.IsThereFrame()) {
+                            menu.AddItem(new GUIContent("Space frames evenly"), false, () => animotionClip.SpaceFramesEvenly());
+                            menu.AddSeparator("");
+                        }
                         if (animotionClip.IsThereFrame(frame)) {
                             menu.AddItem(new GUIContent("Erase Key"), false, () => animotionClip.DeleteFrame(frame));
                         }
                         if (animotionClip.IsThereFrame(frame)) {
                             menu.AddItem(new GUIContent("Delete Keys"), !animotionClip.IsEmpty(), () => animotionClip.DeleteAllFrames());
-                        }
-                        else {
+                        } else {
                             menu.AddDisabledItem(new GUIContent("Delete Keys"));
                         }
                         menu.ShowAsContext();
