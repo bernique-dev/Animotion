@@ -89,6 +89,37 @@ namespace Animotion {
             return aniDirection;
         }
 
+        public static AniDirection GetMirroredAniDirection(this AniDirection direction) {
+            AniDirection aniDirection = AniDirection.Left;
+            switch (direction) {
+                case AniDirection.Down:
+                    aniDirection = AniDirection.Down;
+                    break;
+                case AniDirection.DownLeft:
+                    aniDirection = AniDirection.DownRight;
+                    break;
+                case AniDirection.DownRight:
+                    aniDirection = AniDirection.DownLeft;
+                    break;
+                case AniDirection.Left:
+                    aniDirection = AniDirection.Right;
+                    break;
+                case AniDirection.Right:
+                    aniDirection = AniDirection.Left;
+                    break;
+                case AniDirection.Up:
+                    aniDirection = AniDirection.Up;
+                    break;
+                case AniDirection.UpLeft:
+                    aniDirection = AniDirection.UpRight;
+                    break;
+                case AniDirection.UpRight:
+                    aniDirection = AniDirection.UpLeft;
+                    break;
+            }
+            return aniDirection;
+        }
+
     }
 
 }

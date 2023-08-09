@@ -8,7 +8,16 @@ namespace Animotion {
     [Serializable]
     public class Animotor : MonoBehaviour {
 
-        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer spriteRenderer {
+            get {
+                if (m_spriteRenderer == null) {
+                    m_spriteRenderer = GetComponent<SpriteRenderer>();
+                }
+                return m_spriteRenderer;
+            }
+        }
+        private SpriteRenderer m_spriteRenderer;
+
         public bool animateOnStart = true;
         public int frame;
         [SerializeField] private bool isTimerRunning;
@@ -76,7 +85,18 @@ namespace Animotion {
                     //Debug.Log("currentNode");
                     if (currentNode.hasMultipleDirections) {
                         //Debug.Log("Multiple");
-                        return currentNode.GetAnimotionClip(m_aniDirection);
+                        var _animotionClip = currentNode.GetAnimotionClip(m_aniDirection);
+                        spriteRenderer.flipX = false;
+                        if (_animotionClip is null) {
+                            var mirroredDirection = direction.GetMirroredAniDirection();
+                            if (direction != mirroredDirection)  {
+                                _animotionClip = currentNode.GetAnimotionClip(mirroredDirection);
+                                if (_animotionClip is not null) {
+                                    spriteRenderer.flipX = true;
+                                }
+                            }
+                        }
+                        return _animotionClip;
                     } else {
                         //Debug.Log("Single");
                         return currentNode.GetAnimotionClip();
@@ -103,7 +123,7 @@ namespace Animotion {
 
 
         private void Awake() {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            SetDirection(AniDirection.Left);
             if (animotionClip) {
                 spriteRenderer.sprite = animotionClip.GetFrame(0).sprite;
             }
