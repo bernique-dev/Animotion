@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1fed05cabd7f94983b7100fea9d560, type: 3}
+  m_Name: TestAnimation1Down
+  m_EditorClassIdentifier: 
+  length: 40
+  loop: 1
+  m_frameDataList:
+  - frame: 0
+    sprite: {fileID: 2001730608, guid: 0d996b69d46f79e46b2c131312f7d40a, type: 3}
+  - frame: 0
+    sprite: {fileID: 0}
+  - frame: 0
+    sprite: {fileID: 0}
+  - frame: 0
+    sprite: {fileID: 0}
+  - frame: 0
+    sprite: {fileID: 0}
+  - frame: 5
+    sprite: {fileID: -682472876, guid: 0d996b69d46f79e46b2c131312f7d40a, type: 3}
+  - frame: 0
+    sprite: {fileID: 0}
+  - frame: 0
+    sprite: {fileID: 0}
+  - frame: 8
+    sprite: {fileID: 0}
+  - frame: 9
+    sprite: {fileID: 0}
+  - frame: 10
+    sprite: {fileID: -1693986955, guid: 0d996b69d46f79e46b2c131312f7d40a, type: 3}
+  - frame: 11
+    sprite: {fileID: 0}
+  - frame: 12
+    sprite: {fileID: 0}
+  - frame: 13
+    sprite: {fileID: 0}
+  - frame: 14
+    sprite: {fileID: 0}
+  - frame: 15
+    sprite: {fileID: 948188512, guid: 0d996b69d46f79e46b2c131312f7d40a, type: 3}
+  - frame: 16
+    sprite: {fileID: 0}
+  - frame: 17
+    sprite: {fileID: 0}
+  - frame: 18
+    sprite: {fileID: 0}
+  - frame: 19
+    sprite: {fileID: 0}
+  - frame: 20
+    sprite: {fileID: 306389640, guid: 0d996b69d46f79e46b2c131312f7d40a, type: 3}
+  - frame: 21
+    sprite: {fileID: 0}
+  - frame: 22
+    sprite: {fileID: 0}
+  - frame: 23
+    sprite: {fileID: 0}
+  - frame: 0
+    sprite: {fileID: 0}
+  - frame: 25
+    sprite: {fileID: 942718303, guid: 0d996b69d46f79e46b2c131312f7d40a, type: 3}
+  - frame: 26
+    sprite: {fileID: 0}
+  - frame: 27
+    sprite: {fileID: 0}
+  - frame: 28
+    sprite: {fileID: 0}
+  - frame: 29
+    sprite: {fileID: 0}
+  - frame: 30
+    sprite: {fileID: -752045111, guid: 0d996b69d46f79e46b2c131312f7d40a, type: 3}
+  - frame: 31
+    sprite: {fileID: 0}
+  - frame: 32
+    sprite: {fileID: 0}
+  - frame: 33
+    sprite: {fileID: 0}
+  - frame: 34
+    sprite: {fileID: 0}
+  - frame: 35
+    sprite: {fileID: -178562773, guid: 0d996b69d46f79e46b2c131312f7d40a, type: 3}
