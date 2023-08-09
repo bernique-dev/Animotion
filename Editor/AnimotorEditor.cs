@@ -33,7 +33,7 @@ namespace Animotion {
                 var style = new GUIStyle("label");
                 style.alignment = TextAnchor.MiddleCenter;
                 var clip = animotor.animotionClip;
-                GUILayout.Label($"{clip.name} - ({animotor.frame}) {" - " + animotor.direction}", style);
+                GUILayout.Label($"{(clip != null ? clip.name : "No clip")} - ({animotor.frame}) {" - " + animotor.direction}", style);
 
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 

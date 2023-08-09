@@ -44,6 +44,9 @@ namespace Animotion {
         }
 
         public AniClip GetAnimotionClip(AniDirection direction) {
+            if (clipGroup == null) {
+                return null;
+            }
             return clipGroup.GetAnimotionClip(direction);
         }
 
