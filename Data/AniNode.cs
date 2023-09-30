@@ -28,8 +28,8 @@ namespace Animotion {
 
 
         public void SetValues(string n, Vector2 _position) {
-            id = idCounter;
             idCounter++;
+            id = idCounter;
             nodeName = n;
             position = _position;
             children = new List<int>();
