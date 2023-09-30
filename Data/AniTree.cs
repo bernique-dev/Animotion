@@ -113,6 +113,9 @@ namespace Animotion {
 
         public void DeleteNode(AniNode node) {
             nodes.Remove(node);
+            foreach (var otherNode in nodes) {
+                otherNode.children.Remove(node.id);
+            }
 #if UNITY_EDITOR
             EditorUtility.SetDirty(this);
 #endif
