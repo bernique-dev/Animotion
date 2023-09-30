@@ -22,7 +22,7 @@ namespace Animotion {
 
         [HideInInspector] public AniTree tree;
 
-        public virtual string ToString() {
+        public override string ToString() {
             return tree ? (tree.GetNode(startNodeId).nodeName + " -> " + tree.GetNode(endNodeId).nodeName) : (startNodeId + "->" + endNodeId);
         }
 
