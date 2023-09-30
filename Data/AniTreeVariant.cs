@@ -31,9 +31,22 @@ public class AniTreeVariant : AniTree {
     public List<Binding> bindings {
         get {
             var nodes = aniTree.GetNodes();
-            if (m_bindings == null || m_bindings.Count != nodes.Count) {
+            if (m_bindings == null) {
                 m_bindings = new List<Binding>();
                 nodes.ForEach(n => m_bindings.Add(new Binding(n.id, n.hasMultipleDirections, null, null)));
+            }
+            if (m_bindings.Count > nodes.Count) {
+                m_bindings = m_bindings.Where(b => nodes.Any(n => n.id == b.nodeId)).ToList();
+            } else if (m_bindings.Count < nodes.Count) {
+                foreach (var unboundNode in nodes.Where(n => !m_bindings.Any(b => b.nodeId == n.id))) {
+                    m_bindings.Add(new Binding(unboundNode.id, unboundNode.hasMultipleDirections, null, null));
+                }
+            }
+            if (m_bindings.Any(b => b.hasMultipleDirections != nodes.Find(n => n.id == b.nodeId)?.hasMultipleDirections)) {
+                m_bindings = m_bindings.Where(b => b.hasMultipleDirections == nodes.Find(n => n.id == b.nodeId)?.hasMultipleDirections).ToList();
+                foreach (var unboundNode in nodes.Where(n => !m_bindings.Any(b => b.nodeId == n.id))) {
+                    m_bindings.Add(new Binding(unboundNode.id, unboundNode.hasMultipleDirections, null, null));
+                }
             }
             return m_bindings;
         }

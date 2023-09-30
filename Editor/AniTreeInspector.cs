@@ -1,7 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using Animotion;
-using System.Collections.Generic;
 
 [CustomEditor(typeof(AniTree), true)]
 public class AniTreeInspector : Editor {
@@ -47,12 +46,11 @@ public class AniTreeInspector : Editor {
 
                         EditorGUILayout.BeginHorizontal();
 
-                        GUILayout.Label(boundNode.name);
+                        GUILayout.Label(boundNode.nodeName);
                         GUILayout.FlexibleSpace();
                         if (binding.hasMultipleDirections) {
                             binding.clipGroup = EditorGUILayout.ObjectField(binding.clipGroup, typeof(AniClipGroup), false) as AniClipGroup;
-                        }
-                        else {
+                        } else {
                             binding.clip = EditorGUILayout.ObjectField(binding.clip, typeof(AniClip), false) as AniClip;
                         }
 
@@ -60,6 +58,20 @@ public class AniTreeInspector : Editor {
                     }
                 } else {
                     GUILayout.Label("No AniTree in variant", style);
+                }
+            } else {
+                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                foreach(var node in aniTree.GetNodes()) {
+                    EditorGUILayout.BeginHorizontal();
+
+                    GUILayout.Label(node.nodeName);
+                    GUILayout.FlexibleSpace();
+                    if (node.hasMultipleDirections) {
+                        node.clipGroup = EditorGUILayout.ObjectField(node.clipGroup, typeof(AniClipGroup), false) as AniClipGroup;
+                    } else {
+                        node.clip = EditorGUILayout.ObjectField(node.clip, typeof(AniClip), false) as AniClip;
+                    }
+                    EditorGUILayout.EndHorizontal();
                 }
             }
             if (EditorGUI.EndChangeCheck()) {
