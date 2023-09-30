@@ -228,7 +228,12 @@ namespace Animotion {
                         treeIndex = EditorGUILayout.Popup(treeIndex, pathsWithoutExtension.ToArray(), EditorStyles.toolbarDropDown);
                         if (previousTreeIndex != treeIndex) {
                             var tmpTree = AssetDatabase.LoadAssetAtPath<AniTree>(paths[treeIndex]);
-                            tree = tmpTree;
+                            var tmpTreeVariant = tmpTree as AniTreeVariant;
+                            if (tmpTreeVariant != null) {
+                                tree = tmpTreeVariant.aniTree;
+                            } else {
+                                tree = tmpTree;
+                            }
                             Initiate();
                         }
                     }
