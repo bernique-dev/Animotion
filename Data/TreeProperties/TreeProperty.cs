@@ -65,4 +65,8 @@ public class TreeProperty : ScriptableObject {
         value = treeProperty.value;
     }
 
+    public override string ToString() {
+        return $"{name} ({value})";
+    }
+
 }
