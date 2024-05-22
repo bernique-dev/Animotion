@@ -53,7 +53,7 @@ namespace Animotion {
                 }
                 return clip;
             } else {
-                throw new Exception(" Unvalid AnimotionClipsDataMode | " + direction + " asked while mode is " + mode);
+                throw new Exception("Unvalid AnimotionClipsDataMode | " + direction + " asked while mode is " + mode);
             }
         }
     }

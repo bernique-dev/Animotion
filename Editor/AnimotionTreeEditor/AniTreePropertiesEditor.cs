@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,13 +17,16 @@ namespace Animotion {
 
         private TreePropertyType newPropertyType;
 
+        public bool arePropertiesFromTree = false;
 
         private List<TreeProperty> properties {
             get {
                 List<TreeProperty> tmpProperties = animotionTreeEditor.tree.GetProperties();
+                arePropertiesFromTree = true;
                 if (animotionTreeEditor.animotor) {
                     if (Application.isPlaying) {
                         tmpProperties = animotionTreeEditor.animotor.properties;
+                        arePropertiesFromTree = false;
                     }
                 }
                 return tmpProperties;

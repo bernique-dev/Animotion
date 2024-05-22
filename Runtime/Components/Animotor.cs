@@ -76,34 +76,22 @@ namespace Animotion {
         public List<AniLink> currentNodeLinks;
         public List<AniBidirectionalLink> currentNodeReverseLinks;
 
-        public AniTree aniTree;
+        public AniTree aniTree {
+            get {
+                return m_aniTree;
+            }
+            set {
+                m_aniTree = value;
+                currentNode = m_aniTree.GetRoot();
+            }
+        }
+        [SerializeField] private AniTree m_aniTree;
+
         // Hideable
         [SerializeField] private AniDirection m_aniDirection = AniDirection.Right;
         public AniClip animotionClip {
             get {
-                if (currentNode) {
-                    //Debug.Log("currentNode");
-                    if (currentNode.hasMultipleDirections) {
-                        //Debug.Log("Multiple");
-                        var _animotionClip = currentNode.GetAnimotionClip(m_aniDirection);
-                        spriteRenderer.flipX = false;
-                        if (_animotionClip is null) {
-                            var mirroredDirection = direction.GetMirroredAniDirection();
-                            if (direction != mirroredDirection)  {
-                                _animotionClip = currentNode.GetAnimotionClip(mirroredDirection);
-                                if (_animotionClip is not null) {
-                                    spriteRenderer.flipX = true;
-                                }
-                            }
-                        }
-                        return _animotionClip;
-                    } else {
-                        //Debug.Log("Single");
-                        return currentNode.GetAnimotionClip();
-                    }
-                }
-                return null;
-                //return currentNode ? currentNode.hasMultipleDirections ?  : currentNode.GetAnimotionClip() : null;
+                return RefreshAnimotionClip();
             }
         }
 
@@ -115,17 +103,44 @@ namespace Animotion {
 
         public List<TreeProperty> properties {
             get {
-                if (m_properties != null) {
-                    if (m_properties.All(p => p is not null)) {
-                        return m_properties;
-                    }
+                if (m_properties is null) {
+                    UpdateProperties();
                 }
-                return GetTreeProperties();
+                if (m_properties.All(p => p is not null)) {
+                    return m_properties;
+                } else {
+                    UpdateProperties();
+                    return m_properties;
+                }
             }
         }
         [SerializeField] private List<TreeProperty> m_properties;
 
-
+        private AniClip RefreshAnimotionClip() {
+            if (currentNode) {
+                //Debug.Log("currentNode");
+                if (currentNode.hasMultipleDirections) {
+                    //Debug.Log("Multiple");
+                    var _animotionClip = currentNode.GetAnimotionClip(m_aniDirection);
+                    spriteRenderer.flipX = false;
+                    if (_animotionClip is null) {
+                        var mirroredDirection = direction.GetMirroredAniDirection();
+                        if (direction != mirroredDirection) {
+                            _animotionClip = currentNode.GetAnimotionClip(mirroredDirection);
+                            if (_animotionClip is not null) {
+                                spriteRenderer.flipX = true;
+                            }
+                        }
+                    }
+                    return _animotionClip;
+                } else {
+                    //Debug.Log("Single");
+                    return currentNode.GetAnimotionClip();
+                }
+            }
+            return null;
+            //return currentNode ? currentNode.hasMultipleDirections ?  : currentNode.GetAnimotionClip() : null;
+        }
 
         private void Awake() {
             SetDirection(AniDirection.Left);
@@ -188,7 +203,8 @@ namespace Animotion {
         public void UpdateProperties() {
             m_properties = new List<TreeProperty>();
             if (aniTree) {
-                foreach (TreeProperty treeProperty in GetTreeProperties()) {
+                var treeProperties = GetTreeProperties();
+                foreach (TreeProperty treeProperty in treeProperties) {
                     TreeProperty newTreeProperty = ScriptableObject.CreateInstance<TreeProperty>();
                     newTreeProperty.SetValues(treeProperty);
                     m_properties.Add(newTreeProperty);
@@ -220,7 +236,12 @@ namespace Animotion {
 
         public void SetObject(string propertyName, object value) {
             //Debug.Log("[" + gameObject.name + "] " + propertyName + " -> "  + value);
-            properties.Find(p => p.name == propertyName).value = value;
+            var property = properties.Find(p => p.name == propertyName);
+            if (property is null)
+            {
+                Debug.LogError($"Can't find property with name \"{propertyName}\"", this);
+            }
+            property.value = value;
         }
 
         public object GetObject(string propertyName) {

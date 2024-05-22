@@ -10,6 +10,7 @@ public class TreeProperty : ScriptableObject {
     public static int idCounter;
     public new string name;
     public TreePropertyType type;
+    public object defaultValue;
 
     public object value {
         get {
@@ -63,6 +64,7 @@ public class TreeProperty : ScriptableObject {
     public void SetValues(TreeProperty treeProperty) {
         SetValues(treeProperty.name, treeProperty.type);
         value = treeProperty.value;
+        defaultValue = treeProperty.defaultValue;
     }
 
     public override string ToString() {

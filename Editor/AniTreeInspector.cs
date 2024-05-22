@@ -5,9 +5,17 @@ using Animotion;
 [CustomEditor(typeof(AniTree), true)]
 public class AniTreeInspector : Editor {
 
+    private bool useBaseInspector = false;
 
     public override void OnInspectorGUI() {
+        useBaseInspector = EditorGUILayout.Toggle("Use base inspector", useBaseInspector);
+        if (useBaseInspector) {
+            base.OnInspectorGUI();
+            return;
+        }
+
         var aniTree = target as AniTree;
+
         if (aniTree) {
             EditorGUI.BeginChangeCheck();
 

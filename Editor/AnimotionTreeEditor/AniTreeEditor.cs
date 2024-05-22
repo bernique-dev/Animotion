@@ -125,6 +125,9 @@ namespace Animotion {
         private void OnGUI() {
             Draw();
             ProcessEvent(Event.current);
+        }
+
+        private void Update() {
             Repaint();
         }
 
@@ -187,7 +190,10 @@ namespace Animotion {
 
             str += "Nodes: " + drawnNodes.Count + " | Links: " + drawnLinks.Count;
 
-            Handles.Label(new Vector2(7 * Screen.width / 8, Screen.height / 8), str);
+            str += "\n" + (propertiesEditor.arePropertiesFromTree ? "From tree" : "From Animotor");
+            str += "\nLast update: " + DateTime.Now; 
+
+            Handles.Label(new Vector2(6 * Screen.width / 8, Screen.height / 5), str);
             Handles.EndGUI();
 
 

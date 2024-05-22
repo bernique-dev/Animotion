@@ -54,7 +54,7 @@ public class AniTreeVariant : AniTree {
     [SerializeField] private List<Binding> m_bindings;
 
     public override bool AreNodesSelectable() {
-        return false;
+        return true;
     }
 
     public override List<TreeProperty> GetProperties() {

@@ -70,8 +70,11 @@ namespace Animotion {
 
         public override void ProcessEvent(Event e) {
             base.ProcessEvent(e);
+            //if (e.type == EventType.Repaint || e.type == EventType.Layout)
+            //    return;
             clickContained = Contains(e.mousePosition);
-            if (Contains(e.mousePosition) && !animotionTreeEditor.IsContainedByNode(e.mousePosition)) {
+            if (clickContained && !animotionTreeEditor.IsContainedByNode(e.mousePosition)) {
+                //Debug.Log($"IS CONTAINED BY LINK ({startNode.name} <=> {endNode.name})");
                 if (e.type == EventType.ContextClick) {
                     GenericMenu menu = new GenericMenu();
                     menu.AddItem(new GUIContent("Delete"), false, () => animotionTreeEditor.DeleteLink(linkData));
@@ -88,7 +91,11 @@ namespace Animotion {
         public bool Contains(Vector2 position) {
             float widthDotProduct = Mathf.Abs(Vector2.Dot(position - start, Vector2.Perpendicular((end - start).normalized)));
             float heightDotProduct = Vector2.Dot(position - start, (end - start).normalized);
-            return widthDotProduct <= detectionRectWidth && heightDotProduct >= 0 && heightDotProduct <= Vector2.Distance(start, end);
+            var valueToReturn = widthDotProduct <= detectionRectWidth && heightDotProduct >= 0 && heightDotProduct <= Vector2.Distance(start, end);
+            if (valueToReturn) {
+                //Debug.Log($"width: {widthDotProduct} <= {detectionRectWidth} | height: 0 <= {heightDotProduct} <= {Vector2.Distance(start, end)}");
+            }
+            return valueToReturn;
         }
 
     }

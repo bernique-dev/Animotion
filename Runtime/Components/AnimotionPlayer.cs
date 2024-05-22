@@ -11,7 +11,7 @@ namespace Animotion {
         private Image image;
         public bool animateOnStart = true;
         private int frame;
-        private bool isTimerRunning;
+        public bool isPlaying {  get; private set; }
 
         protected void Start() {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -19,11 +19,11 @@ namespace Animotion {
             if (animotionClip && animateOnStart) {
                 spriteRenderer.sprite = animotionClip.GetFrame(0).sprite;
             }
-            isTimerRunning = animateOnStart;
+            isPlaying = animateOnStart;
         }
 
         private void FixedUpdate() {
-            if (isTimerRunning) {
+            if (isPlaying) {
                 if (animotionClip) {
                     frame += 1;
                     AniFrame frameData = animotionClip.GetLastFrame(frame);
@@ -32,7 +32,7 @@ namespace Animotion {
                     if (image) image.sprite = frameData.sprite;
                     if (frame >= animotionClip.length) {
                         frame = 0;
-                        isTimerRunning = animotionClip.loop;
+                        isPlaying = animotionClip.loop;
                     }
                 }
                 else {
@@ -42,11 +42,11 @@ namespace Animotion {
         }
 
         public void Play() {
-            isTimerRunning = true;
+            isPlaying = true;
         }
 
         public void Pause() {
-            isTimerRunning = false;
+            isPlaying = false;
         }
     }
 }
