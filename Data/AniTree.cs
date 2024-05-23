@@ -76,7 +76,7 @@ namespace Animotion {
         }
 
         public virtual List<AniNode> GetGlobalNodes() {
-            return nodes.Where(n => n.type == AniNode.NodeType.Global).ToList();
+            return GetNodes().Where(n => n.type == AniNode.NodeType.Global).ToList();
         }
 
         public virtual Dictionary<int, List<AniNode>> GetNodesAndChildren() {

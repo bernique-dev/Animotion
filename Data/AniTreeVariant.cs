@@ -65,6 +65,7 @@ public class AniTreeVariant : AniTree {
         var instantiatedNode = Instantiate(node);
         instantiatedNode.nodeName = node.nodeName;
         instantiatedNode.children = node.children;
+        instantiatedNode.type = node.type;
         var binding = bindings.Find(b => b.nodeId == node.id);
         if (binding != null) {
             if (binding.hasMultipleDirections) {
