@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b71eea4abdb75b74ebfa69571edf4e8a, type: 3}
-  m_Name: link0-1
+  m_Name: link3-2
   m_EditorClassIdentifier: 
-  startNodeId: 0
-  endNodeId: 1
+  startNodeId: 3
+  endNodeId: 2
   m_conditions:
   - id: 0
     property: {fileID: 11400000, guid: 4b3a1ed0f0387554b9e9a58019c27668, type: 2}

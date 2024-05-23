@@ -15,9 +15,10 @@ MonoBehaviour:
   id: 1
   isRoot: 0
   position: {x: 57, y: -132}
-  nodeName: Anim2
-  hasMultipleDirections: 1
-  clipGroup: {fileID: 11400000, guid: e6da93c7713f1264da99204fed9e6d21, type: 2}
-  clip: {fileID: 0}
-  children: 00000000
+  nodeName: Anim2 VF
+  hasMultipleDirections: 0
+  clipGroup: {fileID: 0}
+  clip: {fileID: 11400000, guid: 3541514374fb8044880b5d5f5493b42b, type: 2}
+  children: 0000000002000000
   waitForEnd: 0
+  type: 0
