@@ -19,6 +19,6 @@ MonoBehaviour:
   hasMultipleDirections: 0
   clipGroup: {fileID: 0}
   clip: {fileID: 11400000, guid: 789651e9ea64bca40be8b4a14222b36f, type: 2}
-  children: 0100000003000000
+  children: 0100000002000000
   waitForEnd: 0
   type: 0

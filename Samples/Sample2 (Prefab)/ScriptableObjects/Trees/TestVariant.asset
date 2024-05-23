@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4301ed093a8734b94efbebee49e3e8, type: 3}
+  m_Name: TestVariant
+  m_EditorClassIdentifier: 
+  m_nodes: []
+  m_links: []
+  m_properties: []
+  aniTree: {fileID: 11400000, guid: 10543c985b73c2448a4755977c39bd1e, type: 2}
+  m_bindings:
+  - nodeId: 0
+    hasMultipleDirections: 0
+    clip: {fileID: 11400000, guid: c488409226a74444baf13ba107102b8b, type: 2}
+    clipGroup: {fileID: 0}
+  - nodeId: 1
+    hasMultipleDirections: 0
+    clip: {fileID: 11400000, guid: ae96cd5d4cb630d4eaaaef8477f61779, type: 2}
+    clipGroup: {fileID: 0}
+  - nodeId: 2
+    hasMultipleDirections: 0
+    clip: {fileID: 11400000, guid: cf0eff2132744094d8918b6d54ef5d09, type: 2}
+    clipGroup: {fileID: 0}
+  - nodeId: 4
+    hasMultipleDirections: 0
+    clip: {fileID: 0}
+    clipGroup: {fileID: 0}
+  - nodeId: 5
+    hasMultipleDirections: 0
+    clip: {fileID: 0}
+    clipGroup: {fileID: 0}

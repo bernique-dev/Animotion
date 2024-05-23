@@ -18,7 +18,7 @@ MonoBehaviour:
   nodeName: Anim3 FF
   hasMultipleDirections: 0
   clipGroup: {fileID: 0}
-  clip: {fileID: 11400000, guid: ae96cd5d4cb630d4eaaaef8477f61779, type: 2}
-  children: 0300000001000000
+  clip: {fileID: 11400000, guid: 7b2ae539c601263459034222843aa8ed, type: 2}
+  children: 0100000000000000
   waitForEnd: 0
   type: 0

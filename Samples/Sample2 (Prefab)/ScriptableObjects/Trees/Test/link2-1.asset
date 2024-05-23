@@ -21,10 +21,22 @@ MonoBehaviour:
     conditionIndex: 0
     intValue: 0
     floatValue: 0
+  - id: 0
+    property: {fileID: 11400000, guid: 4b3a1ed0f0387554b9e9a58019c27668, type: 2}
+    tree: {fileID: 11400000, guid: 10543c985b73c2448a4755977c39bd1e, type: 2}
+    conditionIndex: 1
+    intValue: 0
+    floatValue: 0
   tree: {fileID: 11400000, guid: 10543c985b73c2448a4755977c39bd1e, type: 2}
   m_reverseConditions:
   - id: 0
     property: {fileID: 11400000, guid: 3ab3671fbe536004eb7f8596dbe931cb, type: 2}
+    tree: {fileID: 11400000, guid: 10543c985b73c2448a4755977c39bd1e, type: 2}
+    conditionIndex: 1
+    intValue: 0
+    floatValue: 0
+  - id: 0
+    property: {fileID: 11400000, guid: 4b3a1ed0f0387554b9e9a58019c27668, type: 2}
     tree: {fileID: 11400000, guid: 10543c985b73c2448a4755977c39bd1e, type: 2}
     conditionIndex: 1
     intValue: 0
