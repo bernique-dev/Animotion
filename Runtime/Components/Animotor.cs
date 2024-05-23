@@ -144,7 +144,6 @@ namespace Animotion {
 
 
         private void Awake() {
-            SetDirection(AniDirection.Left);
             if (animotionClip) {
                 spriteRenderer.sprite = animotionClip.GetFrame(0).sprite;
             }
@@ -152,6 +151,7 @@ namespace Animotion {
             if (aniTree) {
                 UpdateTree();
             }
+            SetDirection(AniDirection.Left);
         }
 
         public virtual Animotor GetAnimotor() {

@@ -2,6 +2,7 @@
 using UnityEngine;
 using Animotion;
 using System.Collections.Generic;
+using System.Linq;
 
 [CustomEditor(typeof(AniTree), true)]
 public class AniTreeInspector : Editor {
@@ -45,9 +46,12 @@ public class AniTreeInspector : Editor {
                     foreach (var binding in variant.bindings) {
                         var boundNode = variant.aniTree.GetNode(binding.nodeId);
 
+                        if (boundNode.type == AniNode.NodeType.Global)
+                            return;
+
                         EditorGUILayout.BeginHorizontal();
 
-                        GUILayout.Label(boundNode.name);
+                        GUILayout.Label(boundNode.nodeName);
                         GUILayout.FlexibleSpace();
                         if (binding.hasMultipleDirections) {
                             binding.clipGroup = EditorGUILayout.ObjectField(binding.clipGroup, typeof(AniClipGroup), false) as AniClipGroup;
