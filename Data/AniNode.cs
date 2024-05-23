@@ -8,6 +8,9 @@ using UnityEditor;
 namespace Animotion {
     [Serializable]
     public class AniNode : ScriptableObject {
+        public enum NodeType {
+            Default, Global
+        }
 
         public static int idCounter;
         public int id;
@@ -26,13 +29,15 @@ namespace Animotion {
 
         public bool waitForEnd = false;
 
+        public NodeType type;
 
-        public void SetValues(string n, Vector2 _position) {
+        public void SetValues(string n, Vector2 _position, NodeType type = NodeType.Default) {
             id = idCounter;
             idCounter++;
             nodeName = n;
             position = _position;
             children = new List<int>();
+            this.type = type;
         }
 
         public void SetValues(string n = "node") {

@@ -38,12 +38,18 @@ namespace Animotion {
         public override void Draw() {
             base.Draw();
             Handles.color = Color.white;
-            Color backgroundColor = node.isRoot ? new Color32(0, 75, 0, 255) : AniTreeEditor.NODE_BACKGROUND_COLOR;
+            Color backgroundColor = AniTreeEditor.NODE_BACKGROUND_COLOR;
+            if (node.isRoot) {
+                backgroundColor = AniTreeEditor.ROOT_NODE_BACKGROUND_COLOR;
+            }
+            if (node.type == AniNode.NodeType.Global) {
+                backgroundColor = AniTreeEditor.ALL_NODE_BACKGROUND_COLOR;
+            }
             Animotor animotionAnimator = animotionTreeEditor.animotor;
             if (Application.isPlaying && animotionAnimator != null) {
                 if (animotionAnimator.currentNode) {
                     // Changes the color if GameObject with AnimotionAnimator selected  
-                    backgroundColor = animotionTreeEditor.animotor.currentNode.id == node.id ? new Color32(125, 0, 0, 255) : backgroundColor;
+                    backgroundColor = animotionTreeEditor.animotor.currentNode.id == node.id ? AniTreeEditor.CURRENT_NODE_BACKGROUND_COLOR : backgroundColor;
                 }
             }
             // Draws the node's rectangle
@@ -61,7 +67,7 @@ namespace Animotion {
                     }
                 }
             }
-            Handles.Label(rect.min, node.nodeName + (node.clip ? "\n" + node.clip.name : "") + (node.clipGroup ? "\n" + node.clipGroup.name : ""));
+            Handles.Label(rect.min, node.nodeName + (node.type == AniNode.NodeType.Default ? "" : $" ({Enum.GetName(typeof(AniNode.NodeType), node.type).ToUpperInvariant().Substring(0, 3)})") + (node.clip ? "\n" + node.clip.name : "") + (node.clipGroup ? "\n" + node.clipGroup.name : ""));
 
             if (isLinkBeingCreated) {
                 Vector2[] startSidesCenter = new Vector2[] {

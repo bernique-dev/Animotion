@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Animotion {
     [CustomEditor(typeof(Animotor), true)]
-    public class AnimotorEditor : Editor {
+    public class AnimotorInspector : Editor {
 
         public override void OnInspectorGUI() {
 
@@ -30,10 +30,38 @@ namespace Animotion {
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             if (animotor.aniTree != null) {
-                var style = new GUIStyle("label");
-                style.alignment = TextAnchor.MiddleCenter;
+                var centeredStyle = new GUIStyle("label");
+                centeredStyle.alignment = TextAnchor.MiddleCenter;
+
+                var centeredTitleStyle = new GUIStyle("label");
+                centeredTitleStyle.alignment = TextAnchor.MiddleCenter;
+                centeredTitleStyle.fontStyle = FontStyle.Bold;
+
                 var clip = animotor.animotionClip;
-                GUILayout.Label($"{(clip != null ? clip.name : "No clip")} - ({animotor.frame}) {" - " + animotor.direction}", style);
+                GUILayout.Label($"{(clip != null ? clip.name : "No clip")} - ({animotor.frame}) {" - " + animotor.direction}", centeredTitleStyle);
+
+                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+
+                GUILayout.Label("Children", centeredTitleStyle);
+                GUILayout.Label(animotor.currentNode.nodeName, centeredStyle);
+
+                GUILayout.Label("Children", centeredTitleStyle);
+                foreach (var child in animotor.currentNodeChildren) {
+                    GUILayout.Label(child.nodeName, centeredStyle);
+                }
+
+                GUILayout.Label("Links", centeredTitleStyle);
+                foreach (var link in animotor.currentNodeLinks) {
+                    var node = aniTree.GetNode(link.endNodeId);
+                    GUILayout.Label($"$-> {node.nodeName}", centeredStyle);
+                }
+
+                GUILayout.Label("Reverse Links", centeredTitleStyle);
+                foreach (var reverseLink in animotor.currentNodeReverseLinks) {
+                    var node = aniTree.GetNode(reverseLink.endNodeId);
+                    GUILayout.Label($"{node.nodeName} ->", centeredStyle);
+                }
 
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 

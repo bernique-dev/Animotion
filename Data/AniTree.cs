@@ -75,6 +75,10 @@ namespace Animotion {
             return nodes;
         }
 
+        public virtual List<AniNode> GetGlobalNodes() {
+            return nodes.Where(n => n.type == AniNode.NodeType.Global).ToList();
+        }
+
         public virtual Dictionary<int, List<AniNode>> GetNodesAndChildren() {
             return nodesAndChildren;
         }
@@ -147,6 +151,7 @@ namespace Animotion {
 
         public void AddProperty(TreeProperty property) {
             properties.Add(property);
+            property.id = properties.Max(p => p.id) + 1;
 #if UNITY_EDITOR
             //Debug.Log(Directory.Exists(folderPath));
             if (!Directory.Exists(folderPath)) {

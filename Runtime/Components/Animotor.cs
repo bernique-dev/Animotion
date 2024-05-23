@@ -43,7 +43,8 @@ namespace Animotion {
                 m_currentNode = value;
                 if (value) {
                     currentNodeChildren = currentNode.children.Select(id => aniTree.GetNodes().Find(t => t.id == id)).ToList();
-                    List<AniLink> tmpCurrentNodeLinks = currentNode.children.Select(id => aniTree.GetLinks().Find(l => (l.startNodeId == currentNode.id && l.endNodeId == id) || (l.endNodeId == currentNode.id && l.startNodeId == id && l is AniBidirectionalLink))).Distinct().ToList();
+
+                    List<AniLink> tmpCurrentNodeLinks = currentNodeChildren.Select(child => aniTree.GetLinks().Find(l => (l.startNodeId == currentNode.id && l.endNodeId == child.id) || (l.endNodeId == currentNode.id && l.startNodeId == child.id && l is AniBidirectionalLink))).Distinct().ToList();
                     currentNodeLinks = new List<AniLink>();
                     currentNodeReverseLinks = new List<AniBidirectionalLink>();
                     foreach (AniLink link in tmpCurrentNodeLinks) {
@@ -63,6 +64,21 @@ namespace Animotion {
                             foreach (TreePropertyCondition condition in (link as AniBidirectionalLink).reverseConditions) {
                                 newLink.conditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
                             }
+                        }
+                        currentNodeLinks.Add(newLink);
+                    }
+
+                    var globalNodes = aniTree.GetGlobalNodes().ToList();
+                    var globalLinks = aniTree.GetLinks().Where(l => globalNodes.Any(node => node.id == l.startNodeId)).ToList();
+                    foreach (AniLink globalLink in globalLinks) {
+                        AniLink newLink = ScriptableObject.CreateInstance<AniLink>();
+                        newLink.name = globalLink.name;
+                        newLink.tree = aniTree;
+                        newLink.startNodeId = currentNode.id;
+                        newLink.endNodeId = globalLink.endNodeId;
+                        foreach (TreePropertyCondition condition in globalLink.conditions) {
+                            //Debug.Log(condition.property.name + " " + (String.Join(",",properties.Select(p => p.name).ToArray())));
+                            newLink.conditions.Add(condition.Copy(properties.First(p => string.Equals(p.name, condition.property.name))));
                         }
                         currentNodeLinks.Add(newLink);
                     }

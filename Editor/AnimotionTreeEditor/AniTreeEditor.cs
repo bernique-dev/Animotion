@@ -12,7 +12,10 @@ namespace Animotion {
         /// </summary>
         public static readonly Color BORDER_COLOR = new Color32(30, 30, 30, 255);
 
-        public static readonly Color NODE_BACKGROUND_COLOR = new Color32(56 / 2, 56 / 2, 56 * 2, 255);
+        public static readonly Color NODE_BACKGROUND_COLOR = new Color32(10, 10, 100, 255);
+        public static readonly Color ROOT_NODE_BACKGROUND_COLOR = new Color32(10, 100, 10, 255);
+        public static readonly Color ALL_NODE_BACKGROUND_COLOR = new Color32(150, 60, 10, 255);
+        public static readonly Color CURRENT_NODE_BACKGROUND_COLOR = new Color32(100, 100, 100, 255);
 
         public static readonly Color BACKGROUND_COLOR = new Color32(56, 56, 56, 255);
         public static readonly Color LIGHT_BACKGROUND_COLOR = new Color32(75, 75, 75, 255);
@@ -265,6 +268,7 @@ namespace Animotion {
                             else {
                                 GenericMenu menu = new GenericMenu();
                                 menu.AddItem(new GUIContent("Create new state"), false, () => CreateNode(e.mousePosition));
+                                menu.AddItem(new GUIContent("Create new global state"), false, () => CreateNode(e.mousePosition, AniNode.NodeType.Global));
                                 menu.ShowAsContext();
                             }
                         }
@@ -304,9 +308,9 @@ namespace Animotion {
         /// Creates a node on mouse position
         /// </summary>
         /// <param name="mousePos">Mouse position</param>
-        public void CreateNode(Vector2 mousePos) {
+        public void CreateNode(Vector2 mousePos, AniNode.NodeType nodeType = AniNode.NodeType.Default) {
             AniNode newNode = CreateInstance<AniNode>();
-            newNode.SetValues("node" + AniNode.idCounter, mousePos - new Vector2(Screen.width / 2, Screen.height / 2));
+            newNode.SetValues("node" + AniNode.idCounter, mousePos - new Vector2(Screen.width / 2, Screen.height / 2), nodeType);
             tree.AddNode(newNode);
             if (!tree.GetRoot()) tree.SetRoot(newNode);
             AniTreeNodeEditor atne = CreateInstance<AniTreeNodeEditor>();

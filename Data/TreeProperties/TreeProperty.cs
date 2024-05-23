@@ -7,7 +7,6 @@ using System;
 public class TreeProperty : ScriptableObject {
 
     public int id;
-    public static int idCounter;
     public new string name;
     public TreePropertyType type;
 
@@ -54,8 +53,6 @@ public class TreeProperty : ScriptableObject {
     [SerializeField] /*[HideInInspector]*/ private float m_floatValue;
 
     public void SetValues(string _name, TreePropertyType _type) {
-        id = idCounter;
-        idCounter++;
         name = _name;
         type = _type;
     }
